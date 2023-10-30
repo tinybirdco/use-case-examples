@@ -22,7 +22,7 @@ SQL >
       JSONExtractString(payload, 'href') as href,
       lower(JSONExtractString(payload, 'user-agent')) as user_agent
     FROM
-      analytics_events_aux
+      analytics_events_new
     where action = 'page_hit'
 
 

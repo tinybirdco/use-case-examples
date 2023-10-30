@@ -1,7 +1,7 @@
 DESCRIPTION >
 	Materialized to move RT data from legacy to the auxiliar analytics_events datasource
 
-NODE materialize_on_analytics_events_aux
+NODE materialize_on_analytics_events_new
 
 SQL >
 
@@ -16,4 +16,4 @@ SQL >
     WHERE timestamp > '2023-10-30 18:18:00'
 
 TYPE materialized
-DATASOURCE analytics_events_aux
+DATASOURCE analytics_events_new
