@@ -9,15 +9,16 @@
     on:
       workflow_dispatch:
       push:
+        paths:
+          - 'delete_simple_resource/**'
         branches:
           - main
-          - master
     jobs:
       cd:
         uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
           tb_deploy: false
-          data_project_dir: .
+          data_project_dir: ./delete_simple_resource
         secrets:
-          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_DELETE_SIMPLE_RESOURCES }}
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_DELETE_SIMPLE_RESOURCE }}
           tb_host: https://api.tinybird.co

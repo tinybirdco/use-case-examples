@@ -9,9 +9,10 @@
     on:
       workflow_dispatch:
       pull_request:
+        paths:
+          - 'delete_simple_resource/**'
         branches:
          - main
-         - master
         types: [opened, reopened, labeled, unlabeled, synchronize, closed]
 
     concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -20,7 +21,7 @@
         ci:
           uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
-            data_project_dir: .
+            data_project_dir: ./delete_simple_resource
           secrets:
-            tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_DELETE_SIMPLE_RESOURCES }}
+            tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_DELETE_SIMPLE_RESOURCE }}
             tb_host: https://api.tinybird.co
