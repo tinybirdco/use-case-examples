@@ -2,50 +2,5 @@
 
 This repository contains all the use cases you can iterate with Versions:
 
-- Add column
-  - Landing
-  - Materialized
-  - Materialized with downstream
-- Remove column
-  - Landing
-  - Materialized
-  - Materialized with downstream
-- Change column type
-  - Compatible type (e.g. String to LowCardinality(String))
-  - Incompatible type (e.g. String to DateTime)
-  - Landing
-  - Materialized
-  - Materialized with downstream
-- Change Data Source sorting key
-- Create new resources
-  - Pipe
-  - Data Source
-  - Materialized View
-- Delete resources
-  - Pipe
-  - Data Source
-  - Materialized View
-- Change Data Source settings: TTL, partition key, sorting key
-  - Landing
-  - Materialized
-  - Materialized with downstream
-- Change Pipe Endpoint
-- Change Pipe Endpoint with downstream
-- Depending Materialized Views
-  - Multiple cases
-- Kafka Data Source
-  - With Null Engine
-  - With MergeTree
-- Connectors
-  - BigQuery
-  - Snowflake
-  - S3
-  - GCS
-- HFI
-- Data Operations
-  - When there's a connector
-  - When there's HFI
-  - When there's Kafka
-  - others?
-- Tokens
-- [Recovering rows from quarantine with CI/CD](https://www.tinybird.co/docs/guides/quarantine.html#recovering-rows-from-quarantine-with-ci-cd)
+- [Delete simple resource](delete_simple_resource)
+- [Change Data Source sorting key](change_sorting_key)
