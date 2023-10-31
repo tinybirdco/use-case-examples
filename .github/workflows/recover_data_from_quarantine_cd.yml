@@ -20,5 +20,5 @@
           tb_deploy: false
           data_project_dir: ./recover_data_from_quarantine
         secrets:
-          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN }}  # set admin token associated to an account in GitHub secrets
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_RECOVER_DATA_FROM_QUARANTINE }}  # set admin token associated to an account in GitHub secrets
           tb_host: https://api.tinybird.co
