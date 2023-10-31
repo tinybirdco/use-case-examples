@@ -11,7 +11,7 @@ Delete simple Data Sources or Pipes easily. Create a Pull Request following thes
 - Give the right permissions to the `.sh` files, if not the job will fail
 - Push your changes
 
-Go to your Workspace and check the new environment created. These changes will be displayed:
+Go to your Workspace and check the new Environment created. These changes will be displayed:
 
 ![Changes in environment](./images/delete-resources.png)
 
