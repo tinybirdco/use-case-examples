@@ -1,6 +1,6 @@
 # Delete simple resource
 
-Delete simple Data Sources or Pipes easily. Create a Pull Request following these steps:
+Delete simple Data Sources or Pipes easily. Create a [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/5) following these steps:
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
