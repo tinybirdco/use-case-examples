@@ -1,4 +1,17 @@
-# Use case examples
+# Tinybird Versions - Use case examples
+
+## Before starting
+
+It is necessary a Tinybird Data Project, with Versions enabled, and connected to Git before starting. By default, the [web-analytics-starter-kit](https://github.com/tinybirdco/web-analytics-starter-kit) Data Project will be used. The steps to follow:
+
+1. Create a Workspace with the starter kit or download it from the [original repository](https://github.com/tinybirdco/web-analytics-starter-kit/tree/main/tinybird) and push the resources to any empty Workspace
+2. Follow the [documentation](https://www.tinybird.co/docs/guides/working-with-git.html) for connecting your Tinybird Data Project to Git
+3. Read the use-case and follow the instructions there
+
+If there is any use-case referencing any other Data Project, it will be documented it in the use-case README.
+
+
+## Use cases
 
 This repository contains all the use cases you can iterate with Versions:
 
@@ -49,3 +62,8 @@ This repository contains all the use cases you can iterate with Versions:
   - others?
 - Tokens
 - [Recovering rows from quarantine with CI/CD](https://www.tinybird.co/docs/guides/quarantine.html#recovering-rows-from-quarantine-with-ci-cd)
+
+
+## Caveats
+
+Unfortunately, GitHub doesn't allow running workflows in different subfolders so it isn't possible to include the CI and CD workflow files in the same use-case folder. Every CI/CD action is located in `.github/workflows` and the same folder name as the use-case.
