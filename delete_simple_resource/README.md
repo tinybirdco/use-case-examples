@@ -6,9 +6,8 @@ Delete simple Data Sources or Pipes easily. Create a [Pull Request](https://gith
 
 - Create a new branch
 - Remove the Pipes or Data Sources
-- Update the `.tinyenv` file with a new version
-- Create the deploy files for the CI and CD with the commands for removing those resources. You need to place them in a folder named with the same `.tinyenv` version. Pay attention to the commands used in the example, where we skip the confirmation, if not the job won't finish
-- Give the right permissions to the `.sh` files, if not the job will fail
+- Generate a new CI/CD version `tb release generate --semver 0.0.1`
+- Include your delete operations in both CI/CD files
 - Push your changes
 
 Go to your Workspace and check the new Environment created. These changes will be displayed:
