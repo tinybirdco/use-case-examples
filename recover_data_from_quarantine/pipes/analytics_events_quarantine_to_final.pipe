@@ -9,3 +9,6 @@ SQL >
         replaceAll(assumeNotNull(version), '"', '') version,
         replaceAll(assumeNotNull(payload), '"', '') payload
     FROM analytics_events_quarantine
+
+TYPE COPY
+TARGET_DATASOURCE analytics_events
