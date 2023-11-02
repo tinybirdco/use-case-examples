@@ -1,0 +1,5 @@
+TOKEN bq READ
+
+NODE downloads_node
+SQL >
+    select count() from bq_pypi
