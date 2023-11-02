@@ -6,7 +6,7 @@ It isn't possible to add a new column in a BigQuery Data Source in one iteration
 
 ### 1st BigQuery Data Source 
 
-Pull Request #1
+[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/15)
 
 - Create a new branch
 - Generate a new CI/CD version `tb release generate --semver 0.0.1`
