@@ -2,4 +2,4 @@
 set -e
 
 tb deploy
-tb pipe data installations
+tb pipe data pypi_downloads
