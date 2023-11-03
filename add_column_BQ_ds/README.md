@@ -1,6 +1,6 @@
 # Add a new column to a BigQuery Data Source
 
-It isn't possible to add a new column in a BigQuery Data Source in one iteration, but we'll create a new one with the new column and populate it with the old data. The steps are:
+It isn't possible to add a new column in a BigQuery Data Source in one iteration, but we'll create a new one with the new column and populate it with the old data using a copy Pipe. The steps are:
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
