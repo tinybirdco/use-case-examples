@@ -10,4 +10,21 @@
     sql: |
       SELECT * FROM kpis
       WHERE visits > 0 AND pageviews = 0
-
+- no-difference-between-analytics-and-analytics-new:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+      WITH
+          curr AS (
+              SELECT count() AS cnt
+              FROM analytics_events
+              WHERE timestamp <= NOW() - INTERVAL '10 second'
+          ),
+          new AS (
+              SELECT count() AS cnt
+              FROM analytics_events_new
+              WHERE timestamp <= NOW() - INTERVAL '10 second'
+          )
+      SELECT curr.cnt - new.cnt AS diff
+      FROM curr, new
+      WHERE diff != 0
