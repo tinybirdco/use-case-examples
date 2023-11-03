@@ -1,4 +1,4 @@
-NODE analytics_sources_new_1
+NODE analytics_sources_1
 DESCRIPTION >
     Aggregate by referral and calculate session and hits
 
@@ -6,7 +6,8 @@ SQL >
 
     WITH (
             SELECT domainWithoutWWW(href)
-            FROM analytics_hits_new
+            FROM analytics_hits
+            WHERE href is not null and href != ''
             LIMIT 1
         ) AS currenct_domain
     SELECT
@@ -17,7 +18,7 @@ SQL >
         referrer,
         uniqState(session_id) AS visits,
         countState() AS hits
-    FROM analytics_hits_new
+    FROM analytics_hits
     WHERE domainWithoutWWW(referrer) != currenct_domain
     GROUP BY
         date,
@@ -27,4 +28,6 @@ SQL >
         referrer
 
 TYPE materialized
-DATASOURCE analytics_sources_mv_new
+DATASOURCE analytics_sources_mv
+
+
