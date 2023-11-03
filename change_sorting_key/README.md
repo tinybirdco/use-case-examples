@@ -68,4 +68,10 @@ View the pull request with all changes for this step: [PR Backfilling](https://g
 
 View the pull request with all changes for this step: [PR Update Environments](https://github.com/tinybirdco/use-case-examples/pull/25/files) 
 
+## Step 4: Start using the New Data Source and cleanup
+Now you can start using the new Data Source. Once everything that produces data is pointing to the new Data Source, you can get rid of the old resources and the temporary paths we set up for moving the data.
+
+We'll keep these in the repository to show how it was done.
+
+
 [Internal workspace](https://ui.tinybird.co/ca5e810a-3add-44a9-a6fd-bae47a13256b/dashboard)
