@@ -4,8 +4,7 @@ DESCRIPTION >
 SCHEMA >
     `timestamp` DateTime,
     `cli_version` LowCardinality(String),
-    `python_version` LowCardinality(String),
-    `country_code` Nullable(String)
+    `python_version` LowCardinality(String)
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toDate(timestamp)"
