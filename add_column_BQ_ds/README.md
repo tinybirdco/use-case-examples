@@ -9,12 +9,8 @@ It isn't possible to add a new column in a BigQuery Data Source in one iteration
 [Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/15)
 
 - Create a new branch
-- Generate a new CI/CD version `tb release generate --semver 0.0.1`
 - Create a new BigQuery connection `tb connection create bigquery` 
 - Generate the new BigQuery Data Source schema ([instructions](https://www.tinybird.co/docs/ingest/bigquery.html))
-- Create a Pipe using the new BigQuery Data Source
-- In the CI file, populate the data `tb deploy --populate --fixtures --wait`
-- In the CD file, `tb deploy`
 - Push your changes
 
 ### 2nd BigQuery Data Source with the new column
