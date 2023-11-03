@@ -30,7 +30,7 @@ It isn't possible to add a new column in a BigQuery Data Source in one iteration
 
 - Create the last branch
 - Generate a new CI/CD version `tb release generate --semver 0.0.2`
-- Let's include in the CI/CD scripts the command to remove the first BigQuery Data Source, becuase it is not needed anymore
+- Let's include in the CI/CD scripts the command to remove the first BigQuery Data Source, because it is not needed anymore
 - Delete the `.datasource` file
 - Push your changes
 
