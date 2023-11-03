@@ -15,7 +15,14 @@ It isn't possible to add a new column in a BigQuery Data Source in one iteration
 
 ### 2nd BigQuery Data Source with the new column
 
-Pull Request #2
+[Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/19)
+
+- Create a new branch
+- Create another BigQuery Data Source, but this time with the new column. In our case it is `country`
+- With a copy Pipe, the old data will be copied into the new Data Source
+- Generate a new CI/CD version `tb release generate --semver 0.0.1`
+- In the CI/CD script files, apart from the deploy command, include the one for copying the data from the old BigQuery Data Source to the new one
+- Push your changes
 
 ### Remove 1st BigQuery Data Source and populate 2nd BigQuery Data Source
 
