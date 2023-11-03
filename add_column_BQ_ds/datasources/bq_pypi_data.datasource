@@ -14,4 +14,4 @@ IMPORT_SERVICE bigquery
 IMPORT_SCHEDULE 0 7 * * *
 IMPORT_EXTERNAL_DATASOURCE bigquery-public-data.pypi.file_downloads
 IMPORT_STRATEGY REPLACE
-IMPORT_QUERY "SELECT `timestamp`, file.version as cli_version, details.python as python_version, `country_code` FROM `bigquery-public-data.pypi.file_downloads` WHERE DATE(timestamp) >= DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND project = 'tinybird-cli'"
+IMPORT_QUERY "SELECT `timestamp`, file.version as cli_version, details.python as python_version FROM `bigquery-public-data.pypi.file_downloads` WHERE DATE(timestamp) >= DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND project = 'tinybird-cli'"
