@@ -16,7 +16,7 @@ If there is any use case referencing any other Data Project, it will be document
 This repository contains all the use cases you can iterate with Versions:
 
 - [Delete simple resource](delete_simple_resource)
-- [Change Data Source sorting key](change_sk)
+- [Change Data Source sorting key](change_sorting_key)
 - [Recover data from quarantine](recover_data_from_quarantine) using a copy Pipe
 - [Add a new column in a BigQuery Data Source](add_column_BQ_ds)
 
