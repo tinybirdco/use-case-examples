@@ -18,13 +18,16 @@ Our goal is to add a new `environment` column to the `analytics_sessions_mv`` Ma
 - Create a new branch in your repository.
 - Duplicate analytics_sessions_mv.datasource and add the new column to the schema:
     ```sql
-        SCHEMA >
-            `timestamp` DateTime `json:$.timestamp`,
-            `session_id` String `json:$.session_id`,
-            `action` LowCardinality(String) `json:$.action`,
-            `version` LowCardinality(String) `json:$.version`,
-            `environment` String `json:$.environment`, -- New column
-            `payload` String `json:$.payload`
+    SCHEMA >
+      `date` Date,
+      `session_id` String,
+      `environment` SimpleAggregateFunction(any, String), -- new column
+      `device` SimpleAggregateFunction(any, String),
+      `browser` SimpleAggregateFunction(any, String),
+      `location` SimpleAggregateFunction(any, String),
+      `first_hit` SimpleAggregateFunction(min, DateTime),
+      `latest_hit` SimpleAggregateFunction(max, DateTime),
+      `hits` AggregateFunction(count)
     ```
 - Define a filter to prevent duplication by synchronizing data streams after a specific point in time:
   ```sql
