@@ -2,6 +2,8 @@
 
 DISCLAIMER: This document is a draft and subject to change.
 
+Link to all the PRs for this example: [CSK PRs](https://github.com/tinybirdco/use-case-examples/pulls?q=is%3Apr+is%3Aclosed+CSK)
+
 Altering a sorting key is a complex operation involving multiple steps and requires data migration.
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
@@ -22,7 +24,9 @@ This step involves cloning the Data Source whose sorting key we want to alter, a
   - `analytics_sources.pipe` -> `analytics_sources_new.pipe` (alter to materialize on `analytics_sources_mv_new.datasource`)
   - `analytics_hits.pipe` -> `analytics_hits_new.pipe` (alter to query  `analytics_events_new.datasource`)
 - Create a Materialized Pipe (`new_data_sync.pipe`) to synchronize incoming data from the legacy Data Source to the new one. Implement a filter to sync data only beyond a specific future point. This sets the stage for the subsequent step.
-- Push the changes to the branch and initiate a Pull Request. The Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://www.tinybird.co/docs/guides/implementing-test-strategies.html)). Before merging, verify your adjustments in the temporary environment that is provisioned.
+- Push the changes to the branch and initiate a Pull Request. The Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://www.tinybird.co/docs/guides/implementing-test-strategies.html)). 
+  [TESTS IMAGE]
+- Before merging, verify your adjustments in the temporary environment that is provisioned.
 - Merge the PR to trigger the Continuous Deployment (CD) workflow, and your changes will be propagated to the Main environment.
 
 View the pull request with all changes for this step: [PR Downstream replication](https://github.com/tinybirdco/use-case-examples/pull/22/files)
@@ -65,11 +69,14 @@ View the pull request with all changes for this step: [PR Backfilling](https://g
 - After merging the previous branch, update your Main branch, and create a new one.
 - Modify SQL code within endpoints to reference the newly created resources.
 - Increment the version in the tinyenv file to bypass the prior version's custom deployment.
+- Create a new Pull Request with the changes. It's interesting to check the improvements made by the new Sorting Key. While the `response time` metrics are not relevant due to the small amount of rows, the `read bytes` metrics can give us a good idea of how the peformance of the queries will change.
+  ![Read bytes reduction](./docs/images/read_bytes_reduction.png)
+- Merge the Pull Request and waits until the deployment ends successfully. 
 
 View the pull request with all changes for this step: [PR Update Environments](https://github.com/tinybirdco/use-case-examples/pull/25/files) 
 
 ## Step 4: Switch to the New Data Source and cleanup
-Now you can start using the new Data Source. Once everything that produces data is pointing to the new Data Source, you can get rid of the old resources and the temporary paths we set up for moving the data.
+Now you can start using the new Data Source. Once everything that produces data is pointing to the new Data Source, you can get rid of the old resources and the temporary pipes we set up for moving the data.
 
 We'll keep these in the repository to show how it was done.
 
