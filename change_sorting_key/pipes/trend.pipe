@@ -29,7 +29,7 @@ SQL >
       toStartOfMinute(timestamp) as t,
       uniq(session_id) as visits
     from
-      analytics_hits
+      analytics_hits_new
     where
       timestamp >= (now() - interval 30 minute)
     group by
