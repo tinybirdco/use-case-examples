@@ -52,14 +52,14 @@ if [ -z "$TOKEN" ]; then
 fi
 
 if [ -z "$NUM_REQUESTS" ]; then
-  echo "Error: number_of_requests is required."
+  echo "Error: nreq (number of requests) is required."
   usage
   exit 1
 fi
 
 # Ensure that number_of_requests is a number
 if ! [[ "$NUM_REQUESTS" =~ ^[0-9]+$ ]]; then
-  echo "Error: number_of_requests must be a positive integer."
+  echo "Error: nreq must be a positive integer."
   usage
   exit 1
 fi
