@@ -1,7 +1,5 @@
 # Change a Data Source Sorting Key
 
-DISCLAIMER: This document is a draft and subject to change.
-
 Link to all the PRs for this example: [CSK PRs](https://github.com/tinybirdco/use-case-examples/pulls?q=is%3Apr+is%3Aclosed+CSK)
 
 Altering a sorting key is a complex operation involving multiple steps and requires data migration.
@@ -69,7 +67,9 @@ View the pull request with all changes for this step: [PR Backfilling](https://g
 - Modify SQL code within endpoints to reference the newly created resources.
 - Increment the version in the tinyenv file to bypass the prior version's custom deployment.
 - Create a new Pull Request with the changes. It's interesting to check the improvements made by the new Sorting Key. While the `response time` metrics are not relevant due to the small amount of rows, the `read bytes` metrics can give us a good idea of how the peformance of the queries will change.
+  
   ![Read bytes reduction](./docs/images/read_bytes_reduction.png)
+g
 - Merge the Pull Request and waits until the deployment ends successfully. 
 
 View the pull request with all changes for this step: [PR Update Environments](https://github.com/tinybirdco/use-case-examples/pull/25/files) 
