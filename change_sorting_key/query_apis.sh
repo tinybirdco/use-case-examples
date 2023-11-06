@@ -2,10 +2,11 @@
 
 # Function to display usage information
 usage() {
-  echo "Usage: $0 <token> <number_of_requests> [host]"
-  echo "    <token>: Authorization token for accessing the endpoints."
-  echo "    <number_of_requests>: Number of times requests will be made to each endpoint."
-  echo "    [host] (optional): The host to send requests to. Defaults to 'api.tinybird.co'."
+  echo "Usage: $0 --token <token> --nreq <number_of_requests> [--host <host>]"
+  echo "  --token    Authorization token for accessing the endpoints."
+  echo "  --nreq     Number of times requests will be made to each endpoint."
+  echo "  --host     The host to send requests to. Defaults to 'api.tinybird.co'."
+  echo "  -h         Display this help message."
 }
 
 # Function to draw a progress bar
@@ -17,28 +18,57 @@ draw_progress_bar() {
   # Draw progress bar
   printf "["
   for i in $(seq 1 20); do
-    [ $i -le $__filled ] && printf "#" || printf " "
+    if [ $i -le $__filled ]; then 
+      printf "#"
+    else
+      printf " "
+    fi
   done
   printf "] %.2f%%\r" "$__percent"
 }
 
-# Check if enough arguments have been provided
-if [ "$#" -lt 2 ]; then
-  echo "Incorrect number of arguments."
+# Initialize parameters
+TOKEN=""
+NUM_REQUESTS=""
+HOST="api.tinybird.co"
+
+# Parse command line options
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    --token) TOKEN="$2"; shift ;;
+    --nreq) NUM_REQUESTS="$2"; shift ;;
+    --host) HOST="$2"; shift ;;
+    -h) usage; exit 0 ;;
+    *) echo "Unknown option: $1"; usage; exit 1 ;;
+  esac
+  shift
+done
+
+# Check for mandatory parameters
+if [ -z "$TOKEN" ]; then
+  echo "Error: token is required."
   usage
   exit 1
 fi
 
-# Retrieve arguments
-TOKEN=$1
-NUM_REQUESTS=$2
-HOST=${3:-api.tinybird.co}  # Default host is api.tinybird.co if not provided
+if [ -z "$NUM_REQUESTS" ]; then
+  echo "Error: number_of_requests is required."
+  usage
+  exit 1
+fi
+
+# Ensure that number_of_requests is a number
+if ! [[ "$NUM_REQUESTS" =~ ^[0-9]+$ ]]; then
+  echo "Error: number_of_requests must be a positive integer."
+  usage
+  exit 1
+fi
 
 # List of endpoints
 endpoints=("top_locations" "top_pages" "top_sources" "top_browsers" "top_devices" "kpis" "trend")
 
 # Total number of requests to be made
-TOTAL_REQUESTS=$(($NUM_REQUESTS * ${#endpoints[@]}))
+TOTAL_REQUESTS=$((NUM_REQUESTS * ${#endpoints[@]}))
 
 # Initialize counter for completed requests
 COMPLETED=0
