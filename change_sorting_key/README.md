@@ -69,7 +69,6 @@ View the pull request with all changes for this step: [PR Backfilling](https://g
 - Create a new Pull Request with the changes. It's interesting to check the improvements made by the new Sorting Key. While the `response time` metrics are not relevant due to the small amount of rows, the `read bytes` metrics can give us a good idea of how the peformance of the queries will change.
   
   ![Read bytes reduction](./docs/images/read_bytes_reduction.png)
-g
 - Merge the Pull Request and waits until the deployment ends successfully. 
 
 View the pull request with all changes for this step: [PR Update Environments](https://github.com/tinybirdco/use-case-examples/pull/25/files) 
