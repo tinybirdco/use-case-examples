@@ -35,6 +35,8 @@ We aim to introduce a new column named environment, which will temporarily accep
 [Step 1 PR](https://github.com/tinybirdco/use-case-examples/pull/33)
 
 ## Step 2: Transition to a Non-Nullable Column and Data Migration
+> Omit this step if your use case requires retaining the column as Nullable.
+
 Once it's confirmed that all incoming messages consistently contain the environment field, and the absence of this field is consider an error, it's time to alter the column type and start the data migration process.
 
 ... work in progress ...
