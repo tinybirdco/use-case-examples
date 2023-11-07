@@ -2,8 +2,6 @@
 
 > This document is still an early draft, when it's ready this message will be removed.
 
-Link to all the PRs for this example [TODO]
-
 Introducing a new column to a Materialized View Data Source is a delicate process that needs to be handled with care to ensure data integrity and continuity. This guide will take you through the steps to achieve this without disrupting your data flow.
 
 > A Materialized View Data Source in Tinybird is an optimized data source that pre-aggregates data from a base Data Source using Pipes. It's crucial for ensuring fast data retrieval.
@@ -13,6 +11,9 @@ Follow these steps to add a new column safely and efficiently.
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
 ## Step 1: Prepare a Duplicate Materialized View with New Column
+
+[PR Step 1] (https://github.com/tinybirdco/use-case-examples/pull/35)
+
 Our goal is to add a new `environment` column to the `analytics_sessions_mv`` Materialized View Data Source. We'll create a duplicate of this Data Source to include the new column without affecting the current data stream.
 
 - Create a new branch in your repository.
