@@ -46,7 +46,4 @@ tb auth --token $new_admin_token --host $host
 tb push
 tb init --git
 
-echo "** Initializing README.md **"
-touch README.md
-
 echo "Workspace ready! 🎉🎉🎉"
