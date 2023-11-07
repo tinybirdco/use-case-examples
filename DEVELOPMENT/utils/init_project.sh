@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 
-echo "Enter your use-case name: "
+if ! command -v tb &> /dev/null
+then
+    echo "tb could not be found"
+    exit 1
+fi
+
+if ! command -v mockingbird-cli &> /dev/null
+then
+    echo "mockingbird-cli could not be found"
+    exit 1
+fi
+
+echo "Enter your use case name (eg. add column to landing data source): "
 read name
 name_formatted=${name// /_}
 
@@ -40,10 +52,20 @@ echo "Copy and paste the admin token of ${name_formatted} Workspace: "
 echo " "
 read new_admin_token
 
-
 echo "** Pushing resources **"
 tb auth --token $new_admin_token --host $host
 tb push
+
+echo "** Append data to the landing Data Source using Mockingbird **"
+
+echo " "
+echo "Mockingbird host (eu_gcp or us_gcp) :"
+echo " "
+read endpoint
+
+mockingbird-cli tinybird --template "Web Analytics Starter Kit" --token $new_admin_token --datasource "analytics_events" --endpoint "${endpoint}" --eps 100 --limit 1000
+
+echo "** Init with Git **"
 tb init --git
 
-echo "Workspace ready! 🎉🎉🎉"
+echo "Workspace ready! Push your changes! 🎉🎉🎉"
