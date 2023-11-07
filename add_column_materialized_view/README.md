@@ -4,20 +4,17 @@
 
 Introducing a new column to a Materialized View Data Source is a delicate process that needs to be handled with care to ensure data integrity and continuity. This guide will take you through the steps to achieve this without disrupting your data flow.
 
-> A Materialized View Data Source in Tinybird is an optimized data source that pre-aggregates data from a base Data Source using Pipes. It's crucial for ensuring fast data retrieval.
-
-Follow these steps to add a new column safely and efficiently.
-
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
 ## Step 1: Prepare a Duplicate Materialized View with New Column
 
-[PR Step 1] (https://github.com/tinybirdco/use-case-examples/pull/35)
+[PR Step 1](https://github.com/tinybirdco/use-case-examples/pull/35)
 
-Our goal is to add a new `environment` column to the `analytics_sessions_mv`` Materialized View Data Source. We'll create a duplicate of this Data Source to include the new column without affecting the current data stream.
+Our goal is to add a new `environment` column to the `analytics_sessions_mv` Materialized View Data Source. We'll create a duplicate of this Data Source to include the new column without affecting the current data stream.
 
 - Create a new branch in your repository.
 - Duplicate analytics_sessions_mv.datasource and add the new column to the schema:
+  
     ```sql
     SCHEMA >
       `date` Date,
@@ -30,7 +27,30 @@ Our goal is to add a new `environment` column to the `analytics_sessions_mv`` Ma
       `latest_hit` SimpleAggregateFunction(max, DateTime),
       `hits` AggregateFunction(count)
     ```
-- Define a filter to prevent duplication by synchronizing data streams after a specific point in time:
+- In addition, We need to duplicate the Pipe that materializes data in the previous Data Source
+
+  ```sql
+      SELECT
+        toDate(timestamp) AS date,
+        session_id,
+        anySimpleState(environment) AS environment,
+        anySimpleState(device) AS device,
+        anySimpleState(browser) AS browser,
+        anySimpleState(location) AS location,
+        minSimpleState(timestamp) AS first_hit,
+        maxSimpleState(timestamp) AS latest_hit,
+        countState() AS hits
+      FROM analytics_hits
+      WHERE timestamp > '2023-11-07 12:30:00'
+      GROUP BY
+          date,
+          session_id
+
+      TYPE materialized
+      DATASOURCE new_analytics_sessions_mv
+  ```
+  
+- As you can see, we added a filter to prevent duplication by synchronizing data streams after a specific point in time:
   ```sql
   WHERE timestamp > 'YYYY-MM-DD HH:MM:SS'
   ```
