@@ -2,7 +2,7 @@
 
 It is necessary a Tinybird Data Project, with Versions enabled, and connected to Git before starting. 
 
-By default, the [web-analytics-starter-kit](https://github.com/tinybirdco/web-analytics-starter-kit) Data Project will be used. In this folder we provide the [data project](DEVELOPMENT/data_project) ready to be pushed to your empty Workspace.
+By default, the [web-analytics-starter-kit](https://github.com/tinybirdco/web-analytics-starter-kit) Data Project will be used. In this folder we provide the [data project](web_analytics_data_project) ready to be pushed to your empty Workspace.
 
 These are the steps we follow for creating a new "use case" example:
 
@@ -19,4 +19,4 @@ These are the steps we follow for creating a new "use case" example:
 - Connect your workspace to Git `tb init --git` ([documentation](https://www.tinybird.co/docs/guides/working-with-git.html))
 - Push your changes
 
-> If you don't want to run this process manually, we have a script in our [`utils`](DEVELOPMENT/utils) section that will save you some time
+> If you don't want to run this process manually, we have a script in our [`utils`](utils) section that will save you some time
