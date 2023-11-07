@@ -2,13 +2,9 @@
 
 ## Before starting
 
-It is necessary a Tinybird Data Project, with Versions enabled, and connected to Git before starting. By default, the [web-analytics-starter-kit](https://github.com/tinybirdco/web-analytics-starter-kit) Data Project will be used. The steps to follow:
+Either you want to reproduce a use case or create a new one, please follow the [instructions](DEVELOPMENT/README.md) in the DEVELOPMENT readme.
 
-1. Create a Workspace with the starter kit or download it from the [original repository](https://github.com/tinybirdco/web-analytics-starter-kit/tree/main/tinybird) and push the resources to any empty Workspace
-2. Follow the [documentation](https://www.tinybird.co/docs/guides/working-with-git.html) for connecting your Tinybird Data Project to Git
-3. Read the use case and follow the instructions there
-
-If there is any use case referencing any other Data Project, it will be documented in the use case README.
+> If there is any use case referencing any other Data Project, it will be documented in the README of the use case.
 
 
 ## Use cases
