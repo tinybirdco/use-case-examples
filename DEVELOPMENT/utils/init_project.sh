@@ -44,6 +44,8 @@ tb auth --token $admin_token --host $host
 tb workspace create --user_token $user_token $name_formatted
 mkdir ${DIR}/../../${name_formatted}
 cp -R ${DIR}/../web_analytics_data_project/* ${DIR}/../../${name_formatted}
+cp ${DIR}/../web_analytics_data_project/.tinyenv ${DIR}/../../${name_formatted}
+
 tb workspace use $name_formatted
 cd ${DIR}/../../${name_formatted}
 
@@ -58,14 +60,35 @@ tb push
 
 echo "** Append data to the landing Data Source using Mockingbird **"
 
-echo " "
-echo "Mockingbird host (eu_gcp or us_gcp) :"
-echo " "
-read endpoint
+if [[ "$host" == "https://api.tinybird.co" ]]; then
+    endpoint="eu_gcp"
+else
+    echo " "
+    echo "Mockingbird host (eu_gcp or us_gcp): "
+    echo " "
+    read endpoint
+fi
 
 mockingbird-cli tinybird --template "Web Analytics Starter Kit" --token $new_admin_token --datasource "analytics_events" --endpoint "${endpoint}" --eps 100 --limit 1000
 
+echo "** Performing some requests to the endpoints"
+
+"$DIR/query_apis.sh" --token $new_admin_token --nreq 10 --host $host
+
 echo "** Init with Git **"
+PARENT_DIR="$(dirname "$(dirname "$DIR")")"
+
+BRANCH_NAME="feat/$name_formatted/initialization"
+git checkout -b "$BRANCH_NAME"
+echo "New branch '$BRANCH_NAME' created."
+
+git add "$PARENT_DIR/$name_formatted/."
+git add "$PARENT_DIR/$name_formatted/.tinyenv"
+
+git commit -m "Add $name_formatted directory with initialization files"
+
+echo "Changes have been committed successfully."
+
 tb init --git
 
 echo "Workspace ready! Push your changes! 🎉🎉🎉"
