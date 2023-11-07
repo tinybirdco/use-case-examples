@@ -122,10 +122,8 @@ DATASOURCE new_analytics_sessions_mv
 
 ## Step 3: Transition to the New Materialized View
 
-Finally, update all dependent elements, such as API endpoints, to use the new Materialized View with the added column.
+Finally, following your requirements, update all dependent elements, such as API endpoints, to use the new Materialized View with the added column.
 
 - Modify the dependencies to point to the new Data Source `new_analytics_sessions_mv`.
 - Validate that the transition is seamless and that the new Materialized View is returning the correct data. 
-- Once confirmed, merge the changes to the main environment.
-
-... work in progress ...
+- Once confirmed, merge the changes to deploy the changes in the main environment.
