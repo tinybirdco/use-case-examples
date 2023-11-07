@@ -33,7 +33,7 @@ Our goal is to add a new `environment` column to the `analytics_sessions_mv` Mat
       SELECT
         toDate(timestamp) AS date,
         session_id,
-        anySimpleState(environment) AS environment,
+        anySimpleState(environment) AS environment, -- new column
         anySimpleState(device) AS device,
         anySimpleState(browser) AS browser,
         anySimpleState(location) AS location,
@@ -62,20 +62,50 @@ Our goal is to add a new `environment` column to the `analytics_sessions_mv` Mat
 
 After the filter date has passed, it's time to backfill the data from the original to the new Data Source. This is critical to ensure consistency across your Data Sources.
 
-- Execute the backfill operation by only including data previous to the filter date:
+- Execute the backfill operation by only including data previous to the filter date, for that create a new pipe `backfilling.pipe`:
+
+```sql
+    SELECT
+        toDate(timestamp) AS date,
+        session_id,
+        anySimpleState(environment) AS environment,
+        anySimpleState(device) AS device,
+        anySimpleState(browser) AS browser,
+        anySimpleState(location) AS location,
+        minSimpleState(timestamp) AS first_hit,
+        maxSimpleState(timestamp) AS latest_hit,
+        countState() AS hits
+    FROM analytics_hits
+    WHERE timestamp <= '2023-11-07 12:30:00' -- Filter date to avoid duplicates
+    GROUP BY
+        date,
+        session_id
+
+TYPE materialized
+DATASOURCE new_analytics_sessions_mv
 ```
-WHERE timestamp <= 'YYYY-MM-DD HH:MM:SS'
-```
-- Create a custom deployment to populate the new Data Source using the `backfilling.pipe`.
-  - The CI will look like:
+
+- Create a custom deployment to populate the new Data Source using the `backfilling.pipe`:
+  
+  ```sh
+    tb release --semver 0.0.1
+  ```
+
+  It creates a folder `./deploy/0.0.1` with custom deployment files.
+
+  - The custom CI command located in `./deploy/0.0.1/ci-deploy.sh` will look like:
   ```sh
     tb deploy --populate --fixtures --wait
   ```
-  `populate` ensures that the new pipe runs and materialize data.
+  `populate` ensures that the new pipe runs and materializes data in the new Materialized View Data Source.
   `wait` ensures that the CI Workflows waits until all the data is populated.
   `fixtures` appends the fixtures for the tests.
 
-  - The CD will look the same but without the fixtures options because we don't want to pollute the production environment with testing data.
+  - Modify the CD custom command `./deploy/0.0.1/cd-deploy.sh` to be the same but without the fixtures options because we don't want to pollute the production environment with testing data:
+
+  ```sh
+    tb deploy --populate --wait
+  ```
 
 - Add a quality test to check that the backfilling is working as expected before going to production. We can compare the difference of number of hits in the new and legacy Data Sources (it shouldn't be any difference):
 
@@ -88,7 +118,7 @@ WHERE timestamp <= 'YYYY-MM-DD HH:MM:SS'
       WHERE
         diff != 0 -- Quality tests expect that no rows are returned.
   ```
-- Submit a new Pull Request for the backfilling step.
+- Submit a new Pull Request for the backfilling step, check the temporal environment created to make sure everything is OK and merge it once all the PR checks are met.
 
 ## Step 3: Transition to the New Materialized View
 
