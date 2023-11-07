@@ -36,19 +36,39 @@ Our goal is to add a new `environment` column to the `analytics_sessions_mv`` Ma
   ```
 - Create a Pull Request, validate the changes in the temporal environment created, and merge it to deploy to the main environment.
 
-[Step 1 PR TODO]
-
 ## Step 2: Backfill the Data
+
+[PR Step 2](https://github.com/tinybirdco/use-case-examples/pull/37)
+
 After the filter date has passed, it's time to backfill the data from the original to the new Data Source. This is critical to ensure consistency across your Data Sources.
 
 - Execute the backfill operation by only including data previous to the filter date:
 ```
 WHERE timestamp <= 'YYYY-MM-DD HH:MM:SS'
 ```
-- Create a custom deployment to populate the new Data Source using the `backfilling.pipe``:
-- Submit a new Pull Request for the backfilling step.
+- Create a custom deployment to populate the new Data Source using the `backfilling.pipe`.
+  - The CI will look like:
+  ```sh
+    tb deploy --populate --fixtures --wait
+  ```
+  `populate` ensures that the new pipe runs and materialize data.
+  `wait` ensures that the CI Workflows waits until all the data is populated.
+  `fixtures` appends the fixtures for the tests.
 
-[Step 2 PR TODO]
+  - The CD will look the same but without the fixtures options because we don't want to pollute the production environment with testing data.
+
+- Add a quality test to check that the backfilling is working as expected before going to production. We can compare the difference of number of hits in the new and legacy Data Sources (it shouldn't be any difference):
+
+  ```sql
+        WITH
+        (SELECT countMerge(hits) FROM analytics_sessions_mv) AS legacy_hits,
+        (SELECT countMerge(hits) FROM analytics_sessions) AS new_hits
+      SELECT
+        legacy_hits - new_hits AS diff
+      WHERE
+        diff != 0 -- Quality tests expect that no rows are returned.
+  ```
+- Submit a new Pull Request for the backfilling step.
 
 ## Step 3: Transition to the New Materialized View
 
