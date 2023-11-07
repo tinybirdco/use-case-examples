@@ -5,7 +5,7 @@
 A script to request all the endpoints within the web_analytics_data_project. Useful to get the metrics needed to run the regression tests.
 
 Usage:
-```bash
+```sh
   ./DEVELOPMENT/utils/query_apis.sh --token <token> --nreq <number_of_requests> [--host <host>]
     --token    Authorization token for accessing the endpoints.
     --nreq     Number of times requests will be made to each endpoint.
