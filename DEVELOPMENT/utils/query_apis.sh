@@ -30,7 +30,7 @@ draw_progress_bar() {
 # Initialize parameters
 TOKEN=""
 NUM_REQUESTS=""
-HOST="api.tinybird.co"
+HOST="https://api.tinybird.co"
 
 # Parse command line options
 while [[ "$#" -gt 0 ]]; do
@@ -76,7 +76,7 @@ COMPLETED=0
 # Perform requests
 for i in $(seq 1 $NUM_REQUESTS); do
   for endpoint in "${endpoints[@]}"; do
-    curl -s "https://$HOST/v0/pipes/${endpoint}.json?limit=50&token=$TOKEN" > /dev/null
+    curl -s "$HOST/v0/pipes/${endpoint}.json?limit=50&token=$TOKEN" > /dev/null
 
     # Increment the completed requests counter
     ((COMPLETED++))

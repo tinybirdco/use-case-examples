@@ -15,7 +15,7 @@ These are the steps we follow for creating a new "use case" example:
 - Add the CI and CD workflows in `.github/workflows` folder. Try to use the same name as described in the first step with `_cd` and `_ci` at the end. Pay special attention to `paths` and `data_project_dir` variables.
 - Push your files to the Workspace `tb push`. In case you have any previous resource in the Workspace, `tb workspace clear`
 - Append data using `mockingbird-cli`. `mockingbird-cli tinybird --template "Web Analytics Starter Kit" --token <ADMIN_TOKEN> --datasource "analytics_events" --endpoint "<REGION>" --eps 100 --limit 1000`
-- Make requests over your API Endpoints. In the `utils` folder, there is a script for making requests over the API Endpoints. Edit the `TOKEN`, `NUM_REQUESTS` and `HOST` variables in the script to make it work properly.
+- Make requests over your API Endpoints. In the `utils` folder, there is a script for making requests over the API Endpoints. Example of usage: `query_apis.sh --token <TOKEN> --nreq 10`
 - Connect your workspace to Git `tb init --git` ([documentation](https://www.tinybird.co/docs/guides/working-with-git.html))
 - Push your changes
 
