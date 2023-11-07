@@ -14,8 +14,9 @@ These are the steps we follow for creating a new "use case" example:
 - Download the `web_analytics_data_project` and place all the files in your folder
 - Add the CI and CD workflows in `.github/workflows` folder. Try to use the same name as described in the first step with `_cd` and `_ci` at the end. Pay special attention to `paths` and `data_project_dir` variables.
 - Push your files to the Workspace `tb push`. In case you have any previous resource in the Workspace, `tb workspace clear`
-- Append data to the landing `analytics_events` Data Source. There is a fixture in the [`datasources/fixtures`](DEVELOPMENT/data_project/datasources/fixtures) folder.
 - Append data using `mockingbird-cli`. `mockingbird-cli tinybird --template "Web Analytics Starter Kit" --token <ADMIN_TOKEN> --datasource "analytics_events" --endpoint "<REGION>" --eps 100 --limit 1000`
 - Make requests over your API Endpoints. In the `utils` folder, there is a script for making requests over the API Endpoints. Edit the `TOKEN`, `NUM_REQUESTS` and `HOST` variables in the script to make it work properly.
 - Connect your workspace to Git `tb init --git` ([documentation](https://www.tinybird.co/docs/guides/working-with-git.html))
 - Push your changes
+
+> If you don't want to run this process manually, we have a script in our [`utils`](DEVELOPMENT/utils) section that will save you some time
