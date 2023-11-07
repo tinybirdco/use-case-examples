@@ -2,6 +2,16 @@
 
 ## query_apis.sh
 
+A script to request all the endpoints within the web_analytics_data_project. Useful to get the metrics needed to run the regression tests.
+
+Usage:
+```bash
+  query_apis.sh --token <token> --nreq <number_of_requests> [--host <host>]
+    --token    Authorization token for accessing the endpoints.
+    --nreq     Number of times requests will be made to each endpoint.
+    --host     The host to send requests to. Defaults to 'api.tinybird.co'.
+    -h         Display this help message.
+```
 
 ## init_project.sh
 
