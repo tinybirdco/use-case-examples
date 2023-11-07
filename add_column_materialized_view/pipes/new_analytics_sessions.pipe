@@ -20,5 +20,5 @@ SQL >
         date,
         session_id
 
-    TYPE materialized
-    DATASOURCE new_analytics_sessions_mv
+TYPE materialized
+DATASOURCE new_analytics_sessions_mv
