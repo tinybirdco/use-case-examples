@@ -15,6 +15,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Change Data Source sorting key](change_sorting_key)
 - [Recover data from quarantine](recover_data_from_quarantine) using a copy Pipe
 - [Add a new column to a Landing Data Source](add_column_landing_ds)
+- [Add a new column to a Materialized View](add_column_materialized_view)
 - [Add a new column in a BigQuery Data Source](add_column_BQ_ds)
 
 ## Caveats
