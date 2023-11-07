@@ -16,7 +16,7 @@
     sql: |
       WITH
         (SELECT countMerge(hits) FROM analytics_sessions_mv) AS legacy_hits,
-        (SELECT countMerge(hits) FROM analytics_sessions) AS new_hits
+        (SELECT countMerge(hits) FROM new_analytics_sessions_mv) AS new_hits
       SELECT
         legacy_hits - new_hits AS diff
       WHERE
