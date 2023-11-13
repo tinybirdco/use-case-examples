@@ -10,4 +10,11 @@
     sql: |
       SELECT * FROM kpis
       WHERE visits > 0 AND pageviews = 0
-
+- allowed-environment:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+      SELECT * FROM analytics_events
+      WHERE environment is not null 
+        AND environment != 'staging'
+        AND environment != 'production'
