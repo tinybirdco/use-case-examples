@@ -42,4 +42,4 @@ We aim to introduce a new column named `environment`, which will temporarily acc
  
 - Create a PR, validate your changes in the created temporal environment and merge it to deploy it in the main environment.
 
-
+[Internal Workspace](https://ui.tinybird.co/7e0624bd-635c-4d21-b4b1-436114425add/dashboard)
