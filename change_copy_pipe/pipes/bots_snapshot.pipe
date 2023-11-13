@@ -52,14 +52,16 @@ SQL >
     SELECT
         toStartOfHour(timestamp) AS date_hour,
         bot_source,
-        countState() AS hits
+        pathname,
+        count() AS hits
     FROM bot_sources
     GROUP BY
         date_hour,
+        pathname,
         bot_source
 
 TYPE copy
-TARGET_DATASOURCE bots_source
+TARGET_DATASOURCE copy_bots_snapshot
 COPY_SCHEDULE 0 * * * *
 
 

@@ -1,9 +1,0 @@
-
-SCHEMA >
-    `date_hour` DateTime,
-    `bot_source` String,
-    `hits` AggregateFunction(count)
-
-ENGINE "AggregatingMergeTree"
-ENGINE_PARTITION_KEY "toDate(date_hour)"
-ENGINE_SORTING_KEY "bot_source, date_hour"
