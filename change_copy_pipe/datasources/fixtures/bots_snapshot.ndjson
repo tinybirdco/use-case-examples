@@ -1,0 +1,6 @@
+{"date_hour":"2039-10-11 07:00:00","bot_source":"wget","pathname":"\/","hits":1}
+{"date_hour":"2039-10-11 07:00:00","bot_source":"googlebot","pathname":"\/product","hits":1}
+{"date_hour":"2039-10-12 07:00:00","bot_source":"googlebot","pathname":"\/product","hits":1}
+{"date_hour":"2039-11-13 15:00:00","bot_source":"googlebot","pathname":"\/blog-posts\/data-market-whitebox-replaces-4-data-stack-tools-with-tinybird","hits":575}
+{"date_hour":"2039-10-11 07:00:00","bot_source":"curl","pathname":"\/product","hits":1}
+{"date_hour":"2039-11-13 15:00:00","bot_source":"googlebot","pathname":"\/guide\/fine-tuning-csvs-for-fast-ingestion","hits":548}
