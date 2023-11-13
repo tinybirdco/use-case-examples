@@ -40,6 +40,6 @@ We aim to introduce a new column named `environment`, which will temporarily acc
     ```
   - Fixtures updated with the new property to test that continue being successfully ingested.
  
-- Create a PR, validate your changes in the created temporal environment and merge it to deploy in the main environment.
+- Create a PR, validate your changes in the created temporal environment and merge it to deploy it in the main environment.
 
 
