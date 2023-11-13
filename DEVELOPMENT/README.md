@@ -2,6 +2,8 @@
 
 It is necessary a Tinybird Data Project, with Versions enabled, and connected to Git before starting. 
 
+> ⚠️ REMEMBER to create an initial PR (Pull Request) with all the project initialization and boilerplate code. For clarity, subsequent PRs should be concise and specifically tailored to the use cases they solve.
+
 By default, the [web-analytics-starter-kit](https://github.com/tinybirdco/web-analytics-starter-kit) Data Project will be used. In this folder we provide the [data project](web_analytics_data_project) ready to be pushed to your empty Workspace.
 
 These are the steps we follow for creating a new "use case" example:
