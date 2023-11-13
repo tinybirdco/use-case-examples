@@ -7,7 +7,7 @@ SCHEMA >
     `action` LowCardinality(String) `json:$.action`,
     `version` LowCardinality(String) `json:$.version`,
     `payload` String `json:$.payload`,
-    `environment` LowCardinality(Nullable(String)) `json:$.environment`
+    `environment` Nullable(String) `json:$.environment`
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toYear(timestamp)"
