@@ -6,8 +6,6 @@ In this guide we'll show you how to do it fast and safe.
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
-## Step 1: Initialize a Nullable Column for 'environment'
-
 [Step 1 PR](https://github.com/tinybirdco/use-case-examples/pull/50)
 
 We aim to introduce a new column named `environment`, which will temporarily accept either NULL (for compatibility), 'staging' or 'production' as its values. The `LowCardinality<String>` type would be ideal, but we face a challenge: we are currently processing messages that lack the `environment` attribute. Until all data producers update their systems to include this new property, we need to accommodate NULL values. 
