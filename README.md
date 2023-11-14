@@ -17,6 +17,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Add a new column to a Landing Data Source](add_column_landing_ds)
 - [Add a new column to a Materialized View](add_column_materialized_view)
 - [Add a new column in a BigQuery Data Source](add_column_BQ_ds)
+- [Add a new column to an S3 Data Source](add_column_to_S3_ds)
 
 ## Caveats
 
