@@ -94,6 +94,7 @@ SQL >
 
     select 
       date,
+      environment,
       uniq(session_id) as visits,
       sum(pageviews) as pageviews,
       sum(case when latest_hit_aux = first_hit_aux then 1 end) / visits as bounce_rate,
