@@ -68,7 +68,7 @@ SQL >
               min(first_hit) as first_hit_aux,
               environment
             from
-              analytics_sessions_mv
+              new_analytics_sessions_mv
             where
               {% if defined(date_from) %}
                 date >= {{Date(date_from)}}
