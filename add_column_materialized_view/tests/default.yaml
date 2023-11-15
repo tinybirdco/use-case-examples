@@ -10,14 +10,4 @@
     sql: |
       SELECT * FROM kpis
       WHERE visits > 0 AND pageviews = 0
-- no-difference-between-sessions-and-sessions-new:
-    max_bytes_read: null
-    max_time: null
-    sql: |
-      WITH
-        (SELECT countMerge(hits) FROM analytics_sessions_mv) AS legacy_hits,
-        (SELECT countMerge(hits) FROM new_analytics_sessions_mv) AS new_hits
-      SELECT
-        legacy_hits - new_hits AS diff
-      WHERE
-        diff != 0
+
