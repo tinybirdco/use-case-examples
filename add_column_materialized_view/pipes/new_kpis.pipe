@@ -65,10 +65,9 @@ SQL >
               countMerge(hits) as pageviews,
               case when min(first_hit) = max(latest_hit) then 1 else 0 end as is_bounce,
               max(latest_hit) as latest_hit_aux,
-              min(first_hit) as first_hit_aux,
-              environment
+              min(first_hit) as first_hit_aux
             from
-              new_analytics_sessions_mv
+              analytics_sessions_mv
             where
               {% if defined(date_from) %}
                 date >= {{Date(date_from)}}
@@ -81,7 +80,7 @@ SQL >
                 and date <= today()
               {% end %}
             group by
-              date, session_id, environment
+              date, session_id
             {% end %}
 
 
@@ -94,7 +93,6 @@ SQL >
 
     select 
       date,
-      environment,
       uniq(session_id) as visits,
       sum(pageviews) as pageviews,
       sum(case when latest_hit_aux = first_hit_aux then 1 end) / visits as bounce_rate,
@@ -117,8 +115,7 @@ SQL >
       b.visits,
       b.pageviews,
       b.bounce_rate,
-      b.avg_session_sec,
-      b.environment
+      b.avg_session_sec
     from
       timeseries a
     left join data b using date
