@@ -42,7 +42,7 @@ Then, we would need to create a new version of the resouces and change the colum
 Finally, we need to create two new deploy scripts `deploy/0.0.1/cd-deploy.sh` and `deploy/0.0.1/ci-deploy.sh`. These new deployment scripts will be executed when running the CI and CD and will use the `populate_with_backfill` script to fill the new version of the MV with the existing data from the landing datasource
 
 
-## Step 2: Remove previous version of the materialize view
+## Step 2: Remove previous version of the materialize view https://github.com/tinybirdco/use-case-examples/pull/62
 
 Once, we have validated that everything is working fine with the new version of the MV. 
 
