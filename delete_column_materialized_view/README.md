@@ -5,7 +5,7 @@ Removing a column from an existing Materialized View Data Source is a delicate p
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
 
-## Step 1: Prepare a Duplicate Materialized View with New Column
+## Step 1: Prepare a Duplicate Materialized View removing the Column
 
 First we can bump the version running `tb release generate --semver 0.0.1` to generate all the required CI/CD files an increase the next release VERSION from `.tinyenv`.
 
