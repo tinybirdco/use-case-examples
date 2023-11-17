@@ -4,7 +4,7 @@ This update involves several changes aimed at optimizing the storage and query p
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
-## Step 1: Create a new version of the materialized view (MV)
+## Step 1: Create a new version of the materialized view (MV) https://github.com/tinybirdco/use-case-examples/pull/51
 
 First, we can run `tb release generate --semver 0.0.1`, so it will generate all the required files like CD/CI in case you don't have them and increase the `VERSION` inside `.tinyenv` to indicate we are going to release a new version.
 
