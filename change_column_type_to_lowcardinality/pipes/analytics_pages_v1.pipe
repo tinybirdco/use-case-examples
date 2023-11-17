@@ -21,6 +21,6 @@ SQL >
         pathname
 
 TYPE materialized
-DATASOURCE analytics_pages_mv
+DATASOURCE analytics_pages_mv_v1
 
 
