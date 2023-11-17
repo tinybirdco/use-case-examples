@@ -1,3 +1,4 @@
+
 SCHEMA >
     `date` Date,
     `device` String,
