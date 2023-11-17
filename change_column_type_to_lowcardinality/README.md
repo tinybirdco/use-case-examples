@@ -6,7 +6,9 @@ This update involves several changes aimed at optimizing the storage and query p
 
 ## Step 1: Create a new version of the materialized view (MV)
 
-First, we would need to create a new version of the resouces and change the column type from `String` to `LowCardinality(String)` and 
+First, we can run `tb release generate --semver 0.0.1`, so it will generate all the required files like CD/CI in case you don't have them and increase the `VERSION` inside `.tinyenv` to indicate we are going to release a new version.
+
+Then, we would need to create a new version of the resouces and change the column type from `String` to `LowCardinality(String)` and 
 
 ```diff
 --- a/change_column_type_to_lowcardinality/datasources/analytics_pages_mv.datasource
@@ -36,8 +38,6 @@ First, we would need to create a new version of the resouces and change the colu
          pathname,
          uniqState(session_id) AS visits,
 ```
-
-Then, we will need to increase the `VERSION` inside `.tinyenv` to indicate we are going to release a new version
 
 Finally, we need to create two new deploy scripts `deploy/0.0.1/cd-deploy.sh` and `deploy/0.0.1/ci-deploy.sh`. These new deployment scripts will be executed when running the CI and CD and will use the `populate_with_backfill` script to fill the new version of the MV with the existing data from the landing datasource
 
