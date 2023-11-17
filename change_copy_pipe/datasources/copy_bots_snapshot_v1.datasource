@@ -1,0 +1,10 @@
+
+SCHEMA >
+    `date` DateTime,
+    `bot_source` String,
+    `pathname` String,
+    `hits` UInt64
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toDate(date)"
+ENGINE_SORTING_KEY "pathname, bot_source, date"
