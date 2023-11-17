@@ -18,7 +18,7 @@ SQL >
               uniqMerge(visits) as visits,
               countMerge(hits) as hits
             from
-              analytics_pages_mv
+              analytics_pages_mv_v1
             where
               {% if defined(date_from) %}
                 date >= {{Date(date_from, description="Starting day for filtering a date range", required=False)}}
