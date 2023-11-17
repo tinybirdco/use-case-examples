@@ -1,7 +1,5 @@
 # Tinybird Versions - Add Column to a Materialized View Data Source
 
-> This document is still an early draft, when it's ready this message will be removed.
-
 Introducing a new column to a Materialized View Data Source is a delicate process that needs to be handled with care to ensure data integrity and continuity. This guide will take you through the steps to achieve this without disrupting your data flow.
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
@@ -127,3 +125,6 @@ Finally, following your requirements, update all dependent elements, such as API
 - Modify the dependencies to point to the new Data Source `new_analytics_sessions_mv`.
 - Validate that the transition is seamless and that the new Materialized View is returning the correct data. 
 - Once confirmed, merge the changes to deploy the changes in the main environment.
+
+
+[Internal dashboard](https://ui.tinybird.co/84bf43ba-6e93-4d88-ad4e-6ec68027fc1d/dashboard)
