@@ -49,4 +49,6 @@ tb sql "SELECT countIf(toDate(timestamp) = toDate('2022-09-15')) as old_data, co
 0,4
 ```
 
-6. Commit the changes and open a new Pull Request.
+The case of the TTL is a bit special since the TTL does not apply instantly. We've added a 5s extra time to wait for the TTL to apply. If it fails, it might be needed to re-run again. With the current flow, it's not possible to trigger a TTL change on purpose.
+
+5. Commit the changes and open a new Pull Request.
