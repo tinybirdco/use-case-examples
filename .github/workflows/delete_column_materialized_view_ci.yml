@@ -10,7 +10,7 @@
       workflow_dispatch:
       pull_request:
         paths:
-          - 'add_column_BQ_ds/**'
+          - 'delete_column_materialized_view/**'
         branches:
          - main
         types: [opened, reopened, labeled, unlabeled, synchronize, closed]
