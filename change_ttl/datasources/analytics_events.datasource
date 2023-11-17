@@ -13,4 +13,4 @@ SCHEMA >
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
 ENGINE_SORTING_KEY "timestamp"
-ENGINE_TTL "timestamp + toIntervalDay(10)"
+ENGINE_TTL "timestamp + toIntervalDay(30)"
