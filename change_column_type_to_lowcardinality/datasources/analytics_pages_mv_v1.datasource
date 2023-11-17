@@ -1,7 +1,7 @@
 SCHEMA >
     `date` Date,
     `device` String,
-    `browser` String,
+    `browser` LowCardinality(String),
     `location` String,
     `pathname` String,
     `visits` AggregateFunction(uniq, String),
