@@ -20,5 +20,5 @@
           tb_deploy: false
           data_project_dir: ./delete_column_materialized_view
         secrets:
-          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_BQ_DS }}
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_DELETE_COLUMN_MV }}
           tb_host: https://api.tinybird.co
