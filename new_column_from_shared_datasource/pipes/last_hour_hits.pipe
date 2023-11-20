@@ -1,9 +1,11 @@
 NODE node_0
 SQL >
-
+    %
     SELECT count() as hits
-    FROM ivan_web_analytics.analytics_events
+    FROM versions_analytics_use_case.analytics_events
     WHERE action = 'page_hit'
       AND timestamp >= now() - interval 1 hour
-
+    {% if (defined(project)) %}
+      AND project = {{String(project)}}
+    {% end %}
 
