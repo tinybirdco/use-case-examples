@@ -1,0 +1,26 @@
+##################################################
+###   Visit https://github.com/tinybirdco/ci   ###
+###   for more details or custom CI/CD         ###
+##################################################
+
+name: Tinybird - CI Workflow
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'remove_column_snowflake_ds/**'
+    branches:
+      - main
+    types: [opened, reopened, labeled, unlabeled, synchronize, closed]
+
+concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+
+jobs:
+  ci:
+    uses: tinybirdco/ci/.github/workflows/ci.yml@main
+    with:
+      data_project_dir: ./remove_column_snowflake_ds
+    secrets:
+      tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_REMOVE_COLUMN_SNOWFLAKE_DS }}
+      tb_host: https://api.tinybird.co
