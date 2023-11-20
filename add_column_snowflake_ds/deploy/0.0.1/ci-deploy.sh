@@ -2,4 +2,4 @@
 set -e
 
 tb deploy
-tb datasource sync stock_prices_new
+tb pipe copy run stock_prices_old_to_new --wait --yes

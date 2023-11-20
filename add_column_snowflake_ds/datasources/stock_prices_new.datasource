@@ -6,7 +6,7 @@ SCHEMA >
     `hight` Float32,
     `low` Float32,
     `close` Float32,
-    `volume` Float32
+    `volume` Nullable(Float32)
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toDate(date)"

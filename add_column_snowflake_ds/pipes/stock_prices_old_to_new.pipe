@@ -1,0 +1,6 @@
+NODE stock_prices_copy
+SQL >
+    SELECT *, null as volume FROM stock_prices
+
+TYPE COPY
+TARGET_DATASOURCE stock_prices_new
