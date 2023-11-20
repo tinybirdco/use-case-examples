@@ -1,14 +1,15 @@
-SCHEMA >
-    `date` Date `json:$.date`,
-    `symbol` String `json:$.SYMBOL`,
-    `open` Float32 `json:$.open`,
-    `hight` Float32 `json:$.hight`,
-    `low` Float32 `json:$.low`,
-    `close` Float32 `json:$.close`
 
-ENGINE 'MergeTree'
-ENGINE_PARTITION_KEY 'toDate(date)'
-ENGINE_SORTING_KEY 'date'
+SCHEMA >
+    `date` Date,
+    `symbol` String,
+    `open` Float32,
+    `hight` Float32,
+    `low` Float32,
+    `close` Float32
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toDate(date)"
+ENGINE_SORTING_KEY "date"
 
 IMPORT_SERVICE 'snowflake'
 IMPORT_CONNECTION_NAME 'tb_snowflake'
