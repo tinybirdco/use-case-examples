@@ -5,7 +5,7 @@ SCHEMA >
     `open` Float32,
     `hight` Float32,
     `low` Float32,
-    `close` Float32
+    `close` Float32,
     `volume` Float32
 
 ENGINE "MergeTree"
