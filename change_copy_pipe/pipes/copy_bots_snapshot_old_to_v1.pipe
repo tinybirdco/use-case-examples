@@ -1,0 +1,8 @@
+NODE copy_bots_snapshot_to_v1
+SQL >
+    SELECT toStartOfDay(date_hour) as date, bot_source, sum(hits) as hits FROM copy_bots_snapshot
+    WHERE toDate(date_hour) < today()
+    GROUP BY date, pathname, bot_source
+
+TYPE COPY
+TARGET_DATASOURCE copy_bots_snapshot_v1
