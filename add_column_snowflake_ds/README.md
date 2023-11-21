@@ -12,3 +12,5 @@ These are the minimal steps to add a new column to a Snowflake Data Source:
 - Create a new Snowflake connection `tb connection create snowflake`
 - Generate the new Snowflake Data Source schema ([instructions](https://www.tinybird.co/docs/ingest/snowflake.html))
 - Push your changes
+
+[Internal workspace](https://ui.tinybird.co/7ba1463e-b0df-4c5f-bd3d-0927e142d596/dashboard)
