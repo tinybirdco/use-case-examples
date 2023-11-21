@@ -3,7 +3,7 @@ SCHEMA >
     `date` Date,
     `symbol` String,
     `open` Float32,
-    `hight` Float32,
+    `high` Float32,
     `low` Float32,
     `close` Float32
 
@@ -15,5 +15,5 @@ IMPORT_SERVICE 'snowflake'
 IMPORT_CONNECTION_NAME 'tb_snowflake'
 IMPORT_EXTERNAL_DATASOURCE 'tinybird.samples.stock_prices'
 IMPORT_STRATEGY 'replace'
-IMPORT_QUERY 'SELECT date, symbol, open, hight, low, close from tinybird.samples.stock_prices'
+IMPORT_QUERY 'SELECT date, symbol, open, high, low, close from tinybird.samples.stock_prices'
 IMPORT_SCHEDULE '@on-demand'
