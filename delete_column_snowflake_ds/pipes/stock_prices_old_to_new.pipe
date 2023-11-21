@@ -1,0 +1,6 @@
+NODE stock_prices_copy
+SQL >
+    SELECT date, symbol, open, high, low, close FROM stock_prices_new
+
+TYPE COPY
+TARGET_DATASOURCE stock_prices_new
