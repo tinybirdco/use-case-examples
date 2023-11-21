@@ -1,0 +1,23 @@
+##################################################
+###   Visit https://github.com/tinybirdco/ci   ###
+###   for more details or custom CI/CD         ###
+##################################################
+
+name: Tinybird - CD Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'delete_column_snowflake_ds/**'
+    branches:
+      - main
+jobs:
+  cd:
+    uses: tinybirdco/ci/.github/workflows/cd.yml@main
+    with:
+      tb_deploy: false
+      data_project_dir: ./delete_column_snowflake_ds
+    secrets:
+      tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_DELETE_COLUMN_SNOWFLAKE_DS }}
+      tb_host: https://api.tinybird.co
