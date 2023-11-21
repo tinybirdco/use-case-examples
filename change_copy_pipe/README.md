@@ -4,7 +4,7 @@
 
 We used copy pipe `bots_snapshot` that is scheduled to every hour do snapshot of bots hits on target `copy_bots_snapshot` Data Source.
 
-We decide we want to change time granularity to day. We want to:
+We want to change time granularity to day. So, we need:
 - new daily copy pipe 
 - don't lose hourly data
 - calculate current hourly data to new daily granularity
@@ -80,7 +80,7 @@ DATASOURCE copy_bots_snapshot_v1
 
 In this case we are stopping backfill on today. Remember in this example we are calculating yesterday snapshot.
 
-## Step 5: Validate changes on CI
+## Step 4: Validate changes on CI
 
 Default deployment on CI Environment is enough to deploy new resources, append fixtures and perform the backfill
 
@@ -93,7 +93,7 @@ Then validate changes updating tests:
 
 > Better to rely on backfill instead of generating new static fixtures so we can validate backfill before deploying
 
-## Step 6: Deploy to production
+## Step 5: Deploy to production
 
 Default CD job is not performing populates by default so we need a custom CD script to perform it.
 
