@@ -46,4 +46,4 @@ Finally, we need to edit the `cd-deploy.sh` and `ci-deploy.sh` scripts inside th
 
 ## Step 2: Clean up
 
-Once, we have validated that everything is working fine with the new version we can create a new Pull Request to remove the previous versions.
+Once, we have validated that everything is working fine with the new version we can create a new Pull Request to change the `kpis` endpoint to point to the new materialization `analytics_sessions_mv_v1.datasource` and remove the previous versions.
