@@ -11,38 +11,7 @@ First we can bump the version of the Data Project running `tb release generate -
 
 Once ready, we need to create a new version of the `analytics_sessions_mv.datasource` and `analytics_sessions.pipe` to include the new definition without the `browse` column.
 
-
-```diff
----a/change_column_type_to_lowcardinality/datasources/analytics_sessions_mv.datasource
-+++b/change_column_type_to_lowcardinality/datasources/analytics_sessions_mv_v1.datasource
-
- SCHEMA >
-     `date` Date,
-     `device` SimpleAggregateFunction(any, String),
--    `browser` SimpleAggregateFunction(any, String),
-    `location` SimpleAggregateFunction(any, String),
-    `first_hit` SimpleAggregateFunction(min, DateTime),
-    `latest_hit` SimpleAggregateFunction(max, DateTime),
-    `hits` AggregateFunction(count)
-```
-
-```diff
----a/change_column_type_to_lowcardinality/datasources/analytics_sessions.pipe
-+++b/change_column_type_to_lowcardinality/datasources/analytics_sessions_v1.pipe
-
-SELECT
-        toDate(timestamp) AS date,
-        session_id, 
-        anySimpleState(device) AS device,
--        anySimpleState(browser) AS browser,
-        anySimpleState(location) AS location,
-        minSimpleState(timestamp) AS first_hit,
-        maxSimpleState(timestamp) AS latest_hit,
-        countState() AS hits
-```
-
 Finally, we need to edit the `cd-deploy.sh` and `ci-deploy.sh` scripts inside the `/deploy/0.0.1/` folder. These scripts will be executed when running the CI and CD and will use the `populate_with_backfill.sh` script to fill the new version of the Materialized View with the existing data from the original datasource.
-
 
 ## Step 2: Clean up
 
