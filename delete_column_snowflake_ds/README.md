@@ -13,4 +13,4 @@ These are the minimal steps to delete an existing column from a Snowflake Data S
 - Generate the new Snowflake Data Source schema ([instructions](https://www.tinybird.co/docs/ingest/snowflake.html))
 - Push your changes
 
-[Internal workspace](https://ui.tinybird.co/7ba1463e-b0df-4c5f-bd3d-0927e142d596/dashboard)
+[Internal workspace](https://ui.tinybird.co/1d87dc70-09d8-4db0-b81e-d230c7007609/dashboard)
