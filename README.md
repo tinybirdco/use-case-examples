@@ -21,6 +21,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Change a Data Source's TTL](change_ttl)
 - [Change column type from String to LowCardinality](change_column_type_to_lowcardinality)
 - [Remove Column from a Materialized View](delete_column_materialized_view)
+- [Change Copy pipe and its target Data Source](change_copy_pipe)
 
 ## Caveats
 
