@@ -5,7 +5,9 @@ SCHEMA >
     `open` Float32,
     `high` Float32,
     `low` Float32,
-    `close` Float32
+    `close` Float32,
+    `volume` Float32,
+    `split_coefficient` Float32
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toDate(date)"
@@ -15,5 +17,5 @@ IMPORT_SERVICE 'snowflake'
 IMPORT_CONNECTION_NAME 'tb_snowflake'
 IMPORT_EXTERNAL_DATASOURCE 'tinybird.samples.stock_prices'
 IMPORT_STRATEGY 'replace'
-IMPORT_QUERY 'SELECT date, symbol, open, high, low, close from tinybird.samples.stock_prices'
+IMPORT_QUERY 'SELECT date, symbol, open, high, low, close, volume, split_coefficient from tinybird.samples.stock_prices'
 IMPORT_SCHEDULE '@on-demand'
