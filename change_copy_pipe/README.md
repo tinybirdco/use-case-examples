@@ -11,7 +11,7 @@ We want to change time granularity to day. So, we need:
 
 
 [PR](https://github.com/tinybirdco/use-case-examples/pull/61)
-## Step 1: Create a new version of copy pipe
+## Step 1: Create a new version of Data Source
 
 Create new version of Data Source `copy_bots_snapshot_v1.datasource` containing the snapshot data with new granularity per day. 
 
