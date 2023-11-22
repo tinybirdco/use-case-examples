@@ -12,7 +12,7 @@ This guide will demonstrate how to add new columns from a shared data source to 
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
-Step 1: Obtain the new schema from the landing Data Source
+## Step 1: Obtain the new schema from the landing Data Source
 
 [Step 1 PR](https://github.com/tinybirdco/use-case-examples/pull/78/commits/b086cd00222fc1a33809cf2d0410b742417480fe)
 
