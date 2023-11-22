@@ -1,0 +1,23 @@
+- hits_by_using_existing_project:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+      SELECT *
+      FROM hits_from
+      HAVING hits <= 0
+    pipe:
+      name: hits_from
+      params:
+        project: 'add_sinks'
+
+- hits_by_using_not_existing_project:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+      SELECT *
+      FROM hits_from
+      HAVING hits > 0
+    pipe:
+      name: hits_from
+      params:
+        project: 'a_project_that_does_not_exist'
