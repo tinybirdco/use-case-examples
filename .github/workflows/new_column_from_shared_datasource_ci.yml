@@ -20,7 +20,7 @@
         ci: # ci using environments from workspace 'ivan_web_analytics_backoffice'
           uses: tinybirdco/ci/.github/workflows/ci.yml@v2.3.0
           with:
-            data_project_dir: .
+            data_project_dir: ./new_column_from_shared_datasource
           secrets:
             tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_SHARED_DATASOURCE }}  # set admin token associated to an account in GitHub secrets
             tb_host: https://api.tinybird.co
