@@ -23,6 +23,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Remove Column from a Materialized View](delete_column_materialized_view)
 - [Remove Column from a Snowflake Data Source](delete_column_snowflake_ds)
 - [Change Copy pipe and its target Data Source](change_copy_pipe)
+- [Use shared Data Source](use_new_columns_from_shared_datasource)
 
 ## Caveats
 
