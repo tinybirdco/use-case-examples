@@ -2,12 +2,9 @@
 
 Sharing Data Sources among multiple workspaces is a common practice. One typical scenario involves having a workspace that houses all landing Data Sources, centralizing all ingestion operations, and then sharing them with specific workspaces.
 
-```mermaid
-flowchart LR
-    A[("events (in WS A)")]
-    B[("A.events (in WS B)")]
-    A-->|shared with WS B|B
-```
+![image](https://github.com/tinybirdco/use-case-examples/assets/1078228/498a025b-6cc3-4456-9645-fcd075a129c5)
+
+Above you can see a schema from our [How to work with Data Projects guide](https://www.tinybird.co/docs/guides/how-to-work-with-data-projects.html#how-to-organize-your-data-projects). You can see highlighted a Data Source that is shared between workspaces.
 
 Throughout the lifecycle of a Data Project, it's likely that the landing Data Source schema changes, with new columns being added. In such cases, it becomes necessary to reflect those changes in the Workspaces utilizing the shared Data Source.
 
@@ -19,7 +16,7 @@ Step 1: Obtain the new schema from the landing Data Source
 
 [Step 1 PR](https://github.com/tinybirdco/use-case-examples/pull/78/commits/b086cd00222fc1a33809cf2d0410b742417480fe)
 
-The shared Data Source of a Workspace resides in the `vendor` folder, following the naming pattern `vendor/{ORIGINAL_WORKSPACE}/{DATASOURCE NAME}`.
+The shared Data Source of a Workspace resides in the `vendor` folder, following the naming pattern `vendor/{ORIGINAL_WORKSPACE}/datasources/{DATASOURCE NAME}`.
 
 First of all, create a new Git branch so that all changes can be added to a Pull Request.
 
