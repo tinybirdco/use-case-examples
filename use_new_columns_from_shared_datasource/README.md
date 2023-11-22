@@ -2,7 +2,7 @@
 
 Sharing Data Sources among multiple workspaces is a common practice. One typical scenario involves having a workspace that houses all landing Data Sources, centralizing all ingestion operations, and then sharing them with specific workspaces.
 
-![image](https://github.com/tinybirdco/use-case-examples/assets/1078228/498a025b-6cc3-4456-9645-fcd075a129c5)
+![shared data sources data project](https://github.com/tinybirdco/use-case-examples/assets/1078228/9c3b3e0c-4064-4e25-ba88-0eb0bed3fbee)
 
 Above you can see a schema from our [How to work with Data Projects guide](https://www.tinybird.co/docs/guides/how-to-work-with-data-projects.html#how-to-organize-your-data-projects). You can see highlighted a Data Source that is shared between workspaces.
 
