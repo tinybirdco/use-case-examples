@@ -1,4 +1,4 @@
-# Change a Data Source Sorting Key
+# Change an S3 Data Source Sorting Key
 
 Altering a sorting key is a complex operation involving multiple steps and requires data migration.
 
