@@ -1,3 +1,7 @@
+
+DESCRIPTION >
+    We have updated the browser column from String to LowCardinality(String) to optimize the storage and query performance.
+
 SCHEMA >
     `date` Date,
     `device` String,
