@@ -41,4 +41,38 @@ This step involves cloning the Data Source whose sorting key we want to alter, a
 - Before merging, verify your adjustments in the temporary environment that is provisioned.
 - Merge the PR to trigger the Continuous Deployment (CD) workflow, and your changes will be propagated to the Main environment.
 
-View the pull request with all changes for this step: [PR Downstream replication](https://github.com/tinybirdco/use-case-examples/pull/22/files)
+View the pull request with all changes for this step: [PR Downstream replication](https://github.com/tinybirdco/use-case-examples/pull/87/files)
+
+## Step 3: Backfilling
+- Update your Main code branch and initiate a fresh branch.
+- Await the pre-set time in the `new_data_sync.pipe` before proceeding with changes.
+- Add a backfilling pipe [`backfilling.pipe`]() to populate old data to your new Data Source and, thereby updating all the downstream.
+
+- Generate a new CI/CD version `tb release generate --semver 0.0.1`
+- Modify the CI file:
+    - Execute a custom deployment script ensuring fixtures are included for testing and the `backfilling.pipe` populates the new Data Source: tb `deploy --populate --fixtures --wait`
+
+- Modify the CD file:
+    - Similar to CI but exluding fixture appending:  `tb deploy --populate --wait`
+
+- Additionally, incorporate a Quality Test to confirm that the row counts in the new and legacy Data Sources align:
+  ```sql
+    WITH
+        curr AS (
+            SELECT count() AS cnt
+            FROM analytics_events
+            WHERE timestamp <= NOW() - INTERVAL '10 second'
+        ),
+        new AS (
+            SELECT count() AS cnt
+            FROM analytics_events_new
+            WHERE timestamp <= NOW() - INTERVAL '10 second'
+        )
+    SELECT curr.cnt - new.cnt AS diff
+    FROM curr, new
+    WHERE diff != 0
+  ```
+  
+- Push your branch, create a PR, and merge after all tests succeed. As always, inspect your temporary environment for the PR to ensure all is in order before advancing to production.
+
+View the pull request with all changes for this step: [PR Backfilling](https://github.com/tinybirdco/use-case-examples/pull/88/files) 
