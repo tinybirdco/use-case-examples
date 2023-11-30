@@ -1,0 +1,19 @@
+DESCRIPTION >
+	Materialized to move RT data from legacy to the new analytics_events datasource
+
+NODE materialize_on_analytics_events_new
+
+SQL >
+
+    SELECT
+      timestamp,
+      action,
+      version,
+      session_id,
+      payload
+    FROM
+      analytics_events
+    WHERE timestamp > '2023-11-30 13:40:00'
+
+TYPE materialized
+DATASOURCE analytics_events_new
