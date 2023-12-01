@@ -1,0 +1,19 @@
+DESCRIPTION >
+	Pipe to populate analytics
+
+NODE migrate_old_data_analytics
+
+SQL >
+
+    SELECT
+      timestamp,
+      action,
+      version,
+      session_id,
+      payload
+    FROM
+      analytics_events
+    WHERE timestamp <= '2023-11-30 13:40:00'
+
+TYPE materialized
+DATASOURCE analytics_events_new
