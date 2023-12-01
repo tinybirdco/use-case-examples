@@ -2,7 +2,7 @@
 
 Altering a sorting key is a complex operation involving multiple steps and requires data migration.
 
-When connecting Landing Data Sources to S3, there are several options available:
+To change the sorting key to an S3 Data Source there are different possible approaches:
 
 - This example approach is applicable when you can designate a new bucket or folder as the origin for a new connector. It is advisable to use this approach if you prefer not to re-ingest all the data from S3, or if you are able to maintain the exact same data in the Data Source that needs modification.
 
