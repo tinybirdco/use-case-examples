@@ -2,6 +2,12 @@
 
 Altering a sorting key is a complex operation involving multiple steps and requires data migration.
 
+To change the sorting key to an S3 Data Source there are different possible approaches:
+
+- This example approach is applicable when you can designate a new bucket or folder as the origin for a new connector. It is advisable to use this approach if you prefer not to re-ingest all the data from S3, or if you are able to maintain the exact same data in the Data Source that needs modification.
+
+- If re-ingesting the entire set of S3 data is acceptable for you, or if altering your S3 paths is not feasible, we are preparing an alternative example. The link to this example will be provided HERE once it is ready.
+
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
 In this example we have changed the Landing Data Source to ingest from S3 appending these lines to the end of the file `analytics_events.datasource`
@@ -76,3 +82,13 @@ View the pull request with all changes for this step: [PR Downstream replication
 - Push your branch, create a PR, and merge after all tests succeed. As always, inspect your temporary environment for the PR to ensure all is in order before advancing to production.
 
 View the pull request with all changes for this step: [PR Backfilling](https://github.com/tinybirdco/use-case-examples/pull/88/files) 
+
+## Step 4: Change endpoints to the new downstream
+
+Now it's the moment to change the Pipe Endpoints to query the new created resources. This operations is safe because `analytics_events` and `analytics_events_new` are synced and all the information ingested by `analytics_events` will be materialized into `analytics_events_new`.
+
+You can see the changes for this step: [PR Endpoints](https://github.com/tinybirdco/use-case-examples/pull/94/files)
+
+## Step 5: Change endpoints to the new downstream
+
+Once at this point, you're ready to change the S3 bucket/folder where you store the data to ingest. The information in this new folder (in this example `s3://webanalyticstb/v2/`) will be ingested only by the new Data Source `analytics_events_new`. Once the change is done you can remove the legacy resources `analytics_events.datasource` and downstream, `backfilling.pipe` and `new_data_sync.pipe`.
