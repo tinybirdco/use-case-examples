@@ -52,7 +52,7 @@ SQL >
               max(timestamp) as latest_hit_aux,
               min(timestamp) as first_hit_aux
             from
-              analytics_hits
+              analytics_hits_new
             where
               toDate(timestamp) = {{Date(date_from)}}
             group by
@@ -67,7 +67,7 @@ SQL >
               max(latest_hit) as latest_hit_aux,
               min(first_hit) as first_hit_aux
             from
-              analytics_sessions_mv
+              analytics_sessions_mv_new
             where
               {% if defined(date_from) %}
                 date >= {{Date(date_from)}}
