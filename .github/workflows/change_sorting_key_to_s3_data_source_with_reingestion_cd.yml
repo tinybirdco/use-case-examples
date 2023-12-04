@@ -1,0 +1,24 @@
+
+    ##################################################
+    ###   Visit https://github.com/tinybirdco/ci   ###
+    ###   for more details or custom CI/CD         ###
+    ##################################################
+
+    name: Tinybird - CD Workflow
+
+    on:
+      workflow_dispatch:
+      push:
+        paths:
+          - 'change_sorting_key_to_s3_data_source_with_reingestion/**'
+        branches:
+          - main
+    jobs:
+      cd:
+        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        with:
+          tb_deploy: false
+          data_project_dir: ./change_sorting_key_to_s3_data_source_with_reingestion
+        secrets:
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CHANGE_SORTING_KEY_TO_S3_DATA_SOURCE_WITH_REINGESTION }}
+          tb_host: https://api.tinybird.co
