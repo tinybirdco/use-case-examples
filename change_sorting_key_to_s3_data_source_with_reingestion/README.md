@@ -18,23 +18,3 @@ The strategy followed to change the sorting key is:
 2. Duplicate and Sync the downstream, except the Pipe endpoints. The downstream are all the resources depending on your Data Source.
 3. Wait until the S3 information has been ingested and it's in the new Data Source.
 4. Change the Pipe endpoints to point to your new downstream.
-
-## Step 1 and 2: New Data Source and Downstream Replication
-This step involves cloning the Data Source whose sorting key we want to alter, along with all dependent Materialized Views, to create a new Downstream branch. This is where you will transition all relevant data to utilize the new Sorting Key by re-ingesting all the data from the S3 bucket.
-
-- Establish a new branch
-- Replicate your Data Source with the updated sorting key and bucket URI:
-  - `analytics_events.datasource` -> `analytics_events_new (using the new sorting key)`
-- Replicate all dependent resources. These include your Data Source and all Materialized Views and Pipes that link them. Do not clone or modify Pipe Endpoints at this time.
-  - `analytics_events.datasource` -> `analytics_events_new` (with the new sorting key)
-  - `analytics_pages_mv.datasource` -> `analytics_pages_mv_new.datasource`
-  - `analytics_sessions_mv.datasource` -> `analytics_session_mv_new.datasource`
-  - `analytics_sources_mv.datasource` -> `analytics_sources_mv_new.datasource`
-  - `analytics_sessions.pipe` -> `analytics_sessions_new.pipe` (alter to materialize on `analytics_sessions_mv_new.datasource`)
-  - `analytics_pages.pipe` -> `analytics_pages_new.pipe` (alter to materialize on `analytics_pages_mv_new.datasource`)
-  - `analytics_sources.pipe` -> `analytics_sources_new.pipe` (alter to materialize on `analytics_sources_mv_new.datasource`)
-- Push the changes to the branch and initiate a Pull Request. The Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://www.tinybird.co/docs/guides/implementing-test-strategies.html)). 
-- Before merging, verify your adjustments in the temporary environment that is provisioned.
-- Merge the PR to trigger the Continuous Deployment (CD) workflow, and your changes will be propagated to the Main environment.
-
-View the pull request with all changes for this step: [PR Downstream replication](https://github.com/tinybirdco/use-case-examples/pull/97/files)
