@@ -16,7 +16,8 @@
 
 - Create a new branch
 - Add a new column to the `bq_pypi.datasource`
-- Create a custom deployment (`tb release generate --semver 0.0.2` => in this case 0.0.2 corresponds the current live Release) to alter the table with `tb deploy --yes` in the current live Release.
+- Create a custom deployment (`tb release generate --semver 0.0.2` => in this case 0.0.2 corresponds the current live Release).
+- Modify `ci-deploy.sh` and `cd-deploy.sh` to include the alter flag in the deploy command => `tb deploy --yes`. The change will be applied to the current live Release.
 - Push your changes
 - Once the PR is merged and the CD GitHub Action finishes, since the custom deployment modified the current live Release there's no need to promote.
 
