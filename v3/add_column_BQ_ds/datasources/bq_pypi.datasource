@@ -5,7 +5,8 @@ SCHEMA >
     `timestamp` DateTime,
     `cli_version` LowCardinality(String),
     `python_version` LowCardinality(String),
-    `country_code` Nullable(String)
+    `country_code` Nullable(String),
+    `test` Nullable(String)
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toDate(timestamp)"
@@ -21,6 +22,7 @@ IMPORT_QUERY >
         file.version as cli_version,
         details.python as python_version,
         `country_code`
+        '1' as test
     FROM `bigquery-public-data.pypi.file_downloads`
     WHERE DATE(timestamp) >= DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY) AND project = 'tinybird-cli'"
 
