@@ -22,6 +22,7 @@ This iteration adds a column in a BigQuery Data Source in the current `live` Rel
 - Modify `ci-deploy.sh` and `cd-deploy.sh` to include the alter flag in the deploy command => `tb deploy --yes`. The change will be applied to the current live Release.
 - Push your changes
 - Once the PR is merged and the CD GitHub Action finishes, since the custom deployment modified the current live Release there's no need to promote.
+- To sync data from BigQuery run `tb datasource sync by_pypi`
 
 ### Create a new version of a BigQuery Data Source in an new Release
 
@@ -32,10 +33,12 @@ Alternatively you can create a new Release (0.0.3) and create a new version of t
 - Create a new branch
 - Add a new `test` column to the `bq_pypi.datasource`
 - Create a custom deployment (`tb release generate --semver 0.0.3` => in this case 0.0.3 will create a new Release).
-- Modify `ci-deploy.sh` and `cd-deploy.sh` to drop the Data Source before creating it again.
+- Modify `ci-deploy.sh` and `cd-deploy.sh` to drop the Data Source before creating deploying to the Release.
 - Push your changes
+- To sync data from BigQuery run `tb --semver 0.0.3 datasource sync by_pypi`
 - Once the PR is merged and the CD GitHub Action finishes, go to Actions -> Tinybird - Releases Workflow -> Run workflow and run the `promote` job in the `main` Branch.
 - [Optional] You can rollback to the previous release by running `tb release rollback --semver 0.0.3`. Note when you rollback the live Release will be 0.0.2 and the Release 0.0.3 will be deleted. Also you have to make sure to rollback the changes in your main git branch.
+
 
 [Internal workspace](https://ui.tinybird.co/a7e39224-c34e-462e-8667-f7ae3cb04c87/dashboard)
 
