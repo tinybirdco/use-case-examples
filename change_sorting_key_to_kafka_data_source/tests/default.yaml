@@ -1,0 +1,8 @@
+- recent-visits-exist:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+        SELECT count() AS cnt
+        FROM product_events
+        WHERE __timestamp >= NOW() - INTERVAL '1 month'
+        HAVING cnt = 0

@@ -1,0 +1,28 @@
+
+SCHEMA >
+    `datetime` DateTime `json:$.datetime`,
+    `device` String `json:$.device`,
+    `event_id` String `json:$.event_id`,
+    `event_name` String `json:$.event_name`,
+    `fingerprint` String `json:$.fingerprint`,
+    `price` Int16 `json:$.price`,
+    `product_id` String `json:$.product_id`,
+    `product_type` String `json:$.product_type`,
+    `url` String `json:$.url`,
+    `user_agent` String `json:$.user_agent`,
+    `meta_color` Nullable(String) `json:$.meta.color`,
+    `meta_size` Nullable(String) `json:$.meta.size`,
+    `meta_image` Nullable(String) `json:$.meta.image`
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(__timestamp)"
+ENGINE_SORTING_KEY "__timestamp"
+
+KAFKA_CONNECTION_NAME 'kafka_connection'
+KAFKA_TOPIC 'add_column_kafka_ds'
+KAFKA_GROUP_ID 'kfk_group_id'
+KAFKA_AUTO_OFFSET_RESET 'earliest'
+KAFKA_STORE_RAW_VALUE 'False'
+KAFKA_STORE_HEADERS 'False'
+KAFKA_TARGET_PARTITIONS 'auto'
+KAFKA_KEY_AVRO_DESERIALIZATION ''
