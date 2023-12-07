@@ -1,4 +1,3 @@
-
 SCHEMA >
     `timestamp` DateTime,
     `datetime` DateTime,

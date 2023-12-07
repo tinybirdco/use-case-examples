@@ -1,19 +1,22 @@
-SELECT
-    __timestamp as timestamp,
-    event_name,
-    event_id,
-    fingerprint,
-    device,
-    user_agent,
-    url,
-    product_id,
-    product_type,
-    price,
-    meta_color,
-    meta_size,
-    meta_image
-FROM product_events
-WHERE timestamp > '2023-12-07 17:15:00'
+NODE mat_product_ev
+
+SQL >
+    SELECT
+        __timestamp as timestamp,
+        event_name,
+        event_id,
+        fingerprint,
+        device,
+        user_agent,
+        url,
+        product_id,
+        product_type,
+        price,
+        meta_color,
+        meta_size,
+        meta_image
+    FROM product_events
+    WHERE timestamp > '2023-12-07 17:15:00'
 
 TYPE materialized
 DATASOURCE product_events_mv
