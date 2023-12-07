@@ -3,6 +3,6 @@
     max_time: null
     sql: |
         SELECT count() AS cnt
-        FROM kafka_products
-        WHERE __timestamp >= NOW() - INTERVAL '1 month '
-        HAVING count() = 0
+        FROM product_events
+        WHERE __timestamp >= NOW() - INTERVAL '1 month'
+        HAVING cnt = 0
