@@ -1,6 +1,6 @@
 # Change Sorting Key in a Kafka connected Data Source
 
-The solution is to create a Materialized View with the desired Sorting Key, between the Kafka Landing Data Source and its endpoints.
+The solution consists of creating a Materialized View with the desired Sorting Key, between the Kafka Landing Data Source and its endpoints.
 
 ## Initial status
 
