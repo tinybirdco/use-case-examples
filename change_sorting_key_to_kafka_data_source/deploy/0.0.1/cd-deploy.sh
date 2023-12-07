@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-tb deploy
+tb deploy --populate --wait
