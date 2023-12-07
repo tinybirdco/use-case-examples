@@ -6,3 +6,21 @@
         FROM product_events
         WHERE datetime >= NOW() - INTERVAL '1 month'
         HAVING cnt = 0
+- no-difference-between-landing-data-source-and-new-mv:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+      WITH
+          curr AS (
+              SELECT count() AS cnt
+              FROM product_events
+              WHERE __timestamp <= NOW() - INTERVAL '10 second'
+          ),
+          new AS (
+              SELECT count() AS cnt
+              FROM product_events_mv
+              WHERE timestamp <= NOW() - INTERVAL '10 second'
+          )
+      SELECT curr.cnt - new.cnt AS diff
+      FROM curr, new
+      WHERE diff != 0
