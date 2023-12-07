@@ -4,5 +4,5 @@
     sql: |
         SELECT count() AS cnt
         FROM product_events
-        WHERE __timestamp >= NOW() - INTERVAL '1 month'
+        WHERE datetime >= NOW() - INTERVAL '1 month'
         HAVING cnt = 0

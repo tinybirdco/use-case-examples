@@ -1,0 +1,19 @@
+SCHEMA >
+    `timestamp` DateTime,
+    `datetime` DateTime,
+    `device` String,
+    `event_id` String,
+    `event_name` String,
+    `fingerprint` String,
+    `price` Int16,
+    `product_id` String,
+    `product_type` String,
+    `url` String,
+    `user_agent` String,
+    `meta_color` Nullable(String),
+    `meta_size` Nullable(String),
+    `meta_image` Nullable(String)
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
+ENGINE_SORTING_KEY "timestamp, event_name"
