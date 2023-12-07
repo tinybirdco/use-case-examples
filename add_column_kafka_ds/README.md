@@ -6,13 +6,13 @@ In this use case we are going to add a column to Kafka Data Source. The same ste
 
 ### 1st Kafka Data Source 
 
-[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/xx)
+[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/79)
 
 You have already created a Kafka Data Sources using the UI or with CLI following [the docs](https://www.tinybird.co/docs/ingest/kafka.html).
 
 ### 2nd Add the new column to the kafka Data Source
 
-[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/xx)
+[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/83)
 
 - Create a new branch
 - Add a new column in the Data Source. For example you can do:
