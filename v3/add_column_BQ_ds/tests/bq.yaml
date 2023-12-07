@@ -1,0 +1,7 @@
+- new_test_column_in_bq_pypi:
+    sql: |
+        SELECT test
+        FROM bq_pypi
+        WHERE test < 0
+    max_time: 0.00000001
+    max_bytes_read: -1
