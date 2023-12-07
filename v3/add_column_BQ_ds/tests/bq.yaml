@@ -2,6 +2,6 @@
     sql: |
         SELECT test
         FROM bq_pypi
-        WHERE test < 0
+        WHERE test != '1'
     max_time: 0.00000001
     max_bytes_read: -1
