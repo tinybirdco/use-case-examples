@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-tb deploy --yes --fixtures
+tb deploy --yes
