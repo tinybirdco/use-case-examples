@@ -8,7 +8,7 @@ We have two endpoints connected to a Kafka Data Source. We want to change the So
 
 ![Initial status](imgs/1.png)
 
-[#Project initialization PR](https://github.com/tinybirdco/use-case-examples/pull/103)
+[#Project initialization PR](https://github.com/tinybirdco/use-case-examples/pull/103/files)
 
 ## Step 1 - Create the Materialized View with the desired Sorting Key
 
@@ -18,7 +18,7 @@ We have two endpoints connected to a Kafka Data Source. We want to change the So
 
 ![Materialized View without data yet](imgs/2.png)
 
-[#New MV PR](https://github.com/tinybirdco/use-case-examples/pull/104)
+[#New MV PR](https://github.com/tinybirdco/use-case-examples/pull/104/files)
 
 ## Step 2: Backfilling
 
@@ -54,11 +54,11 @@ We have two endpoints connected to a Kafka Data Source. We want to change the So
 
 ![After the backfilling both Data Sources have the same data](imgs/3.png)
 
-[#Backfilling PR](https://github.com/tinybirdco/use-case-examples/pull/108)
+[#Backfilling PR](https://github.com/tinybirdco/use-case-examples/pull/108/files)
 
-# Step 3 - Move the endpoints to the new Materialized View
+# Final Step - Move the endpoints to the new Materialized View
 
-It's the momment to change the endpoints to point to the new Materialized View instead of the Landing Kafka Data Source.
+We've reached the point to change the endpoints to query the new Materialized View instead of the Landing Kafka Data Source.
 
 ```diff
 index c15a30f..7fa848c 100644
@@ -100,6 +100,6 @@ index c49d0e3..a9071af 100644
 
 ![Final picture](imgs/4.png)
 
-[#Endpoints PR](https://github.com/tinybirdco/use-case-examples/pull/106)
+[#Endpoints PR](https://github.com/tinybirdco/use-case-examples/pull/106/files)
 
 > We keep the `backfilling.pipe` for demo purposes but at this point it is safe to remove it
