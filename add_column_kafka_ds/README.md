@@ -1,8 +1,6 @@
 # Add a new column to a Kafka Data Source
 
-In this use case we are going to add a column to Kafka Data Source. The same steps will work independentry of the MergeTree engine used. This operation is still not supported for Kafka Data Sources created with Null Engine.
-
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
+In this use case we are going to add a column to a Kafka Data Source. The same steps will work independently of the MergeTree engine used.
 
 ### 1st Kafka Data Source 
 
@@ -12,7 +10,7 @@ You have already created a Kafka Data Sources using the UI or with CLI following
 
 ### 2nd Add the new column to the kafka Data Source
 
-[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/83)
+[Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/83)
 
 - Create a new branch
 - Add a new column in the Data Source. For example you can do:
