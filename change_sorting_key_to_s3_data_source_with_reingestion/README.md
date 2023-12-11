@@ -38,3 +38,11 @@ This step involves cloning the Data Source whose sorting key we want to alter, a
 - Merge the PR to trigger the Continuous Deployment (CD) workflow, and your changes will be propagated to the Main environment.
 
 View the pull request with all changes for this step: [PR Downstream replication](https://github.com/tinybirdco/use-case-examples/pull/97)
+
+(Wait until the DS is Synced within the S3 bucket)
+
+# Step 4
+
+Change the Pipe endpoints to point to the new Downstrem. Then you can remove the legacy Data Source and Downstream.
+
+[Change Pipe endpoints PR](https://github.com/tinybirdco/use-case-examples/pull/98)
