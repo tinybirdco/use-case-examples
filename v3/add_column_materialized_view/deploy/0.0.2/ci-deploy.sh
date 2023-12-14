@@ -1,4 +1,9 @@
 #!/bin/bash
 set -e
 
-tb deploy --populate --fixtures --wait
+source .tinyenv
+tb release create --semver ${VERSION}
+tb --semver ${VERSION} deploy --fixtures --fork-downstream --populate --wait
+tb release preview --semver ${VERSION}
+tb release promote --semver ${VERSION}
+tb release ls
