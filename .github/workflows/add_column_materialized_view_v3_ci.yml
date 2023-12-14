@@ -1,0 +1,27 @@
+
+    ##################################################
+    ###   Visit https://github.com/tinybirdco/ci   ###
+    ###   for more details or custom CI/CD         ###
+    ##################################################
+
+    name: Tinybird - CI Workflow
+
+    on:
+      workflow_dispatch:
+      pull_request:
+        paths:
+          - 'v3/add_column_materialized_view/**'
+        branches:
+         - main
+        types: [opened, reopened, labeled, unlabeled, synchronize, closed]
+
+    concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+
+    jobs:
+        ci:
+          uses: tinybirdco/ci/.github/workflows/ci.yml@main
+          with:
+            data_project_dir: ./v3/add_column_materialized_view
+          secrets:
+            tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_MATERIALIZED_VIEW_V3 }}
+            tb_host: https://api.tinybird.co

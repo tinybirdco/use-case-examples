@@ -3,9 +3,6 @@
 
 fail=0;
 
-# We set this environment variable to avoid the CLI to show the warning about a new version
-export TB_VERSION_WARNING=0
-
 for t in `find ./tests -name "*.test"`; do
   echo "** Running $t **"
   echo "** $(cat $t)"
