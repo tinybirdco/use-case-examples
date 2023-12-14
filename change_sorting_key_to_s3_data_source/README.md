@@ -2,11 +2,7 @@
 
 Altering a sorting key is a complex operation involving multiple steps and requires data migration.
 
-To change the sorting key to an S3 Data Source there are different possible approaches:
-
-- This example approach is applicable when you can designate a new bucket or folder as the origin for a new connector. It is advisable to use this approach if you prefer not to re-ingest all the data from S3, or if you are able to maintain the exact same data in the Data Source that needs modification.
-
-- If re-ingesting the entire set of S3 data is acceptable for you, or if altering your S3 paths is not feasible, we are preparing an alternative example. The link to this example will be provided HERE once it is ready.
+To change the sorting key for an S3 Data Source, there are several possible approaches. Please ensure you have read and understood [this document](../S3_changing_landing_datasource.md) before proceeding.
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 

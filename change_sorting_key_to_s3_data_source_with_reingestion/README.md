@@ -1,5 +1,9 @@
 # Change an S3 Data Source Sorting Key With Reingestion
 
+Altering a sorting key is a complex operation involving multiple steps and requires data migration.
+
+To change the sorting key for an S3 Data Source, there are several possible approaches. Please ensure you have read and understood [this document](../S3_changing_landing_datasource.md) before proceeding.
+
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
 In this example we have changed the Landing Data Source to ingest from S3 appending these lines to the end of the file `analytics_events.datasource`
