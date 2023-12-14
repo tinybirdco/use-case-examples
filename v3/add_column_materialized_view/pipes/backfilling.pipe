@@ -1,0 +1,24 @@
+NODE analytics_sessions_1
+DESCRIPTION >
+    Aggregate by session_id and calculate session metrics
+
+SQL >
+
+    SELECT
+        toDate(timestamp) AS date,
+        session_id,
+        anySimpleState(version) AS version,
+        anySimpleState(device) AS device,
+        anySimpleState(browser) AS browser,
+        anySimpleState(location) AS location,
+        minSimpleState(timestamp) AS first_hit,
+        maxSimpleState(timestamp) AS latest_hit,
+        countState() AS hits
+    FROM live.analytics_hits
+    WHERE timestamp <= '2023-12-14 11:45:00'
+    GROUP BY
+        date,
+        session_id
+
+TYPE materialized
+DATASOURCE analytics_sessions_mv
