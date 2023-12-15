@@ -1,0 +1,7 @@
+SQL >
+    SELECT toStartOfDay(date_hour) as date, bot_source, pathname, sum(hits) as hits FROM live.copy_bots_snapshot
+    WHERE toDate(date_hour) < today()
+    GROUP BY date, pathname, bot_source
+
+TYPE materialized
+DATASOURCE copy_bots_snapshot
