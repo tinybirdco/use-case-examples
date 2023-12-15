@@ -1,0 +1,1 @@
+tb sql "select count() as c from bq_pypi where test = '1'" --format csv
