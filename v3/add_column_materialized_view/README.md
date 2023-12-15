@@ -15,7 +15,7 @@ For that the steps will be:
 
 ## Step 1 and 2: Change the Materialized View and create a Preview Release
 
-[Pull Request #1] (https://github.com/tinybirdco/use-case-examples/pull/113/files)
+[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/113/files)
 
 - Change the Materialized View: Pipe and Datasource
 
@@ -74,7 +74,7 @@ Please note that in this Preview Release we're ingesting the production data, bu
 
 ## Step 3
 
-[Pull Request #2] (https://github.com/tinybirdco/use-case-examples/pull/114/files)
+[Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/114/files)
 
 - Create the the `backfilling.pipe` to move all the data previous to the filter date.
 
