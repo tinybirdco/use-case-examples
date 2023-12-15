@@ -1,0 +1,11 @@
+- pipe: '.*'
+  tests:
+    - coverage:
+
+- pipe: 'analytics_hits'
+  tests:
+    - coverage:
+        config:
+          # skip until start to use it
+          skip: True
+
