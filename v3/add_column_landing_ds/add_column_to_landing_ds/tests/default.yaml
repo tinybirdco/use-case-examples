@@ -1,0 +1,13 @@
+- no-visits-without-pageviews:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+      SELECT * FROM kpis
+      WHERE visits = 0 AND pageviews > 0
+- no-pageviews-without-visits:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+      SELECT * FROM kpis
+      WHERE visits > 0 AND pageviews = 0
+
