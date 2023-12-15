@@ -1,1 +1,0 @@
-https://storage.googleapis.com/dev-alrocar-public/tinybird_cli-2.0.0.dev0-py3-none-any.whl
