@@ -20,7 +20,7 @@
 
     jobs:
         ci: # ci using environments from workspace 'v3_add_column_landing_ds'
-          uses: tinybirdco/ci/.github/workflows/ci.yml@main
+          uses: tinybirdco/ci/.github/workflows/ci.yml@2.0.0-release
           with:
             tb_deploy: true
             data_project_dir: v3_add_column_landing_ds
