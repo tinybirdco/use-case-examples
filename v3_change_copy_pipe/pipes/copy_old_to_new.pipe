@@ -1,3 +1,4 @@
+NODE old_to_new
 SQL >
     SELECT toStartOfDay(date_hour) as date, bot_source, pathname, sum(hits) as hits FROM live.copy_bots_snapshot
     WHERE toDate(date_hour) < today()
