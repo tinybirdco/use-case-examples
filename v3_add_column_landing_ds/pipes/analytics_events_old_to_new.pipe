@@ -1,6 +1,6 @@
 NODE old_to_new_01
 SQL > 
-    SELECT timestamp, session_id, action, version, null as environment, payload
+    SELECT timestamp, session_id, action, version, '' as environment, payload
     FROM live.analytics_events
 
 TYPE MATERIALIZED
