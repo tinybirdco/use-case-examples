@@ -1,0 +1,24 @@
+
+    ##################################################
+    ###   Visit https://github.com/tinybirdco/ci   ###
+    ###   for more details or custom CI/CD         ###
+    ##################################################
+
+    name: Tinybird - CD Workflow
+
+    on:
+      workflow_dispatch:
+      push:
+        paths:
+          - 'v3/add_new_column_to_a_materialized_view_v3/**'
+        branches:
+          - main
+    jobs:
+      cd:
+        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        with:
+          tb_deploy: false
+          data_project_dir: ./v3/add_new_column_to_a_materialized_view_v3
+        secrets:
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_MATERIALIZED_V3 }}
+          tb_host: https://api.tinybird.co
