@@ -15,7 +15,7 @@
           - main
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        uses: tinybirdco/ci/.github/workflows/cd.yml@2.0.0-release
         with:
           tb_deploy: false
           data_project_dir: ./v3/add_new_column_to_a_materialized_view_v3
