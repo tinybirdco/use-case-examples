@@ -20,7 +20,7 @@
 
     jobs:
         ci: # ci using environments from workspace 'v3_delete_simple_resource'
-          uses: tinybirdco/ci/.github/workflows/ci.yml@2.0.0-release
+          uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
             tb_deploy: true
             data_project_dir: v3/delete_simple_resource

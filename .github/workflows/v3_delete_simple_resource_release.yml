@@ -16,7 +16,7 @@
 
     jobs:
       cd:  # manage releases for workspace 'v3_add_column_landing_ds'
-        uses: tinybirdco/ci/.github/workflows/release.yml@2.0.0-release
+        uses: tinybirdco/ci/.github/workflows/release.yml@main
         with:
           job_to_run: ${{ inputs.job_to_run }}
           data_project_dir: v3/delete_simple_resource
