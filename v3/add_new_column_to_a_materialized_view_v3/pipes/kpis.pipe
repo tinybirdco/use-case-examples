@@ -31,7 +31,11 @@ SQL >
             {% else %}
             select arrayJoin(arrayMap(x -> toDate(x), range(toUInt32(start), toUInt32(timestampAdd(end, interval 1 day)), 24 * 3600))) as date
             {% end %}
-            where date <= now()
+            {% if defined(current_date) %}
+              where date <= toDateTime({{DateTime(current_date, description="Current date and time. Useful parameter for testing.", required=False)}})
+            {% else %}
+              where date <= now()
+            {% end %}
 
 
 
