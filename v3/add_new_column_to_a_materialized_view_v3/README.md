@@ -42,7 +42,7 @@ ENGINE_SORTING_KEY "date, session_id"
 SELECT
         toDate(timestamp) AS date,
         session_id,
-+        anySimpleState(version) AS version,
++       anySimpleState(version) AS version,
         anySimpleState(device) AS device,
         anySimpleState(browser) AS browser,
         anySimpleState(location) AS location,
@@ -50,7 +50,7 @@ SELECT
         maxSimpleState(timestamp) AS latest_hit,
         countState() AS hits
     FROM analytics_hits
-    WHERE timestamp > '2023-12-14 11:45:00'
++   WHERE timestamp > '2023-12-20 10:00:00'
     GROUP BY
         date,
         session_id
