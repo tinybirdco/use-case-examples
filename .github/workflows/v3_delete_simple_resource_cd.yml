@@ -13,7 +13,7 @@
           - main
           - master
         paths:
-          - 'v3_delete_simple_resource/**'
+          - 'v3/delete_simple_resource/**'
     jobs:
       cd:  # deploy changes to workspace 'v3_delete_simple_resource'
         uses: tinybirdco/ci/.github/workflows/cd.yml@main

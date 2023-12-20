@@ -14,7 +14,7 @@
           - master
         types: [opened, reopened, labeled, unlabeled, synchronize, closed]
         paths:
-          - 'v3_delete_simple_resource/**'
+          - 'v3/delete_simple_resource/**'
 
     concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
 
