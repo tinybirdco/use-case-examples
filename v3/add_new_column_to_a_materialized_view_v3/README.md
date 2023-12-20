@@ -8,11 +8,12 @@ This change needs to re-create the Materialized View and populate it again with 
 
 For that the steps will be:
 
-(In this Pull Request)
+[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/141/files):
 1. Change the Materialized View (Pipe and Data Source) to add the new column.
 2. Bump version from 0.0.0 -> 0.0.1. It will create a new Preview Release internally forking the Materialized View and its dependencies.
 
-(Out of this Pull Request)
+(To be done)
+
 3. Backfill the Preview Release Materialized View with the data previous to its creation.
 4. Promote the release from Preview to Live.
 
@@ -67,10 +68,46 @@ SELECT
 - Bump to the next version `0.1.0` .tinyenv it will re-create the Materialized View and all its downstream in a Preview Release. 
 
 `.tinyenv`
-  ```sh
-    VERSION=0.1.0
+  ```diff
+-   VERSION=0.0.1
++   VERSION=0.1.0
   ```
 
 Please note that in this Preview Release we're ingesting the production data, but lacks the rows prior to the filter date we previously established. Once we reach that filter date in time, we can then proceed with the backfilling process first and then to promote the release to production.
 
-[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/141/files)
+## 3: Create a Materialized View to populate 
+Once we reach the future filter date we can backfill the Data Source with all the data previous to that date. For that, create a new Materialized Pipe that will populate the `analytics_sessions_mv.datasource`.
+
+`backfilling.pipe`
+
+```sql
+NODE backfiling
+DESCRIPTION >
+    Aggregate by session_id and calculate session metrics
+
+SQL >
+
+    SELECT
+        toDate(timestamp) AS date,
+        session_id,
+        anySimpleState(version) AS version,
+        anySimpleState(device) AS device,
+        anySimpleState(browser) AS browser,
+        anySimpleState(location) AS location,
+        minSimpleState(timestamp) AS first_hit,
+        maxSimpleState(timestamp) AS latest_hit,
+        countState() AS hits
+    FROM analytics_hits
+    WHERE timestamp <= '2023-12-21 07:00:00'
+    GROUP BY
+        date,
+        session_id
+
+TYPE materialized
+DATASOURCE analytics_sessions_mv
+```
+
+## 4: Promote the changes
+Once the Materialized View has been already populated you can promote the Preview Release to `live`.
+
+
