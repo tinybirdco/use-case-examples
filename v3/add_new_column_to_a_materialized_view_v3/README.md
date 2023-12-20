@@ -50,7 +50,7 @@ SELECT
         maxSimpleState(timestamp) AS latest_hit,
         countState() AS hits
     FROM analytics_hits
-+   WHERE timestamp > '2023-12-20 10:00:00'
++   WHERE timestamp > '2023-12-21 07:00:00'
     GROUP BY
         date,
         session_id
@@ -64,11 +64,11 @@ SELECT
   In a further step, we'll backfill the data previous to that date.
 
 ## 2: Bump version
-- Bump to the next version `0.0.1` .tinyenv it will re-create the Materialized View and all its downstream in a Preview Release. 
+- Bump to the next version `0.1.0` .tinyenv it will re-create the Materialized View and all its downstream in a Preview Release. 
 
 `.tinyenv`
   ```sh
-    VERSION=0.0.1
+    VERSION=0.1.0
   ```
 
 Please note that in this Preview Release we're ingesting the production data, but lacks the rows prior to the filter date we previously established. Once we reach that filter date in time, we can then proceed with the backfilling process first and then to promote the release to production.
