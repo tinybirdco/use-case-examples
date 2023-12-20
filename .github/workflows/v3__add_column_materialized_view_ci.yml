@@ -21,6 +21,7 @@
         ci:
           uses: tinybirdco/ci/.github/workflows/ci.yml@2.0.0-release
           with:
+            tb_deploy: true
             data_project_dir: ./v3/add_new_column_to_a_materialized_view_v3
           secrets:
             tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_MATERIALIZED_V3 }}
