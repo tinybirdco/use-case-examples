@@ -8,14 +8,12 @@ This change needs to re-create the Materialized View and populate it again with 
 
 For that the steps will be:
 
-[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/141/files):
 1. Change the Materialized View (Pipe and Data Source) to add the new column.
 2. Bump version from 0.0.0 -> 0.0.1. It will create a new Preview Release internally forking the Materialized View and its dependencies.
-
-(To be done)
-
 3. Backfill the Preview Release Materialized View with the data previous to its creation.
 4. Promote the release from Preview to Live.
+
+[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/141/files)
 
 ## 1: Change the Materialized View
 
@@ -51,21 +49,13 @@ SELECT
         maxSimpleState(timestamp) AS latest_hit,
         countState() AS hits
     FROM analytics_hits
-+   WHERE timestamp > '2023-12-21 07:00:00'
     GROUP BY
         date,
         session_id
 ```
 
-
-> As you can see, we added a filter to prevent duplication by synchronizing data streams after a specific point in time in future:
-  ```sql
-  WHERE timestamp > 'YYYY-MM-DD HH:MM:SS'
-  ```
-  In a further step, we'll backfill the data previous to that date.
-
 ## 2: Bump version
-- Bump to the next version `0.1.0` .tinyenv it will re-create the Materialized View and all its downstream in a Preview Release. 
+- Bump to the next version `0.1.0` in the `.tinyenv` file. It will **re-create** the Materialized View and all its downstream in a new `Preview Release`. 
 
 `.tinyenv`
   ```diff
@@ -73,41 +63,31 @@ SELECT
 +   VERSION=0.1.0
   ```
 
-Please note that in this Preview Release we're ingesting the production data, but lacks the rows prior to the filter date we previously established. Once we reach that filter date in time, we can then proceed with the backfilling process first and then to promote the release to production.
+Please note that in this Preview Release we're ingesting the production data, but `analytics_sessions_mv` lacks the rows prior to its recent creation. We show how to backfill it in the next step.
 
-## 3: Create a Materialized View to populate 
-Once we reach the future filter date we can backfill the Data Source with all the data previous to that date. For that, create a new Materialized Pipe that will populate the `analytics_sessions_mv.datasource`.
+## 3: Backfilling 
+Once you have deploy the previous changes and are ready in a Preview Release you need to backfill the data previous to the Materialized View re-creation.
 
-`backfilling.pipe`
+- Get the creation date by executing the following command
+```sh
+tb --semver 0.1.0 datasource ls
+```
+or
 
-```sql
-NODE backfiling
-DESCRIPTION >
-    Aggregate by session_id and calculate session metrics
+```sh
+tb --semver 0.0.1 sql "select timestamp from tinybird.datasources_ops_log where event_type = 'create' limit 1"
+```
 
-SQL >
-
-    SELECT
-        toDate(timestamp) AS date,
-        session_id,
-        anySimpleState(version) AS version,
-        anySimpleState(device) AS device,
-        anySimpleState(browser) AS browser,
-        anySimpleState(location) AS location,
-        minSimpleState(timestamp) AS first_hit,
-        maxSimpleState(timestamp) AS latest_hit,
-        countState() AS hits
-    FROM analytics_hits
-    WHERE timestamp <= '2023-12-21 07:00:00'
-    GROUP BY
-        date,
-        session_id
-
-TYPE materialized
-DATASOURCE analytics_sessions_mv
+- Use the creation date to populate the Materialized View with the data previous to its creation.
+```sh
+tb --semver 0.0.1 pipe populate analytics_sessions --node analytics_sessions_1 --sql-condition "timestamp < '$CREATED_AT' --wait
 ```
 
 ## 4: Promote the changes
-Once the Materialized View has been already populated you can promote the Preview Release to `live`.
+Once the Materialized View has been already populated you can promote the `Preview Release`. If you are using our workflow templates just run the action `Tinybird - Releaseas Workflow` in other case you can use the command:
+
+```sh
+tb release promote --semver 0.1.0
+```
 
 

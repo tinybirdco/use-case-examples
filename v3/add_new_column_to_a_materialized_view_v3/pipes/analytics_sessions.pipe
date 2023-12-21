@@ -15,7 +15,6 @@ SQL >
         maxSimpleState(timestamp) AS latest_hit,
         countState() AS hits
     FROM analytics_hits
-    WHERE timestamp > '2023-12-20 10:00:00'
     GROUP BY
         date,
         session_id
