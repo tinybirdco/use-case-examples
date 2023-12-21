@@ -8,7 +8,6 @@ SQL >
         toDate(timestamp) AS date,
         session_id,
         anySimpleState(device) AS device,
-        anySimpleState(browser) AS browser,
         anySimpleState(location) AS location,
         minSimpleState(timestamp) AS first_hit,
         maxSimpleState(timestamp) AS latest_hit,
