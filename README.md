@@ -18,6 +18,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Recover data from quarantine](recover_data_from_quarantine) using a copy Pipe
 - [Add a new column to a Landing Data Source](add_column_landing_ds)
 - [Add a new column to a Materialized View](add_column_materialized_view)
+- [Add a new column to a Materialized View using Releases](v3/add_new_column_to_a_materialized_view_v3)
 - [Add a new column in a BigQuery Data Source](add_column_BQ_ds)
 - [Add a new column to a Snowflake Data Source](add_column_snowflake_ds)
 - [Add a new column to an S3 Data Source](add_column_to_s3_ds)
