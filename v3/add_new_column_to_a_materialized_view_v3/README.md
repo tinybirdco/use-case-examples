@@ -75,12 +75,12 @@ tb --semver 0.1.0 datasource ls
 or
 
 ```sh
-tb --semver 0.0.1 sql "select timestamp from tinybird.datasources_ops_log where event_type = 'create' limit 1"
+tb --semver 0.1.0 sql "select timestamp from tinybird.datasources_ops_log where event_type = 'create' limit 1"
 ```
 
 - Use the creation date to populate the Materialized View with the data previous to its creation.
 ```sh
-tb --semver 0.0.1 pipe populate analytics_sessions --node analytics_sessions_1 --sql-condition "timestamp < '$CREATED_AT' --wait
+tb --semver 0.1.0 pipe populate analytics_sessions --node analytics_sessions_1 --sql-condition "timestamp < '$CREATED_AT' --wait
 ```
 
 ## 4: Promote the changes
