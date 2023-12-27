@@ -1,6 +1,6 @@
 # Recover data from quarantine
 
-When data ends up in quarantine, it is possible to re-ingest it using a Copy Pipe. Create a [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/6) following these steps:
+When data ends up in quarantine, it is possible to re-ingest it using a Copy Pipe. Create a [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/13) following these steps:
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
