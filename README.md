@@ -11,6 +11,7 @@ Either you want to reproduce a use case or create a new one, please follow the [
 This repository contains all the use cases you can iterate with Versions:
 
 - [Delete simple resource](delete_simple_resource)
+- [Delete simple resource using Releases](v3/delete_simple_resource)
 - [Change Data Source sorting key](change_sorting_key)
 - [Change S3 Data Source sorting key](change_sorting_key_to_s3_data_source)
 - [Change S3 Data Source sorting key with reingestion](change_sorting_key_to_s3_data_source_with_reingestion)
