@@ -1,4 +1,5 @@
 # Delete simple resource
+> Important! Resources Deletion has been improved and it's much easier using Releases: [Delete simple resource using Releases](v3/delete_simple_resource) 
 
 Delete simple Data Sources or Pipes easily. Create a [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/5) following these steps:
 
