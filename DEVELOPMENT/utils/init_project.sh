@@ -42,12 +42,12 @@ name_formatted=${name// /_}
 echo "** Creating Workspace... **"
 tb auth --token $admin_token --host $host
 tb workspace create --user_token $user_token $name_formatted
-mkdir ${DIR}/../../${name_formatted}
-cp -R ${DIR}/../web_analytics_data_project/* ${DIR}/../../${name_formatted}
-cp ${DIR}/../web_analytics_data_project/.tinyenv ${DIR}/../../${name_formatted}
+mkdir ${DIR}/../../v3/${name_formatted}
+cp -R ${DIR}/../web_analytics_data_project/* ${DIR}/../../v3/${name_formatted}
+cp ${DIR}/../web_analytics_data_project/.tinyenv ${DIR}/../../v3/${name_formatted}
 
 tb workspace use $name_formatted
-cd ${DIR}/../../${name_formatted}
+cd ${DIR}/../../v3/${name_formatted}
 
 echo " "
 echo "Copy and paste the admin token of ${name_formatted} Workspace: "
