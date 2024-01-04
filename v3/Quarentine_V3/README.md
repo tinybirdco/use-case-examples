@@ -6,11 +6,11 @@ When data ends up in quarantine, it is possible to re-ingest it using a Copy Pip
 
 - Bump a new CI/CD version and generate deployment scripts `tb release generate --semver 0.0.1`
 - In the CI file:
-    - Let's append incorrect data to `analytics_events` using a fixture
+    - Let's append incorrect data to `analytics_events` using a fixture (that's required to create the quarantine tables)
+    - Use `set +e` command when the incorrect data is being appended, if not the pipeline will finish with error.
     - Create a copy Pipe to fix the incorrect data and re-ingest it into `analytics_events`
-- In the CD file, it is only needed run the copy Pipe after creation
-- The temporal copy pipe will be created inside a Release (0.0.1), once the data is migrated is safe to remove the release:
+- In the CD file, it is only needed run the copy Pipe after creation`
+- The temporary copy pipe will be created inside a Release (0.0.1), once the data is migrated is safe to remove the release:
   ```
-  tb release rm --semver 0.0.1
+  tb release rm --semver 0.0.1 --force --yes
   ```
-- Push your changes
