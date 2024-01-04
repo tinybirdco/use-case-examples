@@ -16,7 +16,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Change S3 Data Source sorting key](change_sorting_key_to_s3_data_source)
 - [Change S3 Data Source sorting key with reingestion](change_sorting_key_to_s3_data_source_with_reingestion)
 - [Change Kafka Data Source sorting key](change_sorting_key_to_kafka_data_source)
-- [Recover data from quarantine](v3/quarentine_v3) using a copy Pipe
+- [Recover data from quarantine](v3/Quarentine_V3) using a copy Pipe
 - [Add a new column to a Landing Data Source](add_column_landing_ds)
 - [Add a new column to a Materialized View](add_column_materialized_view)
 - [Add a new column to a Materialized View using Releases](v3/add_new_column_to_a_materialized_view_v3)
