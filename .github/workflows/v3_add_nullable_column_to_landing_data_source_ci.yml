@@ -19,7 +19,7 @@
     concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
 
     jobs:
-        ci: # ci using environments from workspace 'quarentine'
+        ci:
           uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
             tb_deploy: true
