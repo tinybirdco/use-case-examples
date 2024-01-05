@@ -1,0 +1,9 @@
+- copy_is_executed:
+    max_bytes_read: null
+    max_time: null
+    sql: |
+        SELECT count() c, sum(rows) rows
+        FROM tinybird.datasources_ops_log
+        WHERE datasource_name = 'analytics_events'
+        AND event_type = 'copy'
+        HAVING c!=1 or rows != 74
