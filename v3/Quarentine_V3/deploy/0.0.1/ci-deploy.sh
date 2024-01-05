@@ -8,7 +8,7 @@ set -e
 
 tb deploy --fixtures --v3
 
-sleep 10
+sleep 30
 
 tb pipe copy run analytics_events_quarantine_to_final --wait --yes
 
