@@ -8,4 +8,7 @@ set -e
 tb deploy --fixtures
 
 tb pipe copy run analytics_events_quarantine_to_final --wait --yes
+tb pipe copy run analytics_events_quarantine_to_final --wait --yes
+tb pipe copy run analytics_events_quarantine_to_final --wait --yes
+tb pipe copy run analytics_events_quarantine_to_final --wait --yes
 
