@@ -5,10 +5,8 @@ tb datasource append analytics_events datasources/fixtures/analytics_events_erro
 
 set -e
 
-tb deploy --fixtures
+tb deploy --fixtures --yes
 
 tb pipe copy run analytics_events_quarantine_to_final --wait --yes
-tb pipe copy run analytics_events_quarantine_to_final --wait --yes
-tb pipe copy run analytics_events_quarantine_to_final --wait --yes
-tb pipe copy run analytics_events_quarantine_to_final --wait --yes
+
 
