@@ -1,0 +1,7 @@
+NODE old_to_new
+SQL >
+    SELECT * FROM live.analytics_events
+
+TYPE MATERIALIZED
+DATASOURCE analytics_events
+
