@@ -27,6 +27,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Add a new column to a Kafka Data Source](add_column_kafka_ds)
 - [Change a Data Source's TTL](change_ttl)
 - [Change column type from String to LowCardinality](change_column_type_to_lowcardinality)
+- [Remove Column from a Landing Data Source using Releases](v3/delete_column_from_landing_data_source_releases)
 - [Remove Column from a Materialized View](delete_column_materialized_view)
 - [Remove Column from a Snowflake Data Source](delete_column_snowflake_ds)
 - [Change Copy pipe and its target Data Source](change_copy_pipe)
