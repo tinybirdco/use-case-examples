@@ -1,1 +1,1 @@
-tb pipe data kpis --date_from 2024-01-01 --date_to 2024-01-20 --format CSV
+tb pipe data kpis --date_from 2024-01-01 --date_to 2024-01-02 --format CSV
