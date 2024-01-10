@@ -10,8 +10,10 @@ Either you want to reproduce a use case or create a new one, please follow the [
 
 This repository contains all the use cases you can iterate with Versions:
 
+- [Add column to a Materilized View](add_new_column_to_a_materialized_view)
 - [Delete simple resource](delete_simple_resource)
 - [Recover data from quarantine](recover_data_from_quarantine)
+
 
 ## Caveats
 
