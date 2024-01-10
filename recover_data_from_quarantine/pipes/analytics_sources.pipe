@@ -7,6 +7,7 @@ SQL >
     WITH (
             SELECT domainWithoutWWW(href)
             FROM analytics_hits
+            WHERE href is not null and href != ''
             LIMIT 1
         ) AS currenct_domain
     SELECT
@@ -28,7 +29,5 @@ SQL >
 
 TYPE materialized
 DATASOURCE analytics_sources_mv
-ENGINE "AggregatingMergeTree"
-ENGINE_PARTITION_KEY "toYYYYMM(date)"
-ENGINE_SORTING_KEY "date, device, browser, location, referrer"
+
 
