@@ -66,7 +66,7 @@ SELECT
 Please note that in this Preview Release we're ingesting the production data, but `analytics_sessions_mv` lacks the rows prior to its recent creation. We show how to backfill it in the next step.
 
 ## 3: Backfilling 
-Once you have deploy the previous changes and are ready in a `Preview Release` you can opt to backfill the data previous to the Materialized View re-creation.
+Once you have deployed the previous changes and they are ready in a `Preview Release` you can opt to backfill the data previous to the Materialized View re-creation.
 
 - Get the creation date by executing the following command
 ```sh
