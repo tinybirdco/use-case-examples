@@ -2,7 +2,6 @@
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
-[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/162/files)
 
 - Delete the desired column from the Data Source:
   
@@ -40,7 +39,15 @@ TYPE MATERIALIZED
 DATASOURCE analytics_events
 ```
 
-- Push your changes to a branch, pass all the checks and merge it. At that moment there will be a new `preview` release `0.1.0` where you can check everything is OK. At this moment you can decide if you want to backfill the old data, the howto is explained here (TODO).
+- Push your changes to a branch, pass all the checks and merge it. At that moment there will be a new `preview` release `0.1.0` where you can check everything is OK. 
+  
+- At this moment you can decide if you want to backfill the old data. If it's the case, you can create a new PR with a custom deployment within the following command:
+  
+  ```bash
+  tb --semver 0.0.1 pipe populate live_to_new --node live_to_new --sql-condition "timestamp < $BACKFILL_DATE" --wait
+  ```
+  
+  where `$BACKFILL_DATE` is your earliest date in the re-generated Data Source in the `Preview Release`.
 
 - Once you're happy with your Preview Relase you can promote it to `live` following whatever of the next options:
 
