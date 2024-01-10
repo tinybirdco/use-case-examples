@@ -10,6 +10,7 @@ Either you want to reproduce a use case or create a new one, please follow the [
 
 This repository contains all the use cases you can iterate with Versions:
 
+- [Add a column to a Landing Data Source](add_nullable_column_to_landing_data_source)
 - [Delete simple resource](delete_simple_resource)
 - [Recover data from quarantine](recover_data_from_quarantine)
 - [Remove column from landing Data Source](remove_column_landing_data_source)
