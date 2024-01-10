@@ -1,4 +1,4 @@
-# Recover data from quarantine V3
+# Recover data from quarantine
 
 When data ends up in quarantine, it is possible to re-ingest it using a Copy Pipe. Create a pull request following these steps:
 
