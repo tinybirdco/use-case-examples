@@ -10,7 +10,7 @@ For that the steps will be:
 
 1. Change the Materialized View (Pipe and Data Source) to add the new column.
 2. Bump version from 0.0.0 -> 1.0.0. Bumping the major version, it will create a new `Preview Release`` internally forking the Materialized View and its dependencies.
-3. Backfill the `Preview Release`` Materialized View with the data previous to its creation.
+3. Backfill the `Preview Release` Materialized View with the data previous to its creation.
 4. Promote the release from `Preview` to `Live`.
 
 [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/141/files)
