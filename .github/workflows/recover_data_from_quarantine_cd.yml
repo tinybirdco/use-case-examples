@@ -9,16 +9,17 @@
     on:
       workflow_dispatch:
       push:
-        paths:
-          - 'recover_data_from_quarantine/**'
         branches:
           - main
+          - master
+        paths:
+          - 'recover_data_from_quarantine/**'
     jobs:
-      cd:  # deploy changes to workspace 'use_case_recover_data_from_quarantine'
+      cd:
         uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
-          tb_deploy: false
-          data_project_dir: ./recover_data_from_quarantine
+          tb_deploy: true
+          data_project_dir: recover_data_from_quarantine/*
         secrets:
-          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_RECOVER_DATA_FROM_QUARANTINE }}  # set admin token associated to an account in GitHub secrets
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_QUARANTINE_V3 }}  # set the Workspace admin token in GitHub secrets
           tb_host: https://api.tinybird.co
