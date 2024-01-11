@@ -29,7 +29,7 @@ SCHEMA >
 
 - Add a new Materialized Pipe to define how to move the data from the legacy Data Source to the new being re-created. In other words, to sync the data from `live` to `preview`. Take into account that only the new data will be synced. We'll explain how to backfill the data previous to the new release creation in a further step.
   
-`datasources/live_to_new.datasource`
+`pipes/live_to_new.pipe`
 
 ```sql
 NODE live_to_new
