@@ -4,6 +4,8 @@
 
 - Just a add the desired column, remember to set it as Nullable.
 
+> Important! Not to bump the version, leave it unchanged, other case you'll create a new Data Source instead of altering the current one.
+
 [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/156/files)
 
 ```diff

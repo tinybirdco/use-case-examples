@@ -9,20 +9,21 @@
     on:
       workflow_dispatch:
       pull_request:
-        paths:
-          - 'v3/add_new_column_to_a_materialized_view_v3/**'
         branches:
-         - main
+          - main
+          - master
         types: [opened, reopened, labeled, unlabeled, synchronize, closed]
+        paths:
+          - 'add_nullable_column_to_landing_data_source/**'
 
     concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
 
     jobs:
         ci:
-          uses: tinybirdco/ci/.github/workflows/ci.yml@2.0.0-release
+          uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
             tb_deploy: true
-            data_project_dir: ./v3/add_new_column_to_a_materialized_view_v3
+            data_project_dir: add_nullable_column_to_landing_data_source
           secrets:
-            tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_MATERIALIZED_V3 }}
+            tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_NULLABLE_COLUMN_LANDING_DS }}  # set the Workspace admin token in GitHub secrets
             tb_host: https://api.tinybird.co

@@ -15,12 +15,12 @@
             default: 'promote'
 
     jobs:
-      cd:  # manage releases for workspace 'v3_add_column_landing_ds'
-        uses: tinybirdco/ci/.github/workflows/release.yml@2.0.0-release
+      cd:
+        uses: tinybirdco/ci/.github/workflows/release.yml@main
         with:
           job_to_run: ${{ inputs.job_to_run }}
-          data_project_dir: ./v3/add_new_column_to_a_materialized_view_v3
+          data_project_dir: add_nullable_column_to_landing_data_source
           tb_deploy: true
         secrets:
-          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_MATERIALIZED_V3 }}  # set the Workspace admin token in GitHub secrets
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_NULLABLE_COLUMN_LANDING_DS }}  # set the Workspace admin token in GitHub secrets
           tb_host: https://api.tinybird.co
