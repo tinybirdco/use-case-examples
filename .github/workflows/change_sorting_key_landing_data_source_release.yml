@@ -16,7 +16,7 @@
 
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/release.yml@2.0.0-release
+        uses: tinybirdco/ci/.github/workflows/release.yml@main
         with:
           job_to_run: ${{ inputs.job_to_run }}
           data_project_dir: ./change_sorting_key_landing_data_source

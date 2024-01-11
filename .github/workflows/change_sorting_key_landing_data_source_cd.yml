@@ -15,7 +15,7 @@
           - main
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@2.0.0-release
+        uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
           tb_deploy: true
           data_project_dir: ./change_sorting_key_landing_data_source
