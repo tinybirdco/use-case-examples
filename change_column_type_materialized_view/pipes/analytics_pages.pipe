@@ -7,7 +7,7 @@ SQL >
     SELECT
         toDate(timestamp) AS date,
         device,
-        browser,
+        toLowCardinality(browser) as browser,        
         location,
         pathname,
         uniqState(session_id) AS visits,
