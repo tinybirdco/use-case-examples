@@ -1,0 +1,24 @@
+
+    ##################################################
+    ###   Visit https://github.com/tinybirdco/ci   ###
+    ###   for more details or custom CI/CD         ###
+    ##################################################
+
+    name: Tinybird - CD Workflow
+
+    on:
+      workflow_dispatch:
+      push:
+        paths:
+          - 'change_sorting_key_landing_data_source/**'
+        branches:
+          - main
+    jobs:
+      cd:
+        uses: tinybirdco/ci/.github/workflows/cd.yml@2.0.0-release
+        with:
+          tb_deploy: true
+          data_project_dir: ./change_sorting_key_landing_data_source
+        secrets:
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CHANGE_SORTING_KEY_LANDING_DATA_SOURCE }}
+          tb_host: https://api.tinybird.co
