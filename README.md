@@ -13,6 +13,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Add column to a Materialized View](add_new_column_to_a_materialized_view)
 - [Add column to a Landing Data Source](add_nullable_column_to_landing_data_source)
 - [Change column type in a Materialized View](change_column_type_materialized_view)
+- [Change Copy Pipe time granularity](change_copy_pipe_granularity)
 - [Change sorting key to a Landing Data Source](change_sorting_key_landing_data_source)
 - [Change TTL to a Data Source](change_data_source_ttl)
 - [Delete simple resource](delete_simple_resource)
