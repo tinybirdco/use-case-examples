@@ -17,7 +17,6 @@ SQL >
     FROM
       analytics_events
     where action = 'page_hit' AND match(user_agent, 'wget|ahrefsbot|curl|urllib|bitdiscovery|\+https://|googlebot')
-    AND toStartOfDay(timestamp) = toStartOfDay(now()) - 1
 
 
 
@@ -51,7 +50,7 @@ NODE bot_hits_per_period
 SQL >
 
     SELECT
-        toStartOfDay(timestamp) AS date,
+        toStartOfDay(timestamp) AS date_V,
         bot_source,
         pathname,
         count() AS hits
@@ -63,4 +62,4 @@ SQL >
 
 TYPE copy
 TARGET_DATASOURCE copy_bots_snapshot
-COPY_SCHEDULE 0 8 * * *
+COPY_SCHEDULE 0 10 * * *

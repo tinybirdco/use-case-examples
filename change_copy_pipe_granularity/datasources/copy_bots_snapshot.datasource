@@ -1,6 +1,6 @@
 
 SCHEMA >
-    `date` DateTime,
+    `date_v` DateTime,
     `bot_source` String,
     `pathname` String,
     `hits` UInt64
