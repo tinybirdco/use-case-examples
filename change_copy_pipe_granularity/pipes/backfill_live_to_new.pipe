@@ -4,9 +4,9 @@ DESCRIPTION >
 NODE migrate_old_copy_bots_snapshot
 
 SQL >
-    SELECT toStartOfDay(date_hour) as date_v, bot_source, pathname, sum(hits) as hits FROM live.copy_bots_snapshot
-    WHERE toDate(date_hour) < today()
-    GROUP BY date, pathname, bot_source
+    SELECT toStartOfDay(date) as date_v, bot_source, pathname, sum(hits) as hits FROM live.copy_bots_snapshot
+    WHERE toDate(date) < today()
+    GROUP BY date_v, pathname, bot_source
 
 TYPE materialized
 DATASOURCE copy_bots_snapshot
