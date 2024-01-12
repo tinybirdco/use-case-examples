@@ -1,1 +1,0 @@
-tb sql "SELECT countIf(toDate(timestamp) = toDate('2022-09-15')) as old_data, countIf(toDate(timestamp) = toDate('2023-10-15')) as current_data FROM analytics_events" --format CSV
