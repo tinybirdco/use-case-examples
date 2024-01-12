@@ -6,5 +6,5 @@ SCHEMA >
     `hits` UInt64
 
 ENGINE "MergeTree"
-ENGINE_PARTITION_KEY "toDate(date)"
-ENGINE_SORTING_KEY "pathname, bot_source, date"
+ENGINE_PARTITION_KEY "toDate(date_v)"
+ENGINE_SORTING_KEY "pathname, bot_source, date_v"
