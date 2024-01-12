@@ -58,7 +58,7 @@ That's all you need to do to get the latest schema in your Workspace. Since the 
 
 Once you have the latest schema, iterate through the resources that need the newest columns. For brevity, we'll illustrate iterating one endpoint.
 
-In this example, we use the new column `project`` to add a new filter based on a query parameter.
+In this example, we use the new column `project` to add a new filter based on a query parameter.
 
 ```diff
 NODE node_0
@@ -72,6 +72,8 @@ SQL >
 +       AND project = {{String(project)}}
 +   {% end %}
 ```
+
+> IMPORTANT: While it is generally advised to update the data project's version `.tinyenv` when adding or modifying pipes, it must not be incremented for pipes that utilize a Shared Data Source, owing to a known bug.
 
 ## Step 3. Add tests
 
