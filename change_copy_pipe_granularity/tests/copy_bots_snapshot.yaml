@@ -4,10 +4,9 @@
     sql: |
       SELECT * FROM copy_bots_snapshot
       WHERE hits <= 0
-- date-hour-always:
+- date-day-always:
     max_bytes_read: null
     max_time: null
     sql: |
       SELECT * FROM copy_bots_snapshot
-      WHERE toStartOfHour(date_hour) != date_hour
-
+      WHERE toStartOfDay(date) != date
