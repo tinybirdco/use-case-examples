@@ -1,4 +1,4 @@
-TOKEN "scheduled_copy_t_1ec995b7ce6f4c09aece72c6e4e7ff78" READ
+TOKEN "scheduled_copy_t_0e8e4c56120e4473b5a56486e6b7d98c" READ
 
 NODE bot_hits
 SQL >
@@ -17,6 +17,7 @@ SQL >
     FROM
       analytics_events
     where action = 'page_hit' AND match(user_agent, 'wget|ahrefsbot|curl|urllib|bitdiscovery|\+https://|googlebot')
+    AND toStartOfDay(timestamp) = toStartOfDay(now()) - 1
 
 
 
@@ -46,22 +47,20 @@ SQL >
 
 
 
-NODE bot_hits_per_hour
+NODE bot_hits_per_period
 SQL >
 
     SELECT
-        toStartOfHour(timestamp) AS date_hour,
+        toStartOfDay(timestamp) AS date,
         bot_source,
         pathname,
         count() AS hits
     FROM bot_sources
     GROUP BY
-        date_hour,
+        date,
         pathname,
         bot_source
 
 TYPE copy
-TARGET_DATASOURCE copy_bots_snapshot
-COPY_SCHEDULE 0 * * * *
-
-
+TARGET_DATASOURCE copy_bots_snapshot_v1
+COPY_SCHEDULE 0 8 * * *
