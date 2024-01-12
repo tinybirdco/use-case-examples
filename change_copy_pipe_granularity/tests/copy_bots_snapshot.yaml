@@ -2,12 +2,12 @@
     max_bytes_read: null
     max_time: null
     sql: |
-      SELECT * FROM copy_bots_snapshot
+      SELECT * FROM copy_bots_snapshot_v1
       WHERE hits <= 0
-- date-hour-always:
+- date-day-always:
     max_bytes_read: null
     max_time: null
     sql: |
-      SELECT * FROM copy_bots_snapshot
-      WHERE toStartOfHour(date_hour) != date_hour
+      SELECT * FROM copy_bots_snapshot_v1
+      WHERE toStartOfDay(date) != date
 

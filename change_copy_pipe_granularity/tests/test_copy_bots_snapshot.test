@@ -1,1 +1,1 @@
-tb sql "select * from copy_bots_snapshot where date_hour='2024-01-11 17:00:00' and bot_source='wget'"
+tb sql "select * from copy_bots_snapshot_v1 where date='2024-01-11 00:00:00' and bot_source='wget'"
