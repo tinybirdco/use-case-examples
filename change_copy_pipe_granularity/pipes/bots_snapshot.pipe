@@ -62,5 +62,5 @@ SQL >
         bot_source
 
 TYPE copy
-TARGET_DATASOURCE copy_bots_snapshot_v1
+TARGET_DATASOURCE copy_bots_snapshot
 COPY_SCHEDULE 0 8 * * *
