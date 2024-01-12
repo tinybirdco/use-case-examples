@@ -9,29 +9,29 @@ TOKEN "dashboard" READ
 NODE timeseries
 DESCRIPTION >
     Generate a timeseries for the specified time range, so we call fill empty data points.
-            Filters "future" data points.
+                Filters "future" data points.
 
 SQL >
 
     %
-            {% set _single_day = defined(date_from) and day_diff(date_from, date_to) == 0 %}
-            with
-            {% if defined(date_from) %}
-                toStartOfDay(toDate({{Date(date_from, description="Starting day for filtering a date range", required=False)}})) as start,
-            {% else %}
-                toStartOfDay(timestampAdd(today(), interval -7 day)) as start,
-            {% end %}
-            {% if defined(date_to) %}
-                toStartOfDay(toDate({{Date(date_to, description="Finishing day for filtering a date range", required=False)}})) as end
-            {% else %}
-                toStartOfDay(today()) as end
-            {% end %}
-            {% if _single_day %}
-            select arrayJoin(arrayMap(x -> toDateTime(x), range(toUInt32(toDateTime(start)), toUInt32(timestampAdd(end, interval 1 day)), 3600))) as date
-            {% else %}
-            select arrayJoin(arrayMap(x -> toDate(x), range(toUInt32(start), toUInt32(timestampAdd(end, interval 1 day)), 24 * 3600))) as date
-            {% end %}
-            where date <= now()
+                {% set _single_day = defined(date_from) and day_diff(date_from, date_to) == 0 %}
+                with
+                {% if defined(date_from) %}
+                    toStartOfDay(toDate({{Date(date_from, description="Starting day for filtering a date range", required=False)}})) as start,
+                {% else %}
+                    toStartOfDay(timestampAdd(today(), interval -7 day)) as start,
+                {% end %}
+                {% if defined(date_to) %}
+                    toStartOfDay(toDate({{Date(date_to, description="Finishing day for filtering a date range", required=False)}})) as end
+                {% else %}
+                    toStartOfDay(today()) as end
+                {% end %}
+                {% if _single_day %}
+                select arrayJoin(arrayMap(x -> toDateTime(x), range(toUInt32(toDateTime(start)), toUInt32(timestampAdd(end, interval 1 day)), 3600))) as date
+                {% else %}
+                select arrayJoin(arrayMap(x -> toDate(x), range(toUInt32(start), toUInt32(timestampAdd(end, interval 1 day)), 24 * 3600))) as date
+                {% end %}
+                where date <= now()
 
 
 
@@ -42,46 +42,46 @@ DESCRIPTION >
 SQL >
 
     %
-            {% if defined(date_from) and day_diff(date_from, date_to) == 0 %}
-            select 
-              toStartOfHour(timestamp) as date,
-              session_id,
-              uniq(session_id) as visits,
-              count() as pageviews,
-              case when min(timestamp) = max(timestamp) then 1 else 0 end as is_bounce,
-              max(timestamp) as latest_hit_aux,
-              min(timestamp) as first_hit_aux
-            from
-              analytics_hits
-            where
-              toDate(timestamp) = {{Date(date_from)}}
-            group by
-              toStartOfHour(timestamp), session_id
-            {% else %}
-            select 
-              date,
-              session_id,
-              uniq(session_id) as visits,
-              countMerge(hits) as pageviews,
-              case when min(first_hit) = max(latest_hit) then 1 else 0 end as is_bounce,
-              max(latest_hit) as latest_hit_aux,
-              min(first_hit) as first_hit_aux
-            from
-              analytics_sessions_mv
-            where
-              {% if defined(date_from) %}
-                date >= {{Date(date_from)}}
-              {% else %}
-                date >= timestampAdd(today(), interval -7 day)
-              {% end %}
-              {% if defined(date_to) %}
-                and date <= {{Date(date_to)}}
-              {% else %}
-                and date <= today()
-              {% end %}
-            group by
-              date, session_id
-            {% end %}
+                {% if defined(date_from) and day_diff(date_from, date_to) == 0 %}
+                select 
+                  toStartOfHour(timestamp) as date,
+                  session_id,
+                  uniq(session_id) as visits,
+                  count() as pageviews,
+                  case when min(timestamp) = max(timestamp) then 1 else 0 end as is_bounce,
+                  max(timestamp) as latest_hit_aux,
+                  min(timestamp) as first_hit_aux
+                from
+                  analytics_hits
+                where
+                  toDate(timestamp) = {{Date(date_from)}}
+                group by
+                  toStartOfHour(timestamp), session_id
+                {% else %}
+                select 
+                  date,
+                  session_id,
+                  uniq(session_id) as visits,
+                  countMerge(hits) as pageviews,
+                  case when min(first_hit) = max(latest_hit) then 1 else 0 end as is_bounce,
+                  max(latest_hit) as latest_hit_aux,
+                  min(first_hit) as first_hit_aux
+                from
+                  analytics_sessions_mv
+                where
+                  {% if defined(date_from) %}
+                    date >= {{Date(date_from)}}
+                  {% else %}
+                    date >= timestampAdd(today(), interval -7 day)
+                  {% end %}
+                  {% if defined(date_to) %}
+                    and date <= {{Date(date_to)}}
+                  {% else %}
+                    and date <= today()
+                  {% end %}
+                group by
+                  date, session_id
+                {% end %}
 
 
 
