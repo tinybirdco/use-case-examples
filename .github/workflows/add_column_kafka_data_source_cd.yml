@@ -10,7 +10,7 @@
       workflow_dispatch:
       push:
         paths:
-          - 'add_column_kafka_data_source_cd/**'
+          - 'add_column_kafka_data_source/**'
         branches:
           - main
     jobs:
@@ -18,7 +18,7 @@
         uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
           tb_deploy: true
-          data_project_dir: ./add_column_kafka_data_source_cd
+          data_project_dir: ./add_column_kafka_data_source
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_KAFKA_DATA_SOURCE }}
           tb_host: https://api.tinybird.co
