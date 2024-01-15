@@ -1,4 +1,3 @@
-
 SCHEMA >
     `datetime` DateTime `json:$.datetime`,
     `device` String `json:$.device`,
@@ -13,7 +12,8 @@ SCHEMA >
     `meta_color` Nullable(String) `json:$.meta.color`,
     `meta_size` Nullable(String) `json:$.meta.size`,
     `meta_image` Nullable(String) `json:$.meta.image`,
-    `meta_image_v2` Nullable(String) `json:$.meta.image_v2`
+    `meta_image_v2` Nullable(String) `json:$.meta.image_v2`,
+    `meta_image_v3` Nullable(String) `json:$.meta.image_v3`
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toYYYYMM(__timestamp)"
