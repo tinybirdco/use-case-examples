@@ -54,11 +54,11 @@ That's all you need to do to get the latest schema in your Workspace. Since the 
 
 ## Step 2: Update the resources that use the shared Data Source
 
-[Step 2 PR](https://github.com/tinybirdco/use-case-examples/pull/78/commits/b086cd00222fc1a33809cf2d0410b742417480fe)
+[Step 2 PR](https://github.com/tinybirdco/use-case-examples/pull/78/files#diff-fca7e22642349c58100d9d5a9b630b736da980da04c63a0e3342b32d7c516c98)
 
 Once you have the latest schema, iterate through the resources that need the newest columns. For brevity, we'll illustrate iterating one endpoint.
 
-In this example, we use the new column `project`` to add a new filter based on a query parameter.
+In this example, we use the new column `project` to add a new filter based on a query parameter.
 
 ```diff
 NODE node_0
@@ -72,6 +72,8 @@ SQL >
 +       AND project = {{String(project)}}
 +   {% end %}
 ```
+
+> IMPORTANT: While it is generally advised to update the data project's version `.tinyenv` when adding or modifying pipes, it must not be incremented for pipes that utilize a Shared Data Source, owing to a known bug.
 
 ## Step 3. Add tests
 

@@ -19,6 +19,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Delete simple resource](delete_simple_resource)
 - [Recover data from quarantine](recover_data_from_quarantine)
 - [Remove column from landing Data Source](remove_column_landing_data_source)
+- [Use new columns from a Shared Data Source](use_new_columns_from_shared_datasource)
 
 
 ## Caveats
