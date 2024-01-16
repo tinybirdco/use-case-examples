@@ -85,6 +85,7 @@ Bumping the major the deployment will create a `Preview Release` with the modifi
   
   where `$BACKFILL_DATE` is your earliest row timestamp in the recently created Materialized View `product_events_mv` in the `Preview Release`.
 
+
 ## Promote from Preview to Live
 
 - Once you're happy with your Preview Release you can promote it to `live` following one of the next options:
@@ -97,4 +98,5 @@ Bumping the major the deployment will create a `Preview Release` with the modifi
         tb release promote --semver 1.0.0
         ```
 
+![Final status](imgs/2.png)
 
