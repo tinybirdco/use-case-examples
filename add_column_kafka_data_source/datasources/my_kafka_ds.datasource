@@ -21,7 +21,7 @@ ENGINE_SORTING_KEY "__timestamp"
 
 KAFKA_CONNECTION_NAME 'kafka_connection'
 KAFKA_TOPIC 'add_column_kafka_ds'
-KAFKA_GROUP_ID 'add_column_kafka_ds_ex1'
+KAFKA_GROUP_ID 'add_column_kafka_ds_ex10'
 KAFKA_AUTO_OFFSET_RESET 'earliest'
 KAFKA_STORE_RAW_VALUE 'False'
 KAFKA_STORE_HEADERS 'False'
