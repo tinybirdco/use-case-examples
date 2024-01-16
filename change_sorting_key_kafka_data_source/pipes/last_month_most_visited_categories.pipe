@@ -1,0 +1,17 @@
+TOKEN "last_month_most_visited_categories_endpoint_read_9252" READ
+
+NODE actions_by_product_0
+SQL >
+
+    SELECT 
+        product_type, 
+        COUNT(*) AS c,
+        toMonth(now() - INTERVAL 1 MONTH) as month
+    FROM product_events
+    WHERE 
+        event_name = 'page-load' AND 
+        __timestamp >= toStartOfMonth(now()) - INTERVAL 1 MONTH
+    GROUP BY 
+        product_type
+    ORDER BY 
+        c DESC
