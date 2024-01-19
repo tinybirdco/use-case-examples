@@ -1,6 +1,6 @@
 # Tinybird Versions - Change Sorting Key to a Landing Data Source
 
-[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/203/files)
+[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/204/files)
 
 > Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 - Change the sorting key to the Data Source:
