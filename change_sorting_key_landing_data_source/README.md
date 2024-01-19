@@ -35,7 +35,7 @@
 `pipes/live_to_new.pipe`
 
 ```sql
-NODE live_to_new
+NODE v101_to_v200
 SQL >
     SELECT * FROM v1_0_1.analytics_events
 TYPE MATERIALIZED
