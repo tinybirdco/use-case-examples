@@ -30,9 +30,9 @@
 +   VERSION=2.0.0
 ```
 
-- Add a new Materialized Pipe to define how to move the data from the legacy Data Source to the new being re-created. In other words, to sync the data from `live` to `preview`. Take into account that only the new data will be synced. We'll explain how to backfill the data previous to the new release creation in a further step. As we current `live` version is `1.0.1` will use reference it in the sync pipe. Bear in mind the semver version references start with `v` and use underscores instead of dots. `1.0.1` -> `v1_0_1`. 
+- Add a new Materialized Pipe to define how to move the data from the legacy Data Source to the new being re-created. In other words, to sync the data from `live` to `preview`. Take into account that only the new data will be synced. We'll explain how to backfill the data previous to the new release creation in a further step. As we current `live` version is `1.0.1` will reference it in the sync pipe. Bear in mind the semver version reference starts with `v` and contains underscores instead of dots. `1.0.1` -> `v1_0_1`. 
 
-`pipes/live_to_new.pipe`
+`pipes/v101_to_v200.pipe`
 
 ```sql
 NODE v101_to_v200
