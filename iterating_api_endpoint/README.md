@@ -6,7 +6,7 @@ Modifying an endpoint is an easy and straightforward process, but you need to ke
 
 [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/201/files)
 
-In this example, we have an endpoint `top_browsers.pipe` that groups website visits by browser to identify the most frequently used ones. We want to modify this endpoint to group the information by both browser and device.
+In this example, we have an endpoint `top_browsers.pipe` that groups website visits by browser to identify the most frequently used ones. We want to modify it to group the information by both browser and device.
 
 - Change the endpoint `pipes/top_browsers.pipe`:
   
@@ -57,7 +57,7 @@ tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format C
 + 1.0.0
 ```
 
-- Create a Pull Requet with these changes and once, all the checks are satisfied, merge it. Then the `Preview` release will be created with the endpoint changes. From this moment, you can start to migrate all the API consumers to use the new version `1.0.0`. Once `0.0.0` can be securely deprecated, promote `preview` to `live` following one of the next options:
+- Create a Pull Requet with these changes and, once all the checks are satisfied, merge it. Then the `Preview` release will be created with the endpoint changes. From this moment, you can start to migrate all the API consumers to use the new version `1.0.0`. Once `0.0.0` can be securely deprecated, promote `preview` to `live` following one of the next options:
 
     - The action `Tinybird - Releases Workflow` in the case you are using our workflow templates.
     - Promote from the UI.
