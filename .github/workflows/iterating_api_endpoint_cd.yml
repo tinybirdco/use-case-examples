@@ -16,7 +16,7 @@
           - 'iterating_api_endpoint/**'
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@master
+        uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
           tb_deploy: true
           data_project_dir: iterating_api_endpoint
