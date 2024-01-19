@@ -9,8 +9,8 @@
 > Important! Any change to the data project requires to bump the version. In this case, increase the `post-release` part of the semver (the right part following a dash), other case you'll re-create a new Data Source instead of altering the current one what could lead to a data loss.
 
 ```diff
-- 0.0.0
-+ 0.0.0-1
+- 0.0.1
++ 0.0.1-1
 ```
 
 ```diff
