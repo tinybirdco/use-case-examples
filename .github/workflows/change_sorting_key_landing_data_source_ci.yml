@@ -21,7 +21,6 @@
         ci:
           uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
-            tb_deploy: true
             data_project_dir: ./change_sorting_key_landing_data_source
           secrets:
             tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CHANGE_SORTING_KEY_LANDING_DATA_SOURCE }}
