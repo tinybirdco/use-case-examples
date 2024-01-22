@@ -10,6 +10,7 @@ SQL >
         anySimpleState(device) AS device,
         anySimpleState(browser) AS browser,
         anySimpleState(location) AS location,
+        anySimpleState(version) AS version,
         minSimpleState(timestamp) AS first_hit,
         maxSimpleState(timestamp) AS latest_hit,
         countState() AS hits
@@ -20,5 +21,3 @@ SQL >
 
 TYPE materialized
 DATASOURCE analytics_sessions_mv
-
-
