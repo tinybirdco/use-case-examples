@@ -21,4 +21,4 @@
           data_project_dir: ./create_a_materialized_view_batch_ingest
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_CREATE_A_MATERIALIZED_VIEW_BATCH_INGEST }}
-          tb_host: https://api.tinybird.co
+          tb_host: https://api.us-east.tinybird.co
