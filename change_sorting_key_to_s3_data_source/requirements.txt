@@ -1,2 +1,2 @@
 --pre
-tinybird-cli
+tinybird-cli==2.2.0
