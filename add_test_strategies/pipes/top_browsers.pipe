@@ -29,9 +29,6 @@ SQL >
       {% else %}
         and date <= today()
       {% end %}
-      {% if defined(device) %}
-        and device = {{String(device, description="Device to filter", required=False)}}
-      {% end %}
   GROUP BY
       browser
   ORDER BY
