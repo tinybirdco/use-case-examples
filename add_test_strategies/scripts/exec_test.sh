@@ -5,6 +5,7 @@ export TB_VERSION_WARNING=0
 export VERSION=$1
 
 run_test() {
+    set -e
     t=$1
     echo "** Running $t **"
     # Check if VERSION is provided
@@ -15,6 +16,8 @@ run_test() {
         echo "VERSION not found"
     fi
     echo "** $(cat $t)"
+    bash $t $2
+
     if res=$(bash $t $2 | diff -B ${t}.result -); then
         echo 'OK';
     else
