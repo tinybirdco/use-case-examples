@@ -1,0 +1,9 @@
+- no_duplicate_entries:
+    max_bytes_read: null
+    max_time: null
+    pipe: null
+    sql: |
+        SELECT session_id, count() as entries 
+        FROM analytics_events 
+        GROUP BY session_id
+        HAVING entries > 1
