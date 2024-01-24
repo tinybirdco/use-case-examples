@@ -1,4 +1,3 @@
-
 #!/usr/bin/env bash
 
 export TB_VERSION_WARNING=0
