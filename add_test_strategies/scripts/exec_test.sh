@@ -1,5 +1,4 @@
-
-  #!/usr/bin/env bash
+#!/usr/bin/env bash
 
 export TB_VERSION_WARNING=0
 export VERSION=$1
