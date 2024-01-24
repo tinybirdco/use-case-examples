@@ -70,35 +70,35 @@ SQL >
 
 ## 3: Bump version
 
-- Bump to the next version `0.0.1` in the `.tinyenv` file. It will **create** the Materialized View and all its downstream in a new `Preview Release`. I.e., you will have the new resources `events_per_location_mat` and `events_per_location_mv` and a different version of the existing `events_per_location` API Endpoint.
+- Bump to the next major version `1.0.0` in the `.tinyenv` file. It will **create** the Materialized View and all its downstream in a new `Preview Release`. I.e., you will have the new resources `events_per_location_mat` and `events_per_location_mv` and a different version of the existing `events_per_location` API Endpoint.
 
 `.tinyenv`:
 
 ```diff
 -   VERSION=0.0.0
-+   VERSION=0.0.1
++   VERSION=1.0.0
 ```
 
 ## 4: Backfilling
 
 Once you have deployed the previous changes and they are ready in a `Preview Release` you can opt to backfill the data previous to the Materialized View creation.
 
-Remember that in this example we are not ingesting data constanly to `analytics_events`, so it is safe to run the populate. Up to you to create it as part of the custom cd-deploy, or do it manually from the CLI:
+Remember that in this example we are not ingesting data constanly to `analytics_events`, so it is safe to run the populate. Up to you to create it as part of the custom post-deploy, or do it manually from the CLI:
 
 - At deployment time
 
 ```sh
-tb deploy --populate --wait
+tb --semver $VERSION pipe populate events_per_location_mat --node count_events_per_location
 ```
 
 For more complex use cases —i.e. having realtime ingest— check other entries of the [use-case-examples repo](https://github.com/tinybirdco/use-case-examples).
 
 - Manually
 
-Do not add the deploy/0.0.1 files, and do it from the CLI:
+Do not add the deploy/1.0.0 files, and do it from the CLI:
 
 ```sh
-tb --semver 0.0.1 pipe populate events_per_location_mat --node count_events_per_location --wait
+tb --semver 1.0.0 pipe populate events_per_location_mat --node count_events_per_location --wait
 ```
 
 ## 5: Promote the changes
@@ -110,7 +110,7 @@ Once the Materialized View has been already populated you can promote the `Previ
 - Run the following command from the CLI:
   
 ```sh
-  tb release promote --semver 0.0.1
+  tb release promote --semver 1.0.0
 ```
 
 - Or go to the `Releases` section in the UI and promote the `Preview 0.0.1`
