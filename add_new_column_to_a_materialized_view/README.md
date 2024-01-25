@@ -72,6 +72,8 @@ Once you have deployed the previous changes and they are ready in a `Preview Rel
 
 Remember that in the Preview Release we're ingesting the production data, but `analytics_sessions_mv` lacks the rows prior to its recent creation.
 
+> As we don't have a timestamp in the Data Source we're using it's creation date to backfill all the info previous to it's creation. Note that this mechanism is not 100% accurate and can produce some duplicates if there's lag in your ingestion. If you have a timestamp you can use as a reference for the backfilling check [here]([add_nullable_column_to_landing_data_source](https://github.com/tinybirdco/use-case-examples/tree/main/change_sorting_key_landing_data_source)) how to use it.
+
 - Get the creation date by executing the following command
 ```sh
 tb --semver 2.0.0 datasource ls
