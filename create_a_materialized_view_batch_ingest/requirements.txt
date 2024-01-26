@@ -1,2 +1,2 @@
 --pre
-tinybird-cli==3.0.0.dev7
+tinybird-cli

@@ -113,4 +113,4 @@ Once the Materialized View has been already populated you can promote the `Previ
   tb release promote --semver 1.0.0
 ```
 
-- Or go to the `Releases` section in the UI and promote the `Preview 0.0.1`
+- Or go to the `Releases` section in the UI and promote the `Preview 1.0.0`
