@@ -42,7 +42,7 @@ DATASOURCE analytics_events
 
 - Push your changes to a branch, create a PR and pass all the checks. As we're creating a new empty `analytics_events` Data Source the regression tests will fail so you need to bypass them by adding the tag `--skip-regression-tests` to the PR. Now you can merge the PR and a new `preview` release `1.0.0` will be created, where you can check everything is OK. 
   
-- At this moment you can decide if you want to backfill the old data. If it's the case, you can create a new PR with a custom deployment and execute:
+- At this moment you can decide if you want to backfill the old data:
   
   ```bash
   tb --semver 1.0.0 pipe populate live_to_new --node live_to_new --sql-condition "timestamp < $BACKFILL_DATE" --wait

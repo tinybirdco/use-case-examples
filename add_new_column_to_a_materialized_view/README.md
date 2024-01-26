@@ -82,7 +82,7 @@ or executing this query using the CLI or the UI dashboard
 tb --semver 2.0.0 sql "select timestamp from tinybird.datasources_ops_log where event_type = 'create' and datasource_name = 'analytics_sessions_mv' order by timestamp desc limit 1"
 ```
 
-- Use the creation date to populate the Materialized View with the data previous to its creation. You can run the next command directly or inside a custom deployment:
+- Use the creation date to populate the Materialized View with the data previous to its creation. You can run the next command:
 ```sh
 tb --semver 2.0.0 pipe populate analytics_sessions --node analytics_sessions_1 --sql-condition "timestamp < '$CREATED_AT' --wait
 ```
