@@ -1,0 +1,5 @@
+NODE v001_to_v100
+SQL >
+    SELECT * FROM v0_0_1.analytics_events
+TYPE MATERIALIZED
+DATASOURCE analytics_events
