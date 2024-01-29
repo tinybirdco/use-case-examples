@@ -5,7 +5,7 @@ DESCRIPTION >
 
 SQL >
     SELECT 
-        parseDateTimeBestEffort(assumeNotNull(timestamp)) as timestamp,
+        assumeNotNull(parseDateTimeBestEffort(timestamp)) as timestamp,
         assumeNotNull(session_id) as session_id,
         toLowCardinality(assumeNotNull(action)) as action,
         toLowCardinality(assumeNotNull(version)) as version,
