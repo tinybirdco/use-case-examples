@@ -1,4 +1,3 @@
-
 # VERSION format is major.minor.patch-post where major, minor, patch and post are integer numbers
 # bump post to deploy to the current live Release, rollback to previous post version is not available
 # bump patch or minor to deploy a new Release and auto-promote it to live. Add TB_AUTO_PROMOTE=0 to create the Release in preview status
