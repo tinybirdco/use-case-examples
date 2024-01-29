@@ -23,13 +23,13 @@ SCHEMA >
 `.tinyenv`
 
 ```diff
--   VERSION=0.0.0
+-   VERSION=0.0.1
 +   VERSION=1.0.0
 ```
 
 - Add a new Materialized Pipe to define how to move the data from the legacy Data Source to the new being re-created. In other words, to sync the data from `live` to `preview`. Take into account that only the new data will be synced. We'll explain how to backfill the data previous to the new release creation in a further step.
   
-`pipes/v000_to_v100.pipe`
+`pipes/v001_to_v100.pipe`
 
 ```sql
 NODE live_to_new
