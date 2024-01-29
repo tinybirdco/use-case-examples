@@ -101,11 +101,62 @@ Do not add the deploy/1.0.0 files, and do it from the CLI:
 tb --semver 1.0.0 pipe populate events_per_location_mat --node count_events_per_location --wait
 ```
 
-## 5: Promote the changes
+## 5: Test the performance increase
+
+On the branch your are testing —_main_ or the _tmp*_ one creatd by the CI—, call the endpoint of the current 0.0.0 release and the newly 1.0.0 release to compare performance.
+
+Copy and save the _create_a_materialized_view_batch_ingest_read_ token into a variable
+
+```sh
+tb token copy create_a_materialized_view_batch_ingest_read
+READTOKEN=$(pbpaste) #example for macOS, for linux you need EPTOKEN=$(xclip -selection clipboard -o)
+```
+
+Call the endpoint and check the rows and statistics field.
+
+```sh
+curl --compressed -H "Authorization: Bearer $READTOKEN"  https://api.us-east.tinybird.co/v0/pipes/events_per_location.json
+```
+
+```json
+(...)
+
+"rows": 8,
+
+"statistics":
+{
+    "elapsed": 0.016005656,
+    "rows_read": 16800,
+    "bytes_read": 5093413
+}
+```
+
+Now add the release _?__tb__semver=1.0.0_ to the endpoint and check the results:
+
+```sh
+curl --compressed -H "Authorization: Bearer $READTOKEN"  https://api.us-east.tinybird.co/v0/pipes/events_per_location.json?__tb__semver=1.0.0
+```
+
+```json
+(...)
+
+"rows": 8,
+
+"statistics":
+{
+    "elapsed": 0.002387179,
+    "rows_read": 8,
+    "bytes_read": 214
+}
+```
+
+Depending on your test data you'll see different results, but the improvement will probably be significant.
+
+## 6: Promote the changes
 
 Once the Materialized View has been already populated you can promote the `Preview Release` to `Live`. Choose one of the next 3 options for that:
 
-- If you are using our workflow templates just run the action `Tinybird - Release Workflow` in other case you can use the command:
+- If you are using our workflow templates just run the action `Tinybird - Release Workflow`.
   
 - Run the following command from the CLI:
   
