@@ -2,7 +2,7 @@
 
 In this example we're rolling back a Workspace from a Release with version **0.1.0** to the previous version **0.0.0-1**. The Rollback involves removing an unwanted Endpoint introduced in **0.1.0**. We also explain how to ensure synchronization between the Workspace *live* version and the Git repository when a Rollback operations is run.
 
-[Pull Request of this example](https://github.com/tinybirdco/use-case-examples/pull/229/files)
+[Pull Request of this example](https://github.com/tinybirdco/use-case-examples/pull/226/files)
 
 ## First Step
 
