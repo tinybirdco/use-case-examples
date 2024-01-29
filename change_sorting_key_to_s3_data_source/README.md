@@ -39,7 +39,7 @@ This step involves cloning the Data Source whose sorting key we want to alter, a
   - `analytics_sources.pipe` -> `analytics_sources_new.pipe` (alter to materialize on `analytics_sources_mv_new.datasource`)
   - `analytics_hits.pipe` -> `analytics_hits_new.pipe` (alter to query  `analytics_events_new.datasource`)
 - Create a Materialized Pipe (`new_data_sync.pipe`) to synchronize incoming data from the legacy Data Source to the new one. Implement a filter to sync data only beyond a specific future point. This sets the stage for the subsequent step.
-- Push the changes to the branch and initiate a Pull Request. The Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://www.tinybird.co/docs/guides/implementing-test-strategies.html)). 
+- Push the changes to the branch and initiate a Pull Request. The Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://versions.tinybird.co/docs/version-control/implementing-test-strategies.html)). 
 - Before merging, verify your adjustments in the temporary environment that is provisioned.
 - Merge the PR to trigger the Continuous Deployment (CD) workflow, and your changes will be propagated to the Main environment.
 
