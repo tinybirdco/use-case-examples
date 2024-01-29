@@ -8,7 +8,7 @@ SCHEMA >
     `session_id` String `json:$.session_id`,
     `action` LowCardinality(String) `json:$.action`,
     `version` LowCardinality(String) `json:$.version`,
-    `environment` Nullable(String) `json:$.enviroment`,
+    `environment` Nullable(String) `json:$.environment`,
     `payload` String `json:$.payload`
 
 ENGINE "MergeTree"

@@ -1,7 +1,7 @@
 DESCRIPTION >
 	Summary with general KPIs per date, including visits, page views, bounce rate and average session duration.
-    Accepts `date_from` and `date_to` date filter, all historical data if not passed.
-    Daily granularity, except when filtering one single day (hourly)
+  Accepts `date_from` and `date_to` date filter, all historical data if not passed.
+  Daily granularity, except when filtering one single day (hourly)
 
 
 TOKEN "dashboard" READ
@@ -9,7 +9,7 @@ TOKEN "dashboard" READ
 NODE timeseries
 DESCRIPTION >
     Generate a timeseries for the specified time range, so we call fill empty data points.
-            Filters "future" data points.
+    Filters "future" data points.
 
 SQL >
 
