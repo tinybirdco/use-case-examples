@@ -1,5 +1,0 @@
-NODE dummy_node
-SQL >
-
-    SELECT 1 WHERE 1=1
-
