@@ -77,7 +77,7 @@ Bumping the major the deployment will create a `Preview Release` with the modifi
 
 ## Backfill
 
-- At this moment you can decide if you want to backfill the old data. If it's the case, you can create a new PR with a custom deployment and execute:
+- At this moment you can decide if you want to backfill the old data:
   
   ```bash
   tb --semver 1.0.0 pipe populate mat_product_events --node product_events_0 --sql-condition "timestamp < $BACKFILL_DATE" --wait
