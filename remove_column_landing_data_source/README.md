@@ -34,7 +34,7 @@ SCHEMA >
 NODE live_to_new
 SQL >
     SELECT timestamp, session_id, action, version, payload 
-    FROM v0_0_0.analytics_events
+    FROM v0_0_1.analytics_events
 TYPE MATERIALIZED
 DATASOURCE analytics_events
 ```
