@@ -1,0 +1,6 @@
+SCHEMA >
+    `location` String,
+    `hits` AggregateFunction(count)
+
+ENGINE "AggregatingMergeTree"
+ENGINE_SORTING_KEY "location"

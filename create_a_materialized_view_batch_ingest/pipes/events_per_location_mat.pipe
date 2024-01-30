@@ -1,0 +1,12 @@
+NODE count_events_per_location
+SQL >
+
+    SELECT
+        JSON_VALUE(payload, '$.location') AS location,
+        countState() AS hits
+    FROM analytics_events
+    GROUP BY location
+
+TYPE materialized
+DATASOURCE events_per_location_mv
+
