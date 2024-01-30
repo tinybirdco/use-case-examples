@@ -3,7 +3,7 @@ TOKEN 'create_a_materialized_view_batch_ingest_read' READ
 NODE endpoint
 SQL >
 
-    SELECT JSON_VALUE(payload, '$.location') location, count() hits
-    FROM analytics_events
+    SELECT location, countMerge(hits) hits
+    FROM events_per_location_mv
     GROUP BY location
     ORDER BY hits DESC
