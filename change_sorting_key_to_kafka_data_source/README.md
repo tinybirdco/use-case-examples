@@ -13,7 +13,7 @@ We have two endpoints connected to a Kafka Data Source. We want to change the So
 ## Step 1 - Create the Materialized View with the desired Sorting Key
 
 - Create the Materialized Pipe and Data Source with the new desired Sorting Key. ([Pipe](./pipes/mat_product_events.pipe), [Data Source](./datasources/product_events_mv.datasource))
-- Push the changes to the branch and initiate a Pull Request. The Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://www.tinybird.co/docs/guides/implementing-test-strategies.html)). 
+- Push the changes to the branch and initiate a Pull Request. The Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://versions.tinybird.co/docs/version-control/implementing-test-strategies.html)). 
 - Before merging, verify your adjustments in the temporary environment that is provisioned.
 - Merge the PR to trigger the Continuous Deployment (CD) workflow, and your changes will be propagated to the Main environment.
 

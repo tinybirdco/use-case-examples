@@ -69,7 +69,7 @@ Bumping the major the deployment will create a `Preview Release` with the modifi
 
 > Previews are very convenient to check our changes after deploying them to `live`. But also required if we want to backfill the the Materialized View with the `live` data previous to their creation.
 
-- Push the changes to a branch and initiate a Pull Request. If it's your case, the Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://www.tinybird.co/docs/guides/implementing-test-strategies.html)).
+- Push the changes to a branch and initiate a Pull Request. If it's your case, the Continuous Integration (CI) process will validate the changes through Regression, Quality, and Fixture tests ([learn more about testing](https://versions.tinybird.co/docs/version-control/implementing-test-strategies.html)).
   
 - Before merging, verify your adjustments in the temporary Tinybird Branch that is provisioned.
   
@@ -77,7 +77,7 @@ Bumping the major the deployment will create a `Preview Release` with the modifi
 
 ## Backfill
 
-- At this moment you can decide if you want to backfill the old data. If it's the case, you can create a new PR with a custom deployment and execute:
+- At this moment you can decide if you want to backfill the old data:
   
   ```bash
   tb --semver 1.0.0 pipe populate mat_product_events --node product_events_0 --sql-condition "timestamp < $BACKFILL_DATE" --wait

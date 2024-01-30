@@ -19,7 +19,7 @@
 
     jobs:
         ci:
-          uses: tinybirdco/ci/.github/workflows/ci.yml@v2.5.0
+          uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
             data_project_dir: ./change_column_type_landing_and_recover_quarantine_data
           secrets:
