@@ -17,7 +17,6 @@
       cd:
         uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
-          tb_deploy: true
           data_project_dir: ./change_data_source_ttl
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CHANGE_DATA_SOURCE_TTL }}

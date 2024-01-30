@@ -22,7 +22,6 @@
         ci: # ci using environments from workspace 'quarentine'
           uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
-            tb_deploy: true
             data_project_dir: remove_column_landing_data_source
           secrets:
             tb_admin_token: ${{ secrets.TB_ADMIN_REMOVE_COLUMN_LANDING_DATA_SOURCE }}  # set the Workspace admin token in GitHub secrets

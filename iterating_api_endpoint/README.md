@@ -47,7 +47,7 @@ tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format C
 "chrome","mobile-android",1,1
 ```
 
-- Add the flag `--skip-regression-tests` to your PR. This is required because Tinybird performs some automatic regression tests based on the endpoint's query log history. As we have changed the response of the endpoint, these automatic tests would fail. ([learn more about testing](https://www.tinybird.co/docs/guides/implementing-test-strategies.html)).
+- Add the flag `--skip-regression-tests` to your PR. This is required because Tinybird performs some automatic regression tests based on the endpoint's query log history. As we have changed the response of the endpoint, these automatic tests would fail. ([learn more about testing](https://versions.tinybird.co/docs/version-control/implementing-test-strategies.html)).
 
 - Bump the semver version in `.tinyenv`. In this case we increase the major version. Doing so will deploy the changes in a `Preview` release.
 
