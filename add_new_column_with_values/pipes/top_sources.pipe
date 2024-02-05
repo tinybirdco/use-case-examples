@@ -11,10 +11,7 @@ DESCRIPTION >
 
 SQL >
     %
-    select
-        domainWithoutWWW(referrer) as referrer,
-        uniqMerge(visits) as visits,
-        countMerge(hits) as hits
+    select domainWithoutWWW(referrer) as referrer, uniqMerge(visits) as visits, countMerge(hits) as hits
     from analytics_sources_mv
     where
         {% if defined(date_from) %}

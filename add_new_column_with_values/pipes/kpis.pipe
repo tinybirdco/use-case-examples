@@ -48,9 +48,7 @@ SQL >
                 arrayMap(
                     x -> toDateTime(x),
                     range(
-                        toUInt32(toDateTime(start)),
-                        toUInt32(timestampAdd(end, interval 1 day)),
-                        3600
+                        toUInt32(toDateTime(start)), toUInt32(timestampAdd(end, interval 1 day)), 3600
                     )
                 )
             ) as date
@@ -59,11 +57,7 @@ SQL >
             arrayJoin(
                 arrayMap(
                     x -> toDate(x),
-                    range(
-                        toUInt32(start),
-                        toUInt32(timestampAdd(end, interval 1 day)),
-                        24 * 3600
-                    )
+                    range(toUInt32(start), toUInt32(timestampAdd(end, interval 1 day)), 24 * 3600)
                 )
             ) as date
     {% end %}
@@ -81,9 +75,7 @@ SQL >
             session_id,
             uniq(session_id) as visits,
             count() as pageviews,
-            case
-                when min(timestamp) = max(timestamp) then 1 else 0
-            end as is_bounce,
+            case when min(timestamp) = max(timestamp) then 1 else 0 end as is_bounce,
             max(timestamp) as latest_hit_aux,
             min(timestamp) as first_hit_aux
         from analytics_hits
@@ -95,9 +87,7 @@ SQL >
             session_id,
             uniq(session_id) as visits,
             countMerge(hits) as pageviews,
-            case
-                when min(first_hit) = max(latest_hit) then 1 else 0
-            end as is_bounce,
+            case when min(first_hit) = max(latest_hit) then 1 else 0 end as is_bounce,
             max(latest_hit) as latest_hit_aux,
             min(first_hit) as first_hit_aux
         from analytics_sessions_mv
@@ -120,8 +110,7 @@ SQL >
         date,
         uniq(session_id) as visits,
         sum(pageviews) as pageviews,
-        sum(case when latest_hit_aux = first_hit_aux then 1 end)
-        / visits as bounce_rate,
+        sum(case when latest_hit_aux = first_hit_aux then 1 end) / visits as bounce_rate,
         avg(latest_hit_aux - first_hit_aux) as avg_session_sec
     from hits
     group by date

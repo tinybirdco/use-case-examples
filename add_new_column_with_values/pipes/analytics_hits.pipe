@@ -34,11 +34,7 @@ SQL >
         pathname,
         href,
         case
-            when
-                match(
-                    user_agent,
-                    'wget|ahrefsbot|curl|urllib|bitdiscovery|\+https://|googlebot'
-                )
+            when match(user_agent, 'wget|ahrefsbot|curl|urllib|bitdiscovery|\+https://|googlebot')
             then 'bot'
             when match(user_agent, 'android')
             then 'mobile-android'
