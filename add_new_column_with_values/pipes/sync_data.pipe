@@ -1,8 +1,8 @@
 NODE node
 SQL >
-   SELECT *, 'production' AS environment
-   FROM v0_0_1.analytics_events
-   WHERE timestamp > '2024-02-05 16:00:00'
+    SELECT *, 'production' AS environment
+    FROM v0_0_1.analytics_events
+    WHERE timestamp > '2024-02-05 16:00:00'
 
-TYPE materialized
+TYPE MATERIALIZED
 DATASOURCE analytics_events
