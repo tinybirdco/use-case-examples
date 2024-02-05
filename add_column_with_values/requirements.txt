@@ -1,2 +1,1 @@
---pre
-tinybird-cli
+tinybird-cli>=3
