@@ -51,7 +51,7 @@ Before promoting your changes from `Preview` to `Live` make sure all your data p
 + SQL >
 +    SELECT *, 'production' AS environment
 +    FROM v0_0_1.analytics_events
-+    WHERE timestamp > '2024-02-05 16:45:00'
++    WHERE timestamp > '2024-02-05 17:00:00'
 + TYPE materialized
 + DATASOURCE analytics_events
 ```
