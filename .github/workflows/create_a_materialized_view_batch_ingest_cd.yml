@@ -17,7 +17,6 @@
       cd:
         uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
-          tb_deploy: false
           data_project_dir: ./create_a_materialized_view_batch_ingest
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_CREATE_A_MATERIALIZED_VIEW_BATCH_INGEST }}
