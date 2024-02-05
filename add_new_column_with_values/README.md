@@ -34,28 +34,26 @@ Before promoting your changes from `Preview` to `Live` make sure all your data p
 `backfill_data.pipe`
 
 ```diff
-+NODE node
-+SQL >
-+   %
-+   SELECT *, 'production' AS environment
-+   FROM v0_0_1.analytics_events
-+   WHERE timestamp BETWEEN {{DateTime(start_backfill_timestamp)}} AND {{DateTime(end_backfill_timestamp)}}
-
-+TYPE COPY
-+TARGET_DATASOURCE analytics_events
++ NODE node
++ SQL >
++    %
++    SELECT *, 'production' AS environment
++    FROM v0_0_1.analytics_events
++    WHERE timestamp BETWEEN {{DateTime(start_backfill_timestamp)}} AND {{DateTime(end_backfill_timestamp)}} 
++ TYPE COPY
++ TARGET_DATASOURCE analytics_events
 ```
 
 `sync_data.pipe`
 
 ```diff
-+NODE node
-+SQL >
-+   SELECT *, 'production' AS environment
-+   FROM v0_0_1.analytics_events
-+   WHERE timestamp > '2024-02-05 17:10:00'
-
-+TYPE materialized
-+DATASOURCE analytics_events
++ NODE node
++ SQL >
++    SELECT *, 'production' AS environment
++    FROM v0_0_1.analytics_events
++    WHERE timestamp > '2024-02-05 17:10:00'
++ TYPE materialized
++ DATASOURCE analytics_events
 ```
 
 
