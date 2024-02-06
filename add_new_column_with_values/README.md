@@ -114,7 +114,7 @@ tb sql --semver 1.0.0 "select count() as preview_rows from analytics_events wher
 
 5. Everything is ready to promote the `Preview` Release to `Live`. Choose one of the next 3 options for that:
 
-- If you are using our workflow templates just run the action `Tinybird - Releaseas Workflow`.
+- If you are using our workflow templates just run the action `Tinybird - Releases Workflow`.
 
 - In another case you can run the following command from the CLI:
   
