@@ -93,7 +93,7 @@ tb --semver 1.0.0 pipe copy run backfill_data --param start_backfill_timestamp='
 Now we can easily check that both Data Sources have the same amount of rows by executing counts operations. If we have high-traffic ingestion we can add a filter with the current time to ensure we're not counting new rows added between the `select count()` executions:
 
 ```sh
-tb "select count() as live_rows from analytics_events where timestamp < '2024-02-06 09:36:00'"
+tb sql "select count() as live_rows from analytics_events where timestamp < '2024-02-06 09:36:00'"
 
 -------------
 | live_rows |
@@ -103,7 +103,7 @@ tb "select count() as live_rows from analytics_events where timestamp < '2024-02
 ``````
 
 ```sh
-tb sql "select count() as preview_rows from analytics_events where timestamp < '2024-02-06 09:36:00'"
+tb sql --semver 1.0.0 "select count() as preview_rows from analytics_events where timestamp < '2024-02-06 09:36:00'"
 
 ----------------
 | preview_rows |
