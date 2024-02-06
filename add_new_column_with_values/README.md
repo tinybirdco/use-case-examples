@@ -27,7 +27,7 @@ SCHEMA >
 
 3. Prepare the backfill resources by filling the new column with the desired default value. Learn more about [backfill strategies when there's a timestamp](https://versions.tinybird.co/docs/version-control/backfill-strategies.html#scenario-3-streaming-ingestion-with-incremental-timestamp-column). Pay attention to the `sync_data.pipe` date filter, it has to be a date in the future, not reached before deploying to `Preview`. Create a PR with all your changes, wait until all the checks are OK and merge it.
 
-> As we're creating a new empty `analytics_events` Data Source the regression tests will fail so you need to skp them by adding the tag `--skip-regression-tests` to the PR.
+> As we're creating a new empty `analytics_events` Data Source the regression tests will fail so you need to skip them by adding the tag `--skip-regression-tests` to the PR.
 
 `backfill_data.pipe`
 
