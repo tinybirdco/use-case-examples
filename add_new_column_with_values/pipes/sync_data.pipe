@@ -1,8 +1,0 @@
-NODE node
-SQL >
-    SELECT *, 'production' AS environment
-    FROM v0_0_1.analytics_events
-    WHERE timestamp > '2024-02-05 17:10:00'
-
-TYPE MATERIALIZED
-DATASOURCE analytics_events

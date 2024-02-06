@@ -125,3 +125,5 @@ tb sql --semver 1.0.0 "select count() as preview_rows from analytics_events wher
 - Or go to the `Releases` section in the UI and promote the `Preview 1.0.0` to `live`.
 
 6. CLEAN-UP: After this point you don't need the resources created to sync and backfill the new Data Source. You can delete the files: `backfill_data.pipe` and `sync_data.pipe` and create a new PR. For this purpose increment the `patch` will be enough (e.g.: `1.0.0` to `1.0.1`).
+
+[Clean-Up Pull Request](https://github.com/tinybirdco/use-case-examples/pull/246/files)
