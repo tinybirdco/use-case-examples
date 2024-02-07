@@ -3,7 +3,6 @@ DESCRIPTION >
     Aggregate by session_id and calculate session metrics
 
 SQL >
-
     SELECT
         toDate(timestamp) AS date,
         session_id,
@@ -14,11 +13,7 @@ SQL >
         maxSimpleState(timestamp) AS latest_hit,
         countState() AS hits
     FROM analytics_hits
-    GROUP BY
-        date,
-        session_id
+    GROUP BY date, session_id
 
-TYPE materialized
+TYPE MATERIALIZED
 DATASOURCE analytics_sessions_mv
-
-
