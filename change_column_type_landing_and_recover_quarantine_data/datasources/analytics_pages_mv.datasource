@@ -6,7 +6,7 @@ SCHEMA >
     `browser` String,
     `location` String,
     `pathname` String,
-    `visits` AggregateFunction(uniq, String),
+    `visits` AggregateFunction(uniq, UInt32),
     `hits` AggregateFunction(count)
 
 ENGINE "AggregatingMergeTree"

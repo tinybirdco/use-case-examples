@@ -2,7 +2,7 @@
 
 SCHEMA >
     `date` Date,
-    `session_id` String,
+    `session_id` UInt32,
     `device` SimpleAggregateFunction(any, String),
     `browser` SimpleAggregateFunction(any, String),
     `location` SimpleAggregateFunction(any, String),

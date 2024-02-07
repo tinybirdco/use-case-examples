@@ -14,7 +14,7 @@ SQL >
       timestamp,
       action,
       version,
-      coalesce(session_id,'0') as session_id,
+      coalesce(session_id, 0) as session_id,
       JSONExtractString(payload, 'locale') as locale,
       JSONExtractString(payload, 'location') as location,
       JSONExtractString(payload, 'referrer') as referrer,
