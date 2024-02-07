@@ -1,0 +1,9 @@
+NODE syncing_data
+SQL >
+    %
+    SELECT *
+    FROM v2_0_1.analytics_events
+    WHERE timestamp BETWEEN {{DateTime(start)}} AND {{DateTime(end)}}
+
+TYPE COPY
+TARGET_DATASOURCE analytics_events
