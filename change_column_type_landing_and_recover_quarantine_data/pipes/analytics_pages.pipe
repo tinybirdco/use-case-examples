@@ -1,6 +1,7 @@
 NODE analytics_pages_1
 DESCRIPTION >
     Aggregate by pathname and calculate session and hits
+    - Changed session_id to UInt32
 
 SQL >
     SELECT
