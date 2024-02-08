@@ -1,6 +1,6 @@
 NODE syncing_data
 SQL >
-    SELECT * FROM v2_0_1.analytics_events WHERE timestamp > '2024-02-07 16:00:00'
+    SELECT * FROM v2_0_1.analytics_events WHERE timestamp > '2024-02-08 13:45:00'
 
 TYPE MATERIALIZED
 DATASOURCE analytics_events
