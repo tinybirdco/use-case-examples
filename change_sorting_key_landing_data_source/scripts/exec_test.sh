@@ -3,7 +3,6 @@ set -e
 
 export TB_VERSION_WARNING=0
 export VERSION=$1
-TOTAL_RETRIES=5
 
 run_test() {
     t=$1
@@ -15,13 +14,16 @@ run_test() {
     echo "** $(cat $t)"
     tmpfile=$(mktemp)
     retries=0
+    TOTAL_RETRIES=3
 
     # When appending fixtures, we need to retry in case of the data is not replicated in time
     while [ $retries -lt $TOTAL_RETRIES ]; do
         # Run the test and store the output in a temporary file
-        if bash $t $2 >$tmpfile; then
+        bash $t $2 >$tmpfile
+        exit_code=$?
+        if [ "$exit_code" -eq 0 ]; then
             # If the test passed, break the loop
-            if diff -B ${t}.result $tmpfile; then
+            if diff -B ${t}.result $tmpfile >/dev/null 2>&1; then
                 break
             # If the test failed, increment the retries counter and try again
             else
@@ -33,15 +35,13 @@ run_test() {
         fi
     done
 
-    if diff -B ${t}.result $tmpfile; then
+    if diff -B ${t}.result $tmpfile >/dev/null 2>&1; then
         echo "✅ Test $t passed"
         rm $tmpfile
         return 0
     elif [ $retries -eq $TOTAL_RETRIES ]; then
         echo "🚨 ERROR: Test $t failed, diff:";
         diff -B ${t}.result $tmpfile
-        cat $tmpfile
-    
         rm $tmpfile
         return 1
     else
