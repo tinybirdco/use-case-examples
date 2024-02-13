@@ -110,4 +110,4 @@ Once the CD Workflow runs successfully, we have to do:
 5. Once the data is migrated, we can promote the release to Live at the UI or the CLI
 
 
-You can read https://versions.tinybird.co/docs/version-control/backfill-strategies.html#scenario-3-streaming-ingestion-with-incremental-timestamp-column in more details this strategy and why
+You can read https://versions.tinybird.co/docs/version-control/backfill-strategies.html#scenario-3-streaming-ingestion-with-incremental-timestamp-column in more details about this strategy and why
