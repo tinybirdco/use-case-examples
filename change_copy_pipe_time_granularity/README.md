@@ -123,6 +123,7 @@ If desired, we can backfill the re-created Data Source summing old hour granular
 
 Let's prepare a Materialized View for that.
 
+`backfill_live_to_new.pipe`
 ```sql
 SQL >
     SELECT toStartOfDay(date_hour) as date, bot_source, pathname, sum(hits) as hits FROM v0_0_1.copy_bots_snapshot
@@ -135,7 +136,7 @@ DATASOURCE copy_bots_snapshot
 
 This Materialized Pipe gets the data from the `live` release and will copy it in the `preview` release, changing the time granularity. In this case, we are stopping backfill on today. Remember in this example we are calculating yesterday's snapshot.
 
-To run the populate that performs the data migration from `live` to `preview`, we need to add a custom post-deployment action with the prepared Materialized View:
+To run the populate that performs the data migration from the current `live` release (`0.0.1`) to `preview`, we need to add a custom post-deployment action with the prepared Materialized View:
 
 `deploy/1.0.0/postdeploy.sh`
 ```bash
