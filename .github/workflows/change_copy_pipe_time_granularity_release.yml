@@ -19,7 +19,7 @@
         uses: tinybirdco/ci/.github/workflows/release.yml@main
         with:
           job_to_run: ${{ inputs.job_to_run }}
-          data_project_dir: ./change_copy_pipe_granularity
+          data_project_dir: ./change_copy_pipe_time_granularity
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_COPY_PIPE_TIME_GRANULARITY }}  # set the Workspace admin token in GitHub secrets
           tb_host: https://api.tinybird.co
