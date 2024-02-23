@@ -15,7 +15,7 @@ This repository contains all the use cases you can iterate with Versions:
 - [Add column with values to a Landing Data Source](add_new_column_with_values)
 - [Add column to a Kafka Data Source](add_column_kafka_data_source)
 - [Change column type in a Materialized View](change_column_type_materialized_view)
-- [Change Copy Pipe time granularity](change_copy_pipe_granularity)
+- [Change Copy Pipe time granularity](change_copy_pipe_time_granularity)
 - [Change sorting key to a Landing Data Source](change_sorting_key_landing_data_source)
 - [Change sorting key to a Kafka connected Data Source](change_sorting_key_kafka_data_source)
 - [Change TTL to a Data Source](change_data_source_ttl)
