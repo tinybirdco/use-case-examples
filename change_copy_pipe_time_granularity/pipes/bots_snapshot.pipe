@@ -1,4 +1,4 @@
-TOKEN "scheduled_copy_t_1ec995b7ce6f4c09aece72c6e4e7ff78" READ
+TOKEN "scheduled_copy_t_9d29b8dee0414992bdc5d1e85458ab9a" READ
 
 NODE bot_hits
 SQL >
@@ -63,3 +63,5 @@ SQL >
 TYPE copy
 TARGET_DATASOURCE copy_bots_snapshot
 COPY_SCHEDULE 0 * * * *
+
+
