@@ -17,8 +17,7 @@
       cd:
         uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
-          tb_deploy: true
           data_project_dir: ./change_copy_pipe_granularity
         secrets:
-          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CHANGE_COPY_PIPE_TIME_GRANULARITY }}
+          tb_admin_token: ${{ secrets.TB_ADMIN_COPY_PIPE_TIME_GRANULARITY }}
           tb_host: https://api.tinybird.co
