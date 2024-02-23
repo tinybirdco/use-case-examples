@@ -10,14 +10,14 @@
       workflow_dispatch:
       push:
         paths:
-          - 'change_copy_pipe_granularity/**'
+          - 'change_copy_pipe_time_granularity/**'
         branches:
           - main
     jobs:
       cd:
         uses: tinybirdco/ci/.github/workflows/cd.yml@main
         with:
-          data_project_dir: ./change_copy_pipe_granularity
+          data_project_dir: ./change_copy_pipe_time_granularity
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_COPY_PIPE_TIME_GRANULARITY }}
           tb_host: https://api.tinybird.co
