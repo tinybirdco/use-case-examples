@@ -10,7 +10,7 @@
       workflow_dispatch:
       pull_request:
         paths:
-          - 'change_copy_pipe_granularity/**'
+          - 'change_copy_pipe_time_granularity/**'
         branches:
          - main
         types: [opened, reopened, labeled, unlabeled, synchronize, closed]
@@ -21,8 +21,7 @@
         ci:
           uses: tinybirdco/ci/.github/workflows/ci.yml@main
           with:
-            tb_deploy: true
-            data_project_dir: ./change_copy_pipe_granularity
+            data_project_dir: ./change_copy_pipe_time_granularity
           secrets:
-            tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CHANGE_COPY_PIPE_TIME_GRANULARITY }}
+            tb_admin_token: ${{ secrets.TB_ADMIN_COPY_PIPE_TIME_GRANULARITY }}
             tb_host: https://api.tinybird.co

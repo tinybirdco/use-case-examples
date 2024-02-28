@@ -1,3 +1,4 @@
+
 SCHEMA >
     `date` Date,
     `device` String,
@@ -7,6 +8,6 @@ SCHEMA >
     `visits` AggregateFunction(uniq, String),
     `hits` AggregateFunction(count)
 
-ENGINE AggregatingMergeTree
-ENGINE_PARTITION_KEY toYYYYMM(date)
-ENGINE_SORTING_KEY date, device, browser, location, referrer
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(date)"
+ENGINE_SORTING_KEY "date, device, browser, location, referrer"

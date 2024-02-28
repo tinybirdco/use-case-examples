@@ -1,3 +1,4 @@
+
 SCHEMA >
     `date` Date,
     `session_id` String,
@@ -8,6 +9,6 @@ SCHEMA >
     `latest_hit` SimpleAggregateFunction(max, DateTime),
     `hits` AggregateFunction(count)
 
-ENGINE AggregatingMergeTree
-ENGINE_PARTITION_KEY toYYYYMM(date)
-ENGINE_SORTING_KEY date, session_id
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(date)"
+ENGINE_SORTING_KEY "date, session_id"

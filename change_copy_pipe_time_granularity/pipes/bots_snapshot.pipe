@@ -1,0 +1,68 @@
+TOKEN "scheduled_copy_t_9d29b8dee0414992bdc5d1e85458ab9a" READ
+
+NODE bot_hits
+SQL >
+
+    SELECT
+      timestamp,
+      action,
+      version,
+      coalesce(session_id,'1') as session_id,
+      JSONExtractString(payload, 'locale') as locale,
+      JSONExtractString(payload, 'location') as location,
+      JSONExtractString(payload, 'referrer') as referrer,
+      JSONExtractString(payload, 'pathname') as pathname,
+      JSONExtractString(payload, 'href') as href,
+      lower(JSONExtractString(payload, 'user-agent')) as user_agent
+    FROM
+      analytics_events
+    where action = 'page_hit' AND match(user_agent, 'wget|ahrefsbot|curl|urllib|bitdiscovery|\+https://|googlebot')
+    AND toStartOfDay(timestamp) = toStartOfDay(now()) - 1
+
+
+
+NODE bot_sources
+SQL >
+
+    SELECT
+      timestamp,
+      action,
+      version,
+      session_id,
+      location,
+      referrer,
+      pathname,
+      href,
+      case
+        when match(user_agent, 'wget') then 'wget'
+        when match(user_agent, 'ahrefsbot') then 'ahrefsbot'
+        when match(user_agent, 'curl') then 'curl'
+        when match(user_agent, 'urllib') then 'urllib'
+        when match(user_agent, 'bitdiscovery') then 'bitdiscovery'
+        when match(user_agent, '\+https://|googlebot') then 'googlebot'
+        else 'unkown'
+      END as bot_source
+    FROM
+      bot_hits
+
+
+
+NODE bot_hits_per_period
+SQL >
+
+    SELECT
+        toStartOfDay(timestamp) AS date,
+        bot_source,
+        pathname,
+        count() AS hits
+    FROM bot_sources
+    GROUP BY
+        date,
+        pathname,
+        bot_source
+
+TYPE copy
+TARGET_DATASOURCE copy_bots_snapshot
+COPY_SCHEDULE 0 9 * * *
+
+

@@ -3,6 +3,7 @@ DESCRIPTION >
     Aggregate by pathname and calculate session and hits
 
 SQL >
+
     SELECT
         toDate(timestamp) AS date,
         device,
@@ -12,7 +13,14 @@ SQL >
         uniqState(session_id) AS visits,
         countState() AS hits
     FROM analytics_hits
-    GROUP BY date, device, browser, location, pathname
+    GROUP BY
+        date,
+        device,
+        browser,
+        location,
+        pathname
 
-TYPE MATERIALIZED
+TYPE materialized
 DATASOURCE analytics_pages_mv
+
+
