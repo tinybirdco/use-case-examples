@@ -1,6 +1,8 @@
+# Data Source created from Pipe 'analytics_sessions'
+
 SCHEMA >
     `date` Date,
-    `session_id` UInt32,
+    `session_id` String,
     `device` SimpleAggregateFunction(any, String),
     `browser` SimpleAggregateFunction(any, String),
     `location` SimpleAggregateFunction(any, String),
@@ -8,6 +10,6 @@ SCHEMA >
     `latest_hit` SimpleAggregateFunction(max, DateTime),
     `hits` AggregateFunction(count)
 
-ENGINE AggregatingMergeTree
-ENGINE_PARTITION_KEY toYYYYMM(date)
-ENGINE_SORTING_KEY date, session_id
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(date)"
+ENGINE_SORTING_KEY "date, session_id"
