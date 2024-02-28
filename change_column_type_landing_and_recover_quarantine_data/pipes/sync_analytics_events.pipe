@@ -1,7 +1,7 @@
 NODE start_syncing
 SQL >
     SELECT * EXCEPT (version), toUInt32(version) as version
-    FROM v1_0_1.analytics_events
+    FROM v1_0_2.analytics_events
     WHERE timestamp > '2024-02-28 15:45:00'
 
 TYPE MATERIALIZED
