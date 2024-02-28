@@ -1,0 +1,10 @@
+NODE start_syncing
+SQL >
+    %
+    SELECT * EXCEPT (session_id), toUInt32(session_id) as session_id
+    FROM v1_0_1.analytics_events
+    WHERE timestamp BETWEEN {{ DateTime(start_date) }} AND {{ DateTime(end_date) }}
+
+TYPE COPY
+TARGET_DATASOURCE analytics_events
+COPY_SCHEDULE @on-demand

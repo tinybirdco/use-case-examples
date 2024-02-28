@@ -1,14 +1,12 @@
-# Data Source created from Pipe 'analytics_pages'
-
 SCHEMA >
     `date` Date,
     `device` String,
     `browser` String,
     `location` String,
     `pathname` String,
-    `visits` AggregateFunction(uniq, String),
+    `visits` AggregateFunction(uniq, UInt32),
     `hits` AggregateFunction(count)
 
-ENGINE "AggregatingMergeTree"
-ENGINE_PARTITION_KEY "toYYYYMM(date)"
-ENGINE_SORTING_KEY "date, device, browser, location, pathname"
+ENGINE AggregatingMergeTree
+ENGINE_PARTITION_KEY toYYYYMM(date)
+ENGINE_SORTING_KEY date, device, browser, location, pathname
