@@ -43,22 +43,7 @@ After creating and authenticating the connection, you can configure the remainin
 + EXPORT_STRATEGY @new
 ```
 
-- **`TYPE SINK`**: This specifies the type of Pipe as a Sink, indicating its role is to export data to an external storage system.
-
-- **`EXPORT_SERVICE s3_iamrole`**: Defines the service used for exporting data. `s3_iamrole` means that the data will be exported to an Amazon S3 bucket using an IAM role, which provides secure access without needing to embed explicit credentials.
-
-- **`EXPORT_CONNECTION_NAME s3sink`**: This is a user-defined name that represents the specific connection details to your S3 bucket. In this case, `s3sink` is used as an identifier.
-
-- **`EXPORT_SCHEDULE 0 15 * * *`**: Determines when the sink operation is performed, using cron syntax. `0 15 * * *` means the sink will execute daily at 15:00 PM UTC.
-
-- **`EXPORT_BUCKET_URI s3://sinks02/bot_hits_per_period`**: Specifies the URI of the target S3 bucket and the path where the files will be saved. This includes the bucket name (`sinks02`) and a directory/path (`bot_hits_per_period`).
-
-- **`EXPORT_FILE_TEMPLATE hits_{date}`**: Sets the naming template for the exported files. `{date}` is a placeholder that will be replaced with the value of the same field in your Pipe helping organize and identify the files easily. If different rows result in the same file name, they will be appended together into a single file.
-
-- **`EXPORT_FORMAT ndjson`**: The format of the exported data. `ndjson` stands for Newline Delimited JSON, which is ideal for processing data one record at a time. Other options are `Avro`, `CSV`, `ORC` or `parquet`. 
-
-- **`EXPORT_COMPRESSION None`**: Specifies the compression method for the files. `None` indicates no compression will be applied. Other options like `gzip`, `LZ4`, `XZ`, `ZST`, `Brotli` or `BZ2` could be used for compressing the files to save space and reduce transfer times.
-
+You can explore the different options and much more in our [documentation page](https://www.tinybird.co//docs/publish/s3-sink).
 
 ## Deploy the changes
 
