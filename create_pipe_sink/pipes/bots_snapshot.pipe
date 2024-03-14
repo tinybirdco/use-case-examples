@@ -1,0 +1,67 @@
+DESCRIPTION >
+    bot_hits
+
+TOKEN "scheduled_sink_t_1aa715925a4046e28f9a3abff65415c1" READ
+
+NODE bot_hits
+SQL >
+    SELECT
+        timestamp,
+        action,
+        version,
+        coalesce(session_id, '0') as session_id,
+        JSONExtractString(payload, 'locale') as locale,
+        JSONExtractString(payload, 'location') as location,
+        JSONExtractString(payload, 'referrer') as referrer,
+        JSONExtractString(payload, 'pathname') as pathname,
+        JSONExtractString(payload, 'href') as href,
+        lower(JSONExtractString(payload, 'user-agent')) as user_agent
+    FROM analytics_events
+    where
+        action = 'page_hit'
+        AND match(user_agent, 'wget|ahrefsbot|curl|urllib|bitdiscovery|\+https://|googlebot')
+        AND toStartOfDay(timestamp) = toStartOfDay(now()) - 1
+
+NODE bot_sources
+SQL >
+    SELECT
+        timestamp,
+        action,
+        version,
+        session_id,
+        location,
+        referrer,
+        pathname,
+        href,
+        case
+            when match(user_agent, 'wget')
+            then 'wget'
+            when match(user_agent, 'ahrefsbot')
+            then 'ahrefsbot'
+            when match(user_agent, 'curl')
+            then 'curl'
+            when match(user_agent, 'urllib')
+            then 'urllib'
+            when match(user_agent, 'bitdiscovery')
+            then 'bitdiscovery'
+            when match(user_agent, '\+https://|googlebot')
+            then 'googlebot'
+            else 'unkown'
+        END as bot_source
+    FROM bot_hits
+
+NODE bot_hits_per_period
+SQL >
+    SELECT toStartOfDay(timestamp) AS date, bot_source, pathname, count() AS hits
+    FROM bot_sources
+    GROUP BY date, pathname, bot_source
+
+TYPE SINK
+EXPORT_SERVICE s3_iamrole
+EXPORT_CONNECTION_NAME s3sink
+EXPORT_SCHEDULE 0 15 * * *
+EXPORT_BUCKET_URI s3://sinks02/bot_hits_per_period
+EXPORT_FILE_TEMPLATE hits_{date}
+EXPORT_FORMAT ndjson
+EXPORT_COMPRESSION None
+EXPORT_STRATEGY @new
