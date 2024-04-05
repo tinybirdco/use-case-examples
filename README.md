@@ -4,11 +4,19 @@ This repository contains individual examples of "iterating an aspect of your Tin
 
 ## Before you begin
 
+You'll need to be familiar with:
+
+1. Having a Tinybird Workspace integrated with Git ([docs](https://www.tinybird.co/docs/version-control/working-with-version-control))
+2. Using the Tinybird CLI ([docs](https://www.tinybird.co/docs/cli/overview))
+3. Understanding CI/CD as concepts, and occasionally editing CI/CD scripts ([docs](https://www.tinybird.co/docs/version-control/continuous-integration))
+
+## Get started
+
 To make a new Workspace and get yourself set up for any of the tutorials, follow the setup instructions in the [DEVELOPMENT README](DEVELOPMENT/README.md). Then, pick an example (see the list below) and follow its README.
 
 ## What's in the box?
 
-Each use case tutorial is stored in an individual subfolder and contains all the Workspace resources you'll need: Data Sources, Pipes, API Endpoints, and more.
+Each use case tutorial is stored in an individual subfolder and contains all the Workspace resources you'll need: Data Sources, Pipes, API Endpoints, and more. They also include links to Pull Requests so you can see a real life version of what your Pull Request(s) might look similar to.
 
 > Be aware that GitHub doesn't allow running workflows in different subfolders, so it isn't possible to include the CI and CD workflow files in the same use case folder. Every CI/CD action is located in `.github/workflows` and has the same folder name as the use case.
 
@@ -36,6 +44,8 @@ Each use case tutorial is stored in an individual subfolder and contains all the
 
 Found a typo or feeling stuck on something? Open an issue on this PR or contact us in the [Tinybird Slack Community](https://www.tinybird.co/docs/community).
 
+## Next steps
 
-TBC
-> If there is any use case referencing any other Data Project, it will be documented in the README of the use case.
+- Try one of these iteration examples out in your own Workspace!
+- Read more about the [different ways Tinybird is used in the real world](https://www.tinybird.co/blog), every day
+- Explore [the Tinybird docs](www.tinybird.co/docs)
