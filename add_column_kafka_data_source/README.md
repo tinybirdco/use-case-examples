@@ -1,8 +1,10 @@
 # Add a new column to a Kafka Data Source
 
-- Just a add the desired column (`meta_image_v3` in this example), remember to set it as Nullable.
+> Remember to follow the instructions to set up a fresh Tinybird Workspace to practice this tutorial
 
-> Important! Not to bump the version, leave it unchanged, other case you'll create a new Data Source instead of altering the current one.
+With a Kafka Data Source, just add the desired column (in this example, `meta_image_v3`) and set it as Nullable.
+
+> Important! Do not bump the Tinybird version. Bumping it will create a new Data Source instead of altering the current one.
 
 [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/194)
 
@@ -16,9 +18,10 @@ SCHEMA >
 +    `meta_image_v2` Nullable(String) `json:$.meta.image_v2`,
 +    `meta_image_v3` Nullable(String) `json:$.meta.image_v3`
 ```
-- Make sure you don't change the version in the `.tinyenv` file. We want to alter the existing Data Source in the `live` release and in other case a new data source would be created.
 
-> We added a CI custom deployment that is only required to bypass a known bug. Basically, when working with kafka connections we check that the new columns of the Data Source are in the Data Source's Quarantine Data Source, but we don't create Quarantine Data Sources in the CI Branches by default. For that reason, we push some wrong fixtures which forces the Quarantine Data Source creation.
+Remember, don't change the version in the `.tinyenv` file. You want to alter the existing Data Source in the `live` release, otherwise a new Data Source will be created.
+
+> There is a CI custom deployment that bypasses a known bug. When working with Kafka connections, it checks that the new columns of the Data Source are in the Data Source's [Quarantine Data Source](https://www.tinybird.co/docs/concepts/data-sources#the-quarantine-data-source), but it doesn't create Quarantine Data Sources in the CI Branches by default. For that reason, it pushes some wrong fixtures which forces the creation of the Quarantine Data Source.
 
 ```bash
 set +e # Allow errors, the append command will fail
