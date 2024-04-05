@@ -1,14 +1,18 @@
-# Tinybird Versions - Use case examples
+# Tinybird version control: Examples of iteration use cases
 
-## Before starting
+This repository contains individual examples of "iterating an aspect of your Tinybird Workspace using version control". You can either simply read through these use cases, or make a new practice Workspace and follow them as step-by-step tutorials. They are designed to give you a safe learning space, so you can understand the process of making the changes you need in your own active Workspace.
 
-Either you want to reproduce a use case or create a new one, please follow the [instructions](DEVELOPMENT/README.md) in the DEVELOPMENT readme.
+## Before you begin
 
-> If there is any use case referencing any other Data Project, it will be documented in the README of the use case.
+To make a new Workspace and get yourself set up for any of the tutorials, follow the setup instructions in the [DEVELOPMENT README](DEVELOPMENT/README.md). Then, pick an example (see the list below) and follow its README.
+
+## What's in the box?
+
+Each use case tutorial is stored in an individual subfolder and contains all the Workspace resources you'll need: Data Sources, Pipes, API Endpoints, and more.
+
+> Be aware that GitHub doesn't allow running workflows in different subfolders, so it isn't possible to include the CI and CD workflow files in the same use case folder. Every CI/CD action is located in `.github/workflows` and has the same folder name as the use case.
 
 ## Use cases
-
-This repository contains all the use cases you can iterate with Versions:
 
 - [Add column to a Materialized View](add_new_column_to_a_materialized_view)
 - [Add column to a Landing Data Source](add_nullable_column_to_landing_data_source)
@@ -28,7 +32,10 @@ This repository contains all the use cases you can iterate with Versions:
 - [Remove column from landing Data Source](remove_column_landing_data_source)
 - [Use new columns from a Shared Data Source](use_new_columns_from_shared_datasource)
 
+## Help and feedback
 
-## Caveats
+Found a typo or feeling stuck on something? Open an issue on this PR or contact us in the [Tinybird Slack Community](https://www.tinybird.co/docs/community).
 
-Unfortunately, GitHub doesn't allow running workflows in different subfolders so it isn't possible to include the CI and CD workflow files in the same use case folder. Every CI/CD action is located in `.github/workflows` and has the same folder name as the use case.
+
+TBC
+> If there is any use case referencing any other Data Project, it will be documented in the README of the use case.
