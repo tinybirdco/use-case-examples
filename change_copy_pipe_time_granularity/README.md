@@ -1,8 +1,8 @@
-# Tinybird Versions - Change copy pipe to change time granularity
+# Change Copy Pipe to change time granularity
 
-[Pull Request of this changes](https://github.com/tinybirdco/use-case-examples/pull/255)
+[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/255)
 
-We have implemented the `bots_snapshot` Copy Pipe, which runs hourly to capture the bots' hits on the `copy_bots_snapshot` Data Source.
+In this example, we have implemented the `bots_snapshot` Copy Pipe, which runs hourly to capture the bots' hits on the `copy_bots_snapshot` Data Source.
 
 We want to change time granularity to day. So, we need:
 - New daily copy pipe 
@@ -28,7 +28,7 @@ ENGINE "MergeTree"
 - ENGINE_SORTING_KEY "pathname, bot_source, date"
 ```
 
-Just rename `date_hour` column to a more generic `date``
+Rename `date_hour` column to a more generic `date``
 
 - The required changes (schema + new data granularity) imply re-creating the Data Source. Bump the **Major** Version to re-create the Data Source and leave the changes in a `Preview` release to execute backfill migration in a further step.
 
@@ -145,14 +145,12 @@ tb --semver 1.0.0 pipe populate backfill_live_to_new --node migrate_old_copy_bot
 
 ## Deploying the changes
 
-- Push your changes to a branch, create a PR and pass all the checks. Now you can merge the PR and a new `preview` release `1.0.0` will be created, where you can check everything is OK.
+Push your changes to a branch, create a PR and pass all the checks. Now you can merge the PR and a new `preview` Release `1.0.0` will be created, where you can check everything is OK. Once you're happy with your Preview Release, promote it to `live` following one of the next options:
 
-- Once you're happy with your Preview Release you can promote it to `live` following one of the next options:
-
-    - The action `Tinybird - Releases Workflow` in the case you are using our workflow templates.
-    - Promote from the UI.
-    - Or CLI:
-
-        ```sh
-        tb release promote --semver 1.0.0
-        ```
+- If you are using our workflow templates just run the action `Tinybird - Releases Workflow`
+- Or run the following command from the CLI:
+  
+```sh
+  tb release promote --semver 1.0.0
+```
+- Or go to the `Releases` section in the UI and promote the `Preview 1.0.0` to `live`
