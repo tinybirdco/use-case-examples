@@ -1,10 +1,10 @@
-# Tinybird Versions - Add Column to a Landing Data Source with Specific Values
+# Add a column with specific values to a Landing Data Source
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
+> Remember to follow the [instructions](../README.md) to set up a fresh Tinybird Workspace to practice this tutorial
 
-> Add a new column to a Data Source when you DON'T NEED specific values for the new column in the existing rows it's a much more straightforward process: [Add Column to a Landing Data Source](../add_nullable_column_to_landing_data_source)
+NOTE: If you **don't need** specific values for the new column, follow the example of "[Add a column to a landing Data Source](../add_nullable_column_to_landing_data_source)"
 
-[Pull Request of this use case](https://github.com/tinybirdco/use-case-examples/pull/242/files)
+[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/242/files)
 
 1. Add the column to the Data Source
 
@@ -18,16 +18,16 @@ SCHEMA >
     `payload` String `json:$.payload`
 ```
 
-2. Bump the SemVer major version to re-create the Data Source in a Preview Release where we can populate the desired values in the new column. [More information about Deployment Strategies]().
+2. Bump the SemVer major version to re-create the Data Source in a Preview Release where the desired values can be populated in the new column. [More information about Deployment Strategies](https://www.tinybird.co/docs/version-control/deployment-strategies).
    
 ```diff
 - 0.0.1
 + 1.0.0
 ```
 
-3. Prepare the backfill resources by filling the new column with the desired default value. Learn more about [backfill strategies when there's a timestamp](https://versions.tinybird.co/docs/version-control/backfill-strategies.html#scenario-3-streaming-ingestion-with-incremental-timestamp-column). Pay attention to the `sync_data.pipe` date filter, it has to be a date in the future, not reached before deploying to `Preview`. Create a PR with all your changes, wait until all the checks are OK and merge it.
+3. Prepare the backfill resources by filling the new column with the desired default value. Learn more about [backfill strategies when there's a timestamp](https://www.tinybird.co/docs/version-control/backfill-strategies#scenario-3-streaming-ingestion-with-incremental-timestamp-column). Pay attention to the `sync_data.pipe` date filter: It must be a date in the future, not reached before deploying to `Preview`. Create a PR with all your changes, wait until all the checks pass, and merge it.
 
-> As we're creating a new empty `analytics_events` Data Source the regression tests will fail so you need to skip them by adding the tag `--skip-regression-tests` to the PR.
+> As you're creating a new empty `analytics_events` Data Source the regression tests will fail so you need to skip them by adding the tag `--skip-regression-tests` to the PR.
 
 `backfill_data.pipe`
 
@@ -66,7 +66,7 @@ tb --semver 1.0.0 sql "select count() as preview_rows from analytics_events"
 ----------------
 ```
 
-but it is way lower than the `Live` version because only data after the future date filter has been synced:
+but it is lower than the `Live` version because only data after the future date filter has been synced:
 
 ```sh
 tb sql "select count() as live_rows from analytics_events"
@@ -78,7 +78,7 @@ tb sql "select count() as live_rows from analytics_events"
 -------------
 ```
 
-To fill that gap, It's time to run the copy pipe we prepared, to copy the Data before the future date filter that we have in the `live` version but not in the `preview 1.0.0` yet. For that, we run:
+To fill that gap, run the copy pipe you prepared, to copy the Data before the future date filter that is in the `live` version but not in the `preview 1.0.0` yet. For that, run:
 
 ```sh
 tb --semver 1.0.0 pipe copy run backfill_data --param start_backfill_timestamp='1970-01-01 00:00:00' --param end_backfill_timestamp='2024-01-05 17:10:00' --yes --wait
@@ -90,7 +90,7 @@ tb --semver 1.0.0 pipe copy run backfill_data --param start_backfill_timestamp='
 
 > Pay attention to the `--semver 1.0.0` to execute it in the Preview Release
 
-Now we can easily check that both Data Sources have the same amount of rows by executing counts operations. If we have high-traffic ingestion we can add a filter with the current time to ensure we're not counting new rows added between the `select count()` executions:
+Now you can easily check that both Data Sources have the same amount of rows by executing count operations. If you have high-traffic ingestion, can add a filter with the current time to ensure you're not counting new rows added between the `select count()` executions:
 
 ```sh
 tb sql "select count() as live_rows from analytics_events where timestamp < '2024-02-06 09:36:00'"
@@ -114,15 +114,15 @@ tb sql --semver 1.0.0 "select count() as preview_rows from analytics_events wher
 
 5. Everything is ready to promote the `Preview` Release to `Live`. Choose one of the next 3 options for that:
 
-- If you are using our workflow templates just run the action `Tinybird - Releases Workflow`.
+- If you are using our workflow templates just run the action `Tinybird - Releases Workflow`
 
-- In another case you can run the following command from the CLI:
+- Or run the following command from the CLI:
   
 ```sh
   tb release promote --semver 1.0.0
 ```
 
-- Or go to the `Releases` section in the UI and promote the `Preview 1.0.0` to `live`.
+- Or go to the `Releases` section in the UI and promote the `Preview 1.0.0` to `live`
 
 6. CLEAN-UP: After this point you don't need the resources created to sync and backfill the new Data Source. You can delete the files: `backfill_data.pipe` and `sync_data.pipe` and create a new PR. For this purpose increment the `patch` will be enough (e.g.: `1.0.0` to `1.0.1`).
 
