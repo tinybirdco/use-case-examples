@@ -57,7 +57,7 @@ tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format C
 + 1.0.0
 ```
 
-- Create a Pull Requet with these changes and, once all the checks are satisfied, merge it. Then the `Preview` release will be created with the endpoint changes. From this moment, you can start to migrate all the API consumers to use the new version `1.0.0`. Just add  `__tb__semver=1.0.0` to the url. Once `0.0.0` can be securely deprecated, promote `preview` to `live` following one of the next options:
+- Create a Pull Request with these changes and, once all the checks are satisfied, merge it. Then the `Preview` release will be created with the endpoint changes. From this moment, you can start to migrate all the API consumers to use the new version `1.0.0`. Just add  `__tb__semver=1.0.0` to the url. Once `0.0.0` can be securely deprecated, promote `preview` to `live` following one of the next options:
 
     - The action `Tinybird - Releases Workflow` in the case you are using our workflow templates.
     - Promote from the UI.
