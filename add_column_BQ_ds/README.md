@@ -1,8 +1,8 @@
 # Add a new column to a BigQuery Data Source
 
-It isn't possible to add a new column in a BigQuery Data Source in one iteration, but we'll create a new one with the new column and populate it with the old data using a copy Pipe. The steps are:
+It isn't possible to add a new column to a BigQuery Data Source in one iteration. but we'll create a new one with the new column and populate it with the old data using a copy Pipe. The steps are:
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
+> Remember to follow the [instructions](../README.md) to set up a fresh Tinybird Workspace to practice this tutorial
 
 ### 1st BigQuery Data Source 
 
@@ -18,12 +18,9 @@ It isn't possible to add a new column in a BigQuery Data Source in one iteration
 [Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/71)
 
 - Create another branch
-- Create a new (and the last) BigQuery Data Source, but this time with the new column. In our case it is `country_code`
-- With a copy Pipe, the old data will be copied into the new Data Source
+- Create a new and final BigQuery Data Source, but this time with the new column (in this case `country_code`)
+- With a Copy Pipe, the old data will be copied into the new Data Source
 - Generate a new CI/CD version `tb release generate --semver 0.0.4`
-- In the CI/CD script files, since we are altering an existing Data Source, include the `--yes` flag.
+- In the CI/CD script files, as you are altering an existing Data Source, include the `--yes` flag
 - Push your changes
-- [Optionally] Run `tb datasource sync bq_pypi_data` to force sync and populate the new column.
-
-
-[Internal workspace](https://ui.tinybird.co/55bd1979-6638-434d-9049-324112188f32/dashboard)
+- [Optional] Run `tb datasource sync bq_pypi_data` to force sync and populate the new column
