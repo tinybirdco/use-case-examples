@@ -4,7 +4,7 @@ It isn't possible to add a new column to a BigQuery Data Source in one iteration
 
 > Remember to follow the [instructions](../README.md) to set up a fresh Tinybird Workspace to practice this tutorial
 
-### 1st BigQuery Data Source 
+### 1. Create your 1st BigQuery Data Source 
 
 [Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/15)
 
@@ -13,7 +13,7 @@ It isn't possible to add a new column to a BigQuery Data Source in one iteration
 - Generate the new BigQuery Data Source schema ([instructions](https://www.tinybird.co/docs/ingest/bigquery.html))
 - Push your changes
 
-### 2nd BigQuery Data Source with the new column
+### 2. Create your 2nd BigQuery Data Source with the new column
 
 [Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/71)
 
