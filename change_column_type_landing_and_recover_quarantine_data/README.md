@@ -1,10 +1,12 @@
-## Change landing datasource and recover data from quarantine
+## Change landing Data Source and recover data from quarantine
+
+> Remember to follow the [instructions](../README.md) to set up a fresh Tinybird Workspace to practice this tutorial
 
 You can see what we have modified and the workflows in the [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/228)
 
-First of all, as we are going to change the datasource where the data is being ingested. We need to bump the major version of `.tinyenv`. This will cause will create a Preview release in the branch created by the CI Workflow and also in our workspace by the CD workflow.
+First of all, as we are going to change the Data Source where the data is being ingested. We need to bump the major version of `.tinyenv`. This will cause will create a Preview Release in the Branch created by the CI Workflow and also in our workspace by the CD workflow.
 
-Then, we have modified the landing datasource. In this case, we have modified the partition key, but we could have modified any column type
+Then, we have modified the landing Data Source. In this case, we have modified the partition key, but we could have modified any column type
 
 ```diff
 TOKEN "tracker" APPEND
@@ -26,7 +28,7 @@ ENGINE_SORTING_KEY "timestamp"
 ENGINE_TTL "timestamp + toIntervalDay(60)"
 ```
 
-Then, we have create a materialized view to sync the data that it's arriving to quarantine. To be able to read the data from our Live Release, we will need to specify from which release you want to read. In our case, from `v0.0.1`, so we need to follow the convention `v_0_0_1` 
+Then, we have create a Materialized View to sync the data that is arriving to quarantine. To be able to read the data from our Live Release, we will need to specify from which release you want to read. In our case, from `v0.0.1`, so we need to follow the convention `v_0_0_1` 
 
 ```sql
 NODE materialized
@@ -47,7 +49,7 @@ TYPE MATERIALIZED
 DATASOURCE analytics_events
 ```
 
-Finally, as we have modified the landing datasource and therefore, it will create a new one and all the dependent MV. We need to create a materialized view to also connect the data that it is arriving to `analytics_events`.
+Finally, as we have modified the landing Data Source and therefore, it will create a new one and all the dependent Materialized Views. We need to create a Materialized View to also connect the data that is arriving to `analytics_events`.
 
 In our case, as we don't need to do any transformation, we can just do
 
@@ -67,7 +69,7 @@ DATASOURCE analytics_events
 
 ## CI Workflow 
 
-Once the CI Workflow has finished sucessfully, you should be able to authentificate in the branch by either copying the token from the branch or by switching to the branch from main
+Once the CI Workflow has finished sucessfully, you should be able to authentificate in the Branch by either copying the token from the Branch or by switching to the Branch from main
 
 ```shell
 # You can use tb authentificate using the token of the branch
@@ -80,20 +82,20 @@ tb branch ls
 tb branch use <NAME_BRANCH> 
 ```
 
-Now, you show be able to list all the releases we have by doing
+Now, you show be able to list all the Releases we have by doing
 
 ```shell
 tb release ls
 ```
 
 Also, you could query the preview release by running the following. In our case, we will be checking the number of rows of `analytics_events`. 
-**If you are not ingesting data to the branch is expected that you want see any row as we did not run the populate of the migration pipe**
+**If you are not ingesting data to the branch it is expected that you won't see any rows as we did not run the populate of the migration pipe**
 
 ```shell
 tb --semver 1.0.0 sql "SELECT count() FROM analytics_events"
 ```
 
-At the moment, you need to run the populate command outside git, so you will need to run the following commands in our case
+At the moment, you need to run the populate command outside Git, so you will need to run the following commands
 
 ```shell
 
@@ -110,7 +112,7 @@ Now, we should be able to see how if we run
 tb --semver 1.0.0 sql "SELECT count() FROM analytics_events"
 ```
 
-Finally, you can promote the Preview release to Live Release
+Finally, you can promote the Preview Release to Live Release
 
 ```shell
 tb release promote --semver 1.0.0
@@ -118,22 +120,22 @@ tb release promote --semver 1.0.0
 
 ### Import limitation of the UI for the Branches
 
-If you go in the UI to the branch created by the CI Workflow, you won't see this changes. That's because you will be seeing the Live Release of the branch and you want be able to acces the Preview Release from the Branch
+If you use the UI to view the Branch created by the CI Workflow, you won't see these changes. That's because you will be seeing the Live Release of the Branch and you won't be able to acces the Preview Release from the Branch.
  
-This is a current limitation on the UI only for the Branches that we expect to fix soon. That's why now, you should use the CLI to verify everything is fine in the branch or you can merge the Pull Request and verify everything is fine in the Preview of your workspace
+This is a current limitation on the UI only for the Branches that we expect to fix soon. That's why now, you should use the CLI to verify everything is fine in the Branch or you can merge the Pull Request and verify everything is fine in the Preview of your Workspace.
 
 
 ## CD Workflow 
 
-Once we have validated that the migration on the branch worked fine, we would merge the Pull Request and should be able to see the Preview Release on our workspace in the UI or on the CLI.
+Once we have validated that the migration on the Branch worked fine, we would merge the Pull Request and should be able to see the Preview Release on our workspace in the UI or on the CLI.
 
-If you are ingesting continustly, you should be able to see some rows entering in the Preview Release if you the following command. This way we can verify that our Preview Release in in sync with the data that is being ingested in our Live Release.
+If you are ingesting continuously, you should be able to see some rows entering in the Preview Release if you the following command. This way we can verify that our Preview Release in in sync with the data that is being ingested in our Live Release.
 
 ```shell
 tb --semver 1.0.0 sql "SELECT count() FROM analytics_events"
 ```
 
-Now, we should run the backfill to populate with the historical data. To do that, we can would need to look for the minium timestamp that has been already ingested in the Preview Release. To do that you would need to run. If you do not have a datetime column you can use to do the cut safetly for the backfill, please let us know
+Now, we should run the backfill to populate with the historical data. To do that, we would need to look for the minimum timestamp that has been already ingested in the Preview Release. To do that you would need to run. If you do not have a datetime column you can use to do the cut safetly for the backfill, please let us know
 
 ```shell
 tb --semver 1.0.0 sql "SELECT min(timestamp) FROM analytics_events"
