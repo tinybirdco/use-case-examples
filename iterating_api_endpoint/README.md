@@ -69,7 +69,7 @@ tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format C
 
 - Then you can get rid of `__tb__semver=1.0.0` on your service to be ready for next not breaking changes.
 
-- In this case Tinybird rollback is availabke but not useful as your API consumer is not compatible wit both versions.
+- In this case Tinybird rollback is available but not useful as your API consumer is not compatible wit both versions.
 
 
 > In case we are iterating **not a breaking change** the way to go is just to Deploy to a `Live` release (bumping minor or patch in `.tinyenv`). API consumer does not require any change and Tinybird rollback is available.
