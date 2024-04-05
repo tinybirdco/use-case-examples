@@ -49,7 +49,7 @@ tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format C
 
 - Add the flag `--skip-regression-tests` to your PR. This is required because Tinybird performs some automatic regression tests based on the endpoint's query log history. As we have changed the response of the endpoint, these automatic tests would fail. ([learn more about testing](https://versions.tinybird.co/docs/version-control/implementing-test-strategies.html)).
 
-- Bump the semver version in `.tinyenv`. In this case we increase the major version. Doing so will deploy the changes in a `Preview` release.
+- As it is a **breaking change** let's deploy changes to a `Preview` release. This way we have both versions available in Tinybird. In this case we increase the major version, bump the semver version in `.tinyenv`.
 
 `.tinyenv`:
 ```diff
@@ -57,7 +57,7 @@ tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format C
 + 1.0.0
 ```
 
-- Create a Pull Requet with these changes and, once all the checks are satisfied, merge it. Then the `Preview` release will be created with the endpoint changes. From this moment, you can start to migrate all the API consumers to use the new version `1.0.0`. Once `0.0.0` can be securely deprecated, promote `preview` to `live` following one of the next options:
+- Create a Pull Requet with these changes and, once all the checks are satisfied, merge it. Then the `Preview` release will be created with the endpoint changes. From this moment, you can start to migrate all the API consumers to use the new version `1.0.0`. Just add  `__tb__semver=1.0.0` to the url. Once `0.0.0` can be securely deprecated, promote `preview` to `live` following one of the next options:
 
     - The action `Tinybird - Releases Workflow` in the case you are using our workflow templates.
     - Promote from the UI.
@@ -66,4 +66,12 @@ tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format C
         ```sh
         tb release promote --semver 1.0.0
         ```
-- After this moment, if something goes wrong, you will be able to rollback to the `0.0.0` release.
+
+- Then you can get rid of `__tb__semver=1.0.0` on your service to be ready for next not breaking changes.
+
+- In this case Tinybird rollback is availabke but not useful as your API consumer is not compatible wit both versions.
+
+
+> In case we are iterating **not a breaking change** the way to go is just to Deploy to a `Live` release (bumping minor or patch in `.tinyenv`). API consumer does not require any change and Tinybird rollback is available.
+
+
