@@ -5,7 +5,8 @@ SCHEMA >
     `timestamp` DateTime,
     `cli_version` LowCardinality(String),
     `python_version` LowCardinality(String),
-    `country_code` Nullable(String)
+    `country_code` Nullable(String),
+    `project` Nullable(String)
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toDate(timestamp)"
@@ -20,7 +21,8 @@ IMPORT_QUERY >
         `timestamp`, 
         file.version as cli_version, 
         details.python as python_version, 
-        `country_code` 
+        `country_code`, 
+        `project` 
     FROM 
         `bigquery-public-data.pypi.file_downloads` 
     WHERE 
