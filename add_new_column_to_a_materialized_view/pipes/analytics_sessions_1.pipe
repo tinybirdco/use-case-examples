@@ -1,4 +1,4 @@
-NODE analytics_sessions_1
+NODE analytics_sessions_1_1
 DESCRIPTION >
     Aggregate by session_id and calculate session metrics
 
