@@ -15,9 +15,8 @@
           - main
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        uses: tinybirdco/ci/.github/workflows/cd.yml@400
         with:
-          tb_deploy: false
           data_project_dir: ./add_column_BQ_ds
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_BQ_DS }}
