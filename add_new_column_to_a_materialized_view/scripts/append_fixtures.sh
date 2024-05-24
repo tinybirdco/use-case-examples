@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-VERSION=$1
-
 directory="datasources/fixtures"
 extensions=("csv" "ndjson")
 
@@ -14,7 +12,7 @@ for extension in "${extensions[@]}"; do
     file_name=$(basename "$file_path")
     file_name_without_extension="${file_name%.*}"
 
-    command="tb --semver $VERSION datasource append $file_name_without_extension datasources/fixtures/$file_name"
+    command="tb datasource append $file_name_without_extension datasources/fixtures/$file_name"
     echo $command
     $command
   done
