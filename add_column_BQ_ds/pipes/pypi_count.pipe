@@ -1,0 +1,3 @@
+NODE pypi_totals
+SQL >
+    SELECT count() FROM bq_pypi_data
