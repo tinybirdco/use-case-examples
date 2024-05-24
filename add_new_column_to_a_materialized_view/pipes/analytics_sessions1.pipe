@@ -20,4 +20,4 @@ SQL >
         session_id
 
 TYPE materialized
-DATASOURCE analytics_sessions_mv_1
+DATASOURCE analytics_sessions_mv1
