@@ -1,6 +1,0 @@
-NODE bq_copy
-SQL >
-    SELECT *, null as country_code FROM bq_pypi_data
-
-TYPE COPY
-TARGET_DATASOURCE bq_pypi_data_new
