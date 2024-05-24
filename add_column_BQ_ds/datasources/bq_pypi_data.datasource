@@ -5,7 +5,7 @@ SCHEMA >
     `timestamp` DateTime,
     `cli_version` LowCardinality(String),
     `python_version` LowCardinality(String),
-    `country_code` Nullable(String)
+    `country_code` Nullable(String),
     `project` Nullable(String)
 
 ENGINE "MergeTree"
