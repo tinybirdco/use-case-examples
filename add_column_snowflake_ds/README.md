@@ -1,29 +1,22 @@
 # Add a new column to a Snowflake Data Source
 
-These are the minimal steps to add a new column to a Snowflake Data Source:
+### 1st Create a Snowflake Data Source 
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
-
-### 1st Snowflake Data Source
-
-[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/73)
+[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/277)
 
 - Create a new branch
-- Create a new Snowflake connection `tb connection create snowflake`
-- Generate the new Snowflake Data Source schema ([instructions](https://www.tinybird.co/docs/ingest/snowflake.html))
-- Push your changes
+- Create a new Snowflake Data Source ([instructions](https://www.tinybird.co/docs/ingest/snowflake))
+- Commit and wait for CI. You can check in the temporary CI branch that everything works as expected.
+- Merge and wait for CD.
 
-[Internal workspace](https://ui.tinybird.co/7ba1463e-b0df-4c5f-bd3d-0927e142d596/dashboard)
+### 2nd Snowflake Data Source with the new column
 
-### 2nd Add column to the Snowflake Data Source
-
-[Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/74)
+[Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/278)
 
 - Create another branch
-- Modify the Data Source schema to include the new column
-- Generate a new CI/CD version with `tb release generate --semver 0.0.2`
-- In the CI/CD script files, include the `--yes` flag to confirm that you want to alter the Data Source.
-- Push your changes
-- [Optionally] Run `tb datasource sync stock_prices` to force sync and populate the new column
+- Add the new column to the schema and query
+- Commit and wait for CI. You can check in the temporary CI branch that everything works as expected.
+- Merge and wait for CD.
+- [Optionally] Run `tb datasource sync stock_prices` to force sync and populate the new column.
 
-[Internal workspace](https://ui.tinybird.co/55bd1979-6638-434d-9049-324112188f32/dashboard)
+[Internal workspace](https://app.tinybird.co/gcp/europe-west3/5792cd20-de4d-42cc-838f-b9748e07a34d/dashboard)
