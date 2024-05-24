@@ -19,7 +19,7 @@
 
     jobs:
         ci:
-          uses: tinybirdco/ci/.github/workflows/ci.yml@main
+          uses: tinybirdco/ci/.github/workflows/ci.yml@400
           with:
             data_project_dir: ./add_new_column_to_a_materialized_view
           secrets:
