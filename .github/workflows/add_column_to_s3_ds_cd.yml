@@ -15,7 +15,7 @@
           - main
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@400
+        uses: tinybirdco/ci/.github/workflows/cd.yml@v4.0.0
         with:
           data_project_dir: ./add_column_to_s3_ds
         secrets:
