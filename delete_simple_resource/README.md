@@ -1,11 +1,25 @@
 # Delete simple resource
 
-Delete simple Data Sources or Pipes easily. Create a [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/143) following these steps:
+Delete simple Data Sources or Pipes easily. Create a [Pull Request](https://github.com/tinybirdco/use-case-examples/pull/308) following these steps:
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
-
-- Remove the Pipes or Data Sources datafiles you want to delete
-- Bump .tinyenv
+- Remove from git the Pipes or Data Sources datafiles you want to delete, in this case, `git rm pipes/top_browsers.pipe`
 - CI/CD will protect you from removing resources with depedencies and doing in proper order
+- Before removing a resource make sure it does not receive any data nor requests by running a query over `datasources_ops_log` or `pipe_stats_rt` like this:
 
-[workspace](https://ui.tinybird.co/128be410-8de1-4b1c-805c-145fdcf2566a/dashboard)
+```
+select *
+from tinybird.datasources_ops_log
+where datasource_name = '<datasource_name>'
+and timestamp > now() - interval 1 day
+```
+
+```
+select *
+from tinybird.pipe_stats_rt
+where pipe_name = '<pipe_name>'
+and start_datetime > now() - interval 1 day
+```
+
+Adjust the date filter accordingly to make sure the resources are not being used.
+
+[workspace](https://app.tinybird.co/gcp/europe-west3/aab213d8-12a7-46d1-872b-37f3521775e4/)
