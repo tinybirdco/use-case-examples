@@ -1,6 +1,7 @@
 NODE analytics_pages_1_backfill_node
 
 SQL >
+    %
     SELECT
         toDate(timestamp) AS date,
         device,
