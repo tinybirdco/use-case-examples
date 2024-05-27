@@ -71,7 +71,7 @@ SQL >
               max(latest_hit) as latest_hit_aux,
               min(first_hit) as first_hit_aux
             from
-              analytics_sessions_mv
+              analytics_sessions_mv1
             where
               {% if defined(date_from) %}
                 date >= {{Date(date_from)}}
