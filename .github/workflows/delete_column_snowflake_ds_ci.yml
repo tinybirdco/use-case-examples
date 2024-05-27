@@ -18,7 +18,7 @@ concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
 
 jobs:
   ci:
-    uses: tinybirdco/ci/.github/workflows/ci.yml@main
+    uses: tinybirdco/ci/.github/workflows/ci.yml@v4.0.0
     with:
       data_project_dir: ./delete_column_snowflake_ds
     secrets:

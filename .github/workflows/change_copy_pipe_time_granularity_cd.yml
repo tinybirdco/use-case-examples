@@ -15,7 +15,7 @@
           - main
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        uses: tinybirdco/ci/.github/workflows/cd.yml@v4.0.0
         with:
           data_project_dir: ./change_copy_pipe_time_granularity
         secrets:
