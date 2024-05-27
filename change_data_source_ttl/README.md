@@ -19,14 +19,7 @@ In this example, we're changing the TTL of an existing Data Source from 60 days 
 + ENGINE_TTL "timestamp + toIntervalDay(10)"
 ```
 
-2. Make sure you increment the `Post-Release` segment of the SemVer number in `.tinyenv` file: 
-  
-```diff
-- VERSION=0.0.0-1
-+ VERSION=0.0.0-2
-```
-
-  This alters the Data Source to change the TTL. If you changed another part of the SemVer, the Data Source would be re-created, and it's not what we want. Check [deployment strategies documentation](https://versions.tinybird.co/docs/version-control/deployment-strategies.html#semver-deployment-behaviour) to learn more about the different strategies applying changes to your Data Project.
+2. Deployment alters the Data Source to change the TTL. 
 
 3. Add tests to ensure that the TTL change is working as expected:
 
@@ -41,4 +34,4 @@ tb sql "SELECT countIf(toDate(timestamp) = toDate('2024-01-15')) as old_data, co
 0,4
 ```
 
-4. Commit the changes and open a new Pull Request, it will create a CI branch when you can double check that the TTL change is being applied as expected. Once all the checks are ok merge it, and the changes will be deployed to the `live` release.
+4. Commit the changes and open a new Pull Request, it will create a CI branch when you can double check that the TTL change is being applied as expected. Once all the checks are ok merge it, and the changes will be deployed to main Workspace.
