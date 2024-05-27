@@ -1,0 +1,9 @@
+NODE node_backfill
+SQL >
+   %
+   SELECT *, 'production' AS environment
+   FROM analytics_events
+   WHERE timestamp BETWEEN {{DateTime(start_backfill_timestamp)}} AND {{DateTime(end_backfill_timestamp)}} 
+
+TYPE COPY
+TARGET_DATASOURCE analytics_events1
