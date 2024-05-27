@@ -19,7 +19,7 @@ SQL >
         JSONExtractString(payload, 'pathname') as pathname,
         JSONExtractString(payload, 'href') as href,
         lower(JSONExtractString(payload, 'user-agent')) as user_agent
-    FROM analytics_events1
+    FROM analytics_events
     where action = 'page_hit'
 
 NODE endpoint
