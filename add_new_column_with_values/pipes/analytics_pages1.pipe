@@ -13,6 +13,7 @@ SQL >
         uniqState(session_id) AS visits,
         countState() AS hits
     FROM analytics_hits1
+    WHERE timestamp > '2024-05-27 12:00:00'
     GROUP BY date, device, browser, location, pathname
 
 TYPE MATERIALIZED
