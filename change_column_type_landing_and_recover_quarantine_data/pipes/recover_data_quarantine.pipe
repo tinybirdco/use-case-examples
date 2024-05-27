@@ -8,7 +8,7 @@ SQL >
         assumeNotNull(parseDateTimeBestEffort(replaceAll(timestamp, '"', ''))) as timestamp,
         assumeNotNull(session_id) as session_id,
         toLowCardinality(assumeNotNull(action)) as action,
-        toLowCardinality(assumeNotNull(version)) as version,
+        toUInt32(assumeNotNull(version)) as version,
         assumeNotNull(payload) as payload
     FROM analytics_events_quarantine
 
