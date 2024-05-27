@@ -4,13 +4,9 @@ Sharing Data Sources among multiple workspaces is a common practice. One typical
 
 ![shared data sources data project](https://github.com/tinybirdco/use-case-examples/assets/1078228/9c3b3e0c-4064-4e25-ba88-0eb0bed3fbee)
 
-Above you can see a schema from our [How to work with Data Projects guide](https://versions.tinybird.co/docs/concepts/data-projects.html). You can see highlighted a Data Source that is shared between workspaces.
-
 Throughout the lifecycle of a Data Project, it's likely that the landing Data Source schema changes, with new columns being added. In such cases, it becomes necessary to reflect those changes in the Workspaces utilizing the shared Data Source.
 
 This guide will demonstrate how to add new columns from a shared data source to your workspace.
-
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
 
 ## Step 1: Obtain the new schema from the landing Data Source
 
@@ -73,8 +69,6 @@ SQL >
 +   {% end %}
 ```
 
-> IMPORTANT: While it is generally advised to update the data project's version `.tinyenv` when adding or modifying pipes, it must not be incremented for pipes that utilize a Shared Data Source, owing to a known bug.
-
 ## Step 3. Add tests
 
 [Step 3 PR](https://github.com/tinybirdco/use-case-examples/pull/78/commits/049835e35128d9cff6bd353562be4cd90f37cc07)
@@ -107,6 +101,6 @@ It's convenient to add test to assert that the added code does what it's meant t
         project: 'a_project_that_does_not_exist'
 ```
 
-In this example, we provide a project name that we already know that has results and another one that won't exist. A sturdier approach is to provide fixtures, so we don't depend on having the Data Source already populated. For the sake of making this example use case simpler, they're not added, but we recommend you to read the Implementing test strategies guide [link](https://versions.tinybird.co/docs/version-control/implementing-test-strategies.html#fixture-tests-title) to know more about how to properly test a Data Project.
+In this example, we provide a project name that we already know that has results and another one that won't exist. A sturdier approach is to provide fixtures, so we don't depend on having the Data Source already populated. For the sake of making this example use case simpler, they're not added, but we recommend you to read the Implementing test strategies guide [link](https://docs.tinybird.co/docs/production/implementing-test-strategies.html#fixture-tests-title) to know more about how to properly test a Data Project.
 
 Now, commit these changes, create a PR, and once the CI pipeline of the created PR validates your changes, you can merge it to deploy in the main environment.
