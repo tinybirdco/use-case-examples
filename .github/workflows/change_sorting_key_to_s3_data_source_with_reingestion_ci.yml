@@ -19,7 +19,7 @@
 
     jobs:
         ci:
-          uses: tinybirdco/ci/.github/workflows/ci.yml@main
+          uses: tinybirdco/ci/.github/workflows/ci.yml@v4.0.0
           with:
             data_project_dir: ./change_sorting_key_to_s3_data_source_with_reingestion
           secrets:

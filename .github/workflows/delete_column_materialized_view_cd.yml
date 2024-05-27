@@ -15,9 +15,8 @@
           - main
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        uses: tinybirdco/ci/.github/workflows/cd.yml@v4.0.0
         with:
-          tb_deploy: false
           data_project_dir: ./delete_column_materialized_view
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_DELETE_COLUMN_MV }}

@@ -16,7 +16,7 @@
           - 'iterating_api_endpoint/**'
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        uses: tinybirdco/ci/.github/workflows/cd.yml@v4.0.0
         with:
           data_project_dir: iterating_api_endpoint
         secrets:

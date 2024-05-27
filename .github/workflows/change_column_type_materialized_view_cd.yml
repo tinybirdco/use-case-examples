@@ -16,9 +16,8 @@
           - 'change_column_type_materialized_view/**'
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        uses: tinybirdco/ci/.github/workflows/cd.yml@v4.0.0
         with:
-          tb_deploy: true
           data_project_dir: change_column_type_materialized_view
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_CHANGE_COLUMN_TYPE_MATERIALIZED_VIEW }}  # set the Workspace admin token in GitHub secrets

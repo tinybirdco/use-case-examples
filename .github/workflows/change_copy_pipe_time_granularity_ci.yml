@@ -19,7 +19,7 @@
 
     jobs:
         ci:
-          uses: tinybirdco/ci/.github/workflows/ci.yml@main
+          uses: tinybirdco/ci/.github/workflows/ci.yml@v4.0.0
           with:
             data_project_dir: ./change_copy_pipe_time_granularity
           secrets:

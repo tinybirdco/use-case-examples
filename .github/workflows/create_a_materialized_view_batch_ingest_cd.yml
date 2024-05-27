@@ -15,7 +15,7 @@
           - main
     jobs:
       cd:
-        uses: tinybirdco/ci/.github/workflows/cd.yml@main
+        uses: tinybirdco/ci/.github/workflows/cd.yml@v4.0.0
         with:
           data_project_dir: ./create_a_materialized_view_batch_ingest
         secrets:
