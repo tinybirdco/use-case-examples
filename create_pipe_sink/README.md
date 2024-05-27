@@ -47,13 +47,4 @@ You can explore the different options and much more in our [documentation page](
 
 ## Deploy the changes
 
-- It is mandatory to use the `alter deployment strategy` ([more about deployment strategies](https://www.tinybird.co/docs/version-control/deployment-strategies.html)) for this type of changes. Therefore, increment the post-release segment of the semver version (e.g., from 0.0.1 to 0.0.1-1).
-
-`.tinyenv`
-
-```diff
--   VERSION=0.0.1
-+   VERSION=0.0.1-1
-```
-
-- Push your changes to a Git branch, create a PR, ensure all checks pass, and merge it. Wait until the CD workflow finishes, and you will get a new live release with your new Sink Pipe ready.
+- Push your changes to a Git branch, create a PR, ensure all checks pass, and merge it. Wait until the CD workflow finishes, and the Sink Pipe will be deployed to the main Workspace.
