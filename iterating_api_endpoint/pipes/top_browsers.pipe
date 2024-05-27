@@ -15,7 +15,6 @@ SQL >
     %
             select
               browser,
-              device,
               uniqMerge(visits) as visits,
               countMerge(hits) as hits
             from
@@ -31,8 +30,11 @@ SQL >
               {% else %}
                 and date <= today()
               {% end %}
+              {% if defined(browser) %}
+                and browser = {{String(browser)}}
+              {% end %}
             group by
-              browser, device
+              browser
             order by
               visits desc
             limit {{Int32(skip, 0)}},{{Int32(limit, 50)}}
