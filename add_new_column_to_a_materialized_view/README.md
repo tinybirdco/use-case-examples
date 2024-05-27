@@ -1,24 +1,17 @@
 # Tinybird Versions - Add Column to a Materialized View
 
-Adding a new column to a Materialized View Data Source is a delicate process that needs to be handled with care to ensure data integrity and continuity. This guide will take you through the steps to achieve this without stopping your data ingestion.
-
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
-This change needs to re-create the Materialized View and populate it again with all the data without stoping our ingestion.
-
 For that the steps will be:
 
-1. Change the Materialized View (Pipe and Data Source) to add the new column.
-2. Bump the major version, in our case from 1.0.0 -> 2.0.0. Bumping the major version, it will create a new `Preview Release` internally forking the Materialized View and its dependencies.
-3. Backfill the `Preview Release` Materialized View with the data previous to its creation.
-4. Promote the release from `Preview` to `Live`.
+1. Create a new Materialized View (Pipe and Data Source) to add the new column.
+2. Backfill
+3. Connect endpoints to the new Data Source
+4. Delete old Pipe and Data Source
 
-[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/209/files)
+## 1: Create a new Materialized View
 
-## 1: Change the Materialized View
+[PR](https://github.com/tinybirdco/use-case-examples/pull/286)
 
-- Change the Materialized View: Pipe and Datasource
-
-`analytics_sessions_mv.datasource`:
+`analytics_sessions_mv1.datasource`:
 ```diff
 SCHEMA >
     `date` Date,
@@ -35,7 +28,7 @@ ENGINE_PARTITION_KEY "toYYYYMM(date)"
 ENGINE_SORTING_KEY "date, session_id"
 ```
 
-`analytics_sessions.pipe`
+`analytics_sessions1.pipe`
 ```diff
 SELECT
         toDate(timestamp) AS date,
@@ -48,54 +41,32 @@ SELECT
         maxSimpleState(timestamp) AS latest_hit,
         countState() AS hits
     FROM analytics_hits
+    WHERE timestamp > '2024-05-27 11:00:00'
     GROUP BY
         date,
         session_id
 ```
 
-## 2: Bump version
-- Bump to the next version `2.0.0` in the `.tinyenv` file. It will **re-create** the Materialized View and all its downstream in a new `Preview Release`. 
+Note we are filtering by a date in the future to be able to perform a backfill operation.
 
-`.tinyenv`
-  ```diff
--   VERSION=1.0.0
-+   VERSION=2.0.0
-  ```
+Additionally we create a Pipe only for backfilling purposes, see `analytics_sessions1_backfill.pipe` in the [PR](https://github.com/tinybirdco/use-case-examples/pull/286)
 
-## 3: Skip regression tests
-- As we are re-creating a Materialized View, it will be empty (or just with the fixture data) in the CI testing step. For that reason the regression tests will fail. Add `--skip-regresion-tests` label to the Pull Request to bypass them.
+## 2: Backfill
 
+While this can be automated using a custom deployment that runs the backfill operation we recommend it to just do it manually. So once the previous PR has been merged and the backfill DateTime (in this case '2024-05-27 11:00:00') has passed, you can run this command on your main Workspace:
 
-## 3: Backfilling 
+`tb pipe populate analytics_sessions1_backfill --node analytics_sessions_1_1_backfill --wait`
 
-Once you have deployed the previous changes and they are ready in a `Preview Release` you can opt to backfill the data previous to the Materialized View re-creation.
+Additionally you can run some query with `tb sql` over both Data Sources to check for data quality.
 
-Remember that in the Preview Release we're ingesting the production data, but `analytics_sessions_mv` lacks the rows prior to its recent creation.
+## 3: Connect endpoints to the new Data Source
 
-> As we lack a timestamp in the Data Source, we are utilizing its creation date to backfill all the information preceding its creation. Please note that this mechanism is not entirely accurate and may generate some duplicates in case there is lag in your ingestion. If your Data Source has a timestamp that can serve as a reference for the backfilling, please check [here]([add_nullable_column_to_landing_data_source](https://github.com/tinybirdco/use-case-examples/tree/main/change_sorting_key_landing_data_source)) how to use it.
+Once you've validated data quality on both Data Sources, you can make the Pipe endpoints to use the new `analytics_sessions_1` Data Source.
 
-- Get the creation date by executing the following command
-```sh
-tb --semver 2.0.0 datasource ls
-```
-or executing this query using the CLI or the UI dashboard
+[See PR](https://github.com/tinybirdco/use-case-examples/pull/287)
 
-```sh
-tb --semver 2.0.0 sql "select timestamp from tinybird.datasources_ops_log where event_type = 'create' and datasource_name = 'analytics_sessions_mv' order by timestamp desc limit 1"
-```
+## 3: Delete old Pipe and Data Source 
 
-- Use the creation date to populate the Materialized View with the data previous to its creation. You can run the next command:
-```sh
-tb --semver 2.0.0 pipe populate analytics_sessions --node analytics_sessions_1 --sql-condition "timestamp < '$CREATED_AT' --wait
-```
+Once the changes are in the main Workspace and running in production you can get rid of old resources by just using `git rm`, create a git branch and merge it.
 
-## 4: Promote the changes
-Once the Materialized View has been already populated you can promote the `Preview Release` to `Live`. Choose one of the next 3 options for that:
-- If you are using our workflow templates just run the action `Tinybird - Releaseas Workflow` in other case you can use the command:
-  
-- Run the following command from the CLI:
-  
-```sh
-  tb release promote --semver 2.0.0
-```
-- Or go to the `Releases` section in the UI and promote the `Preview 2.0.0`
+[See PR](https://github.com/tinybirdco/use-case-examples/pull/288)
