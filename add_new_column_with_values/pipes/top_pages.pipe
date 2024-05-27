@@ -11,8 +11,8 @@ DESCRIPTION >
 
 SQL >
     %
-    select pathname, uniqMerge(visits) as visits, countMerge(hits) as hits
-    from analytics_pages_mv
+    select pathname, environment, uniqMerge(visits) as visits, countMerge(hits) as hits
+    from analytics_pages_mv1
     where
         {% if defined(date_from) %}
             date
@@ -36,6 +36,6 @@ SQL >
             }}
         {% else %} and date <= today()
         {% end %}
-    group by pathname
+    group by pathname, environment
     order by visits desc
     limit {{ Int32(skip, 0) }},{{ Int32(limit, 50) }}
