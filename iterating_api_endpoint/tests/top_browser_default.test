@@ -1,1 +1,1 @@
-tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --format CSV
+tb pipe data top_browsers --date_from 2024-01-11 --date_to 2024-01-12 --browser chrome --format CSV

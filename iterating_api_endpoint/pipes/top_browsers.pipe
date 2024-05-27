@@ -30,6 +30,9 @@ SQL >
               {% else %}
                 and date <= today()
               {% end %}
+              {% if defined(browser) %}
+                and browser = {{String(browser)}}
+              {% end %}
             group by
               browser
             order by
