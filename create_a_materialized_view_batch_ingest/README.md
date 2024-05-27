@@ -88,7 +88,7 @@ Remember that in this example we are not ingesting data constanly to `analytics_
 - At deployment time
 
 ```sh
-tb --semver $VERSION pipe populate events_per_location_mat --node count_events_per_location
+tb pipe populate events_per_location_mat --node count_events_per_location
 ```
 
 For more complex use cases —i.e. having realtime ingest— check other entries of the [use-case-examples repo](https://github.com/tinybirdco/use-case-examples).
