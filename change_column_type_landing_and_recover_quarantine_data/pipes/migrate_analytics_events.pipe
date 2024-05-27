@@ -1,0 +1,11 @@
+NODE materialized
+DESCRIPTION >
+    This materialized view will connect the ingestion from analytics_events to analytics_events_1.
+    This will allow us to start receiving all the data from analytics_events.
+
+SQL >
+    SELECT *
+    FROM analytics_events
+
+TYPE MATERIALIZED
+DATASOURCE analytics_events_1
