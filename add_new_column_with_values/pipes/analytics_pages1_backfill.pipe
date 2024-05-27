@@ -13,7 +13,7 @@ SQL >
         countStateMerge() AS hits
     FROM analytics_hits1
     WHERE timestamp BETWEEN {{DateTime(start_backfill_timestamp)}} AND {{DateTime(end_backfill_timestamp)}}
-    GROUP BY date, device, browser, location, pathname
+    GROUP BY date, device, browser, location, pathname, environment
 
 TYPE COPY
 TARGET_DATASOURCE analytics_pages_mv1
