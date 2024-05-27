@@ -1,17 +1,8 @@
 # Tinybird Versions - Add Column to a Landing Data Source
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
-
-[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/206/files)
+[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/296/files)
 
 - Just a add the desired column
-
-> Important! Any change to the data project requires to bump the version. In this case, increase the `post-release` part of the semver (the right part following a dash), other case you'll re-create a new Data Source instead of altering the current one what could lead to a data loss.
-
-```diff
-- 0.0.1
-+ 0.0.1-1
-```
 
 Depending on the use case, there are different options:
 
@@ -42,4 +33,4 @@ SCHEMA >
     `payload` String `json:$.payload`
 ```
 
-
+3. If you want to perform a backfill operation to ingest a default value for the new column read [this example](../add_new_column_with_values/README.md)
