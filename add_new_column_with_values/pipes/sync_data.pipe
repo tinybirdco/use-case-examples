@@ -1,8 +1,0 @@
-NODE node_sync
-SQL >
-   SELECT *, 'production' AS environment
-   FROM analytics_events
-   WHERE timestamp > '2024-05-27 11:30:00'
-
-TYPE materialized
-DATASOURCE analytics_events1
