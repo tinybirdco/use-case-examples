@@ -2,8 +2,6 @@
 
 When data ends up in quarantine, it is possible to re-ingest it using a Copy Pipe. Create a pull request following these steps:
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
-
 - Create a new pipe to select, fix and copy the quarantine rows. In our case it looks like [analytics_events_quarantine_to_final.pipe](./pipes/analytics_events_quarantine_to_final.pipe):
   ```sql
   NODE copy_quarantine
@@ -21,8 +19,8 @@ When data ends up in quarantine, it is possible to re-ingest it using a Copy Pip
   TYPE COPY
   TARGET_DATASOURCE analytics_events
   ```
-- Bump a new CI/CD version and generate deployment scripts `tb release generate --semver 0.0.1`
-- In the CI file [ci-deploy.sh](./deploy/0.0.1/ci-deploy.sh):
+- Create a custom deployment `0.0.1`
+- In the custom deployment file [deploy.sh](./deploy/0.0.1/deploy.sh):
     - Let's append incorrect data to `analytics_events` using a fixture (that's required to create the quarantine Data Source)
     ```bash
       set +e
@@ -42,20 +40,8 @@ When data ends up in quarantine, it is possible to re-ingest it using a Copy Pip
         exit 1
     fi
     ```
-- In the CD file [cd-deploy.sh](./deploy/0.0.1/cd-deploy.sh) run the copy Pipe after the deployment.
+- Once you test the copy Pipe in CI you can get rid of the custom deployment and merge the Pull Request.
+- After the changes are merged you can run the copy Pipe in the main Workspace.
   ```
-  tb --semver 0.0.1 deploy --v3
-  tb --semver 0.0.1 pipe copy run analytics_events_quarantine_to_final --wait --yes
-  ```
-- The temporary copy pipe will be created inside a Release (0.0.1), once the data is migrated is safe to remove the release.
-  
-  Executing:
-  ```
-  tb release rm --semver 0.0.1 --force --yes
-  ```
-  or from the Tinybird web UI.
-
-
-[Pull Request #1](https://github.com/tinybirdco/use-case-examples/pull/152)
-
-[Pull Request #2](https://github.com/tinybirdco/use-case-examples/pull/160)
+  tb pipe copy run analytics_events_quarantine_to_final --wait --yes
+  ``` 
