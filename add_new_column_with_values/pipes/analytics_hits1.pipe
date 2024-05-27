@@ -18,6 +18,7 @@ SQL >
         JSONExtractString(payload, 'referrer') as referrer,
         JSONExtractString(payload, 'pathname') as pathname,
         JSONExtractString(payload, 'href') as href,
+        JSONExtractString(payload, 'environment') as environment,
         lower(JSONExtractString(payload, 'user-agent')) as user_agent
     FROM analytics_events1
     where action = 'page_hit'
@@ -33,6 +34,7 @@ SQL >
         referrer,
         pathname,
         href,
+        environment,
         case
             when match(user_agent, 'wget|ahrefsbot|curl|urllib|bitdiscovery|\+https://|googlebot')
             then 'bot'
