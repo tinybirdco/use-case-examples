@@ -9,7 +9,6 @@ SCHEMA >
     `action` LowCardinality(String) `json:$.action`,
     `version` LowCardinality(String) `json:$.version`,
     `environment` Nullable(String) `json:$.environment`,
-    `new_column` Nullable(String) `json:$.new_column`,
     `payload` String `json:$.payload`
 
 ENGINE "MergeTree"
