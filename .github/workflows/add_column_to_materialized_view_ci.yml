@@ -22,6 +22,7 @@
           uses: tinybirdco/ci/.github/workflows/ci.yml@400
           with:
             data_project_dir: ./add_new_column_to_a_materialized_view
+            use_last_partition: false
           secrets:
             tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_TO_MATERIALIZED_VIEW }}
             tb_host: https://api.tinybird.co
