@@ -20,7 +20,7 @@
 
     jobs:
         ci: # ci using branches from workspace 'add_new_column_with_values'
-          uses: tinybirdco/ci/.github/workflows/ci.yml@400
+          uses: tinybirdco/ci/.github/workflows/ci.yml@v4.0.0
           with:
             data_project_dir: add_new_column_with_values
           secrets:
