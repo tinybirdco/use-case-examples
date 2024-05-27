@@ -9,8 +9,8 @@ SQL >
         location,
         pathname,
         environment,
-        uniqStateMerge(session_id) AS visits,
-        countStateMerge() AS hits
+        uniqState(session_id) AS visits,
+        countState() AS hits
     FROM analytics_hits1
     WHERE timestamp BETWEEN {{DateTime(start_backfill_timestamp)}} AND {{DateTime(end_backfill_timestamp)}}
     GROUP BY date, device, browser, location, pathname, environment
