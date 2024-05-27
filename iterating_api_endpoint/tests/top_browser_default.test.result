@@ -1,5 +1,5 @@
-"browser","device","visits","hits"
-"chrome","desktop",1,2
-"firefox","desktop",1,1
-"chrome","mobile-android",1,1
+"browser","visits","hits"
+"chrome",1,2
+"firefox",1,1
+"chrome",1,1
 
