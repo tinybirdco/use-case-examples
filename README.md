@@ -23,7 +23,6 @@ This repository contains all the use cases you can iterate with Versions:
 - [Create a Materialized View with batch ingest](create_a_materialized_view_batch_ingest)
 - [Delete simple resource](delete_simple_resource)
 - [Iterating an API Endpoint](iterating_api_endpoint)
-- [How to Rollback](how_to_rollback)
 - [Recover data from quarantine](recover_data_from_quarantine)
 - [Remove column from landing Data Source](remove_column_landing_data_source)
 - [Use new columns from a Shared Data Source](use_new_columns_from_shared_datasource)
