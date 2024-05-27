@@ -1,0 +1,23 @@
+NODE analytics_pages_1
+DESCRIPTION >
+    Aggregate by pathname and calculate session and hits
+
+SQL >
+    SELECT
+        toDate(timestamp) AS date,
+        device,
+        browser,
+        location,
+        pathname,
+        environment,
+        uniqState(session_id) AS visits,
+        countState() AS hits
+    FROM analytics_hits1
+    WHERE timestamp > '2024-05-27 12:00:00'
+    GROUP BY date, device, browser, location, pathname, environment
+
+TYPE MATERIALIZED
+DATASOURCE analytics_pages_mv1
+ENGINE AggregatingMergeTree
+ENGINE_PARTITION_KEY toYYYYMM(date)
+ENGINE_SORTING_KEY date, device, browser, location, pathname, environment
