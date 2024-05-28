@@ -10,8 +10,11 @@ We want to change time granularity to day. So, we need:
 - Calculate current hourly data to new daily granularity
 
 
-## Update the Data Source with the changes needed
-`datasoures/copy_bots_snapshot.datasource`
+## Create a new Data Source with the changes needed
+
+The required changes (schema + new data granularity) imply re-creating the Data Source. 
+
+`datasoures/copy_bots_snapshot_1.datasource`
 
 ```diff
 SCHEMA >
@@ -28,23 +31,14 @@ ENGINE "MergeTree"
 - ENGINE_SORTING_KEY "pathname, bot_source, date"
 ```
 
-Just rename `date_hour` column to a more generic `date``
-
-- The required changes (schema + new data granularity) imply re-creating the Data Source. Bump the **Major** Version to re-create the Data Source and leave the changes in a `Preview` release to execute backfill migration in a further step.
-
-`.tinyenv`
-
-```diff
--   VERSION=0.0.0
-+   VERSION=1.0.0
-```
+Just rename `date_hour` column to a more generic `date`
   
-## Modify the copy pipe to have a per day time granularity
+## Create a new copy Pipe to have a per day time granularity
 
 - Use `toStartOfDay` 
 - Use daily scheduling, i.e every day at 8 am
 
-`pipes/bot_snapshot.pipe`
+`pipes/bot_snapshot_1.pipe`
 
 ```diff
 NODE bot_hits
@@ -106,7 +100,7 @@ SQL >
          bot_source
 
   TYPE copy
-  TARGET_DATASOURCE copy_bots_snapshot
+  TARGET_DATASOURCE copy_bots_snapshot_1
 - COPY_SCHEDULE 0 * * * *
 + COPY_SCHEDULE 0 8 * * *
 ```
@@ -126,33 +120,28 @@ Let's prepare a Materialized View for that.
 `backfill_live_to_new.pipe`
 ```sql
 SQL >
-    SELECT toStartOfDay(date_hour) as date, bot_source, pathname, sum(hits) as hits FROM v0_0_1.copy_bots_snapshot
+    SELECT toStartOfDay(date_hour) as date, bot_source, pathname, sum(hits) as hits FROM copy_bots_snapshot
     WHERE toDate(date_hour) < today()
     GROUP BY date, pathname, bot_source
 
 TYPE materialized
-DATASOURCE copy_bots_snapshot
+DATASOURCE copy_bots_snapshot_1
 ```
 
-This Materialized Pipe gets the data from the `live` release and will copy it in the `preview` release, changing the time granularity. In this case, we are stopping backfill on today. Remember in this example we are calculating yesterday's snapshot.
+This Materialized Pipe gets the data from the old Data Source and will copy it in the new one, changing the time granularity. In this case, we are stopping backfill on today. Remember in this example we are calculating yesterday's snapshot.
 
-To run the populate that performs the data migration from the current `live` release (`0.0.1`) to `preview`, we need to add a custom post-deployment action with the prepared Materialized View:
+Run the backfill:
 
-`deploy/1.0.0/postdeploy.sh`
 ```bash
-tb --semver 1.0.0 pipe populate backfill_live_to_new --node migrate_old_copy_bots_snapshot --wait
+tb pipe populate backfill_live_to_new --node migrate_old_copy_bots_snapshot --wait
 ```
 
 ## Deploying the changes
 
-- Push your changes to a branch, create a PR and pass all the checks. Now you can merge the PR and a new `preview` release `1.0.0` will be created, where you can check everything is OK.
+- Push your changes to a branch, create a PR and pass all the checks. You can check everything is OK in the `tmp_ci_` Tinybird Branch created as part of the CI pipeline.
 
-- Once you're happy with your Preview Release you can promote it to `live` following one of the next options:
+Once you've validated the changes merge the Pull Request and run the backfill operation in the main Workspace.
 
-    - The action `Tinybird - Releases Workflow` in the case you are using our workflow templates.
-    - Promote from the UI.
-    - Or CLI:
+## Cleanup
 
-        ```sh
-        tb release promote --semver 1.0.0
-        ```
+Last step consists on cleaning up the old resources. Just `git rm` the old Copy Pipe and Data Source, create a new Pull Request and merge it to remove them from the main Workspace.
