@@ -4,24 +4,21 @@ This update aims at optimizing the storage and query performance of the `analyti
 
 To change a column type in a Materialized View Data Source is a process that needs to be handled with care to ensure data integrity and continuity. This guide will take you through the steps to achieve this without stopping your data ingestion.
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
-
 This change needs to re-create the Materialized View and populate it again with all the data without stoping our ingestion.
 
 For that the steps will be:
 
-1. Modify the Materialized View (Pipe and Data Source) to change the type to the colum.
-2. Bump version from 0.0.0 -> 1.0.0 in the `.tinyenv` file. Bumping the major version will create a new `Preview Release` internally forking the Materialized View and its dependencies.
-3. Backfill the `Preview Release` Materialized View with the data previous to its creation.
-4. Promote the release from `Preview` to `Live`.
+1. Create a new Materialized View (Pipe and Data Source) to change the type to the colum.
+2. Run CI.
+3. Backfill the new Materialized View with the data previous to its creation.
+4. Run CD and run the backfill in the main Workspace.
+5. Connect the endpoints to the new Materialized View.
 
-[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/175/files)
+## 1: Create the new the Materialized View
 
-## 1: Change the Materialized View
+- Create the new Materialized View: Pipe and Datasource
 
-- Change the Materialized View: Pipe and Datasource
-
-`analytics_pages_mv.datasource`:
+`analytics_pages_mv_1.datasource`:
 ```diff
  SCHEMA >
      `date` Date,
@@ -33,7 +30,7 @@ For that the steps will be:
      `visits` AggregateFunction(uniq, String),
 ```
 
-`analytics_pages.pipe`
+`analytics_pages_1.pipe`
 ```diff
      SELECT
          toDate(timestamp) AS date,
@@ -45,44 +42,61 @@ For that the steps will be:
          uniqState(session_id) AS visits,
 ```
 
-## 2: Bump version
-- Bump to the next **major** version `1.0.0` in the `.tinyenv` file. It will **re-create** the Materialized View and all its downstream in a new `Preview Release`. 
+Create a Copy Pipe `analytics_pages_backfill.pipe` for backfilling purposes:
 
-`.tinyenv`
-  ```diff
--   VERSION=0.0.0
-+   VERSION=1.0.0
-  ```
+```
+NODE analytics_pages_backfill_node
 
-Please note that in this Preview Release we're ingesting the production data, but `analytics_pages_mv` lacks the rows prior to its recent creation. We show how to backfill it in the next step.
+SQL >
+
+    SELECT
+        toDate(timestamp) AS date,
+        device,
+        toLowCardinality(browser) as browser,        
+        location,
+        pathname,
+        uniqState(session_id) AS visits,
+        countState() AS hits
+    FROM analytics_hits
+    WHERE timestamp BETWEEN {{DateTime(start_backfill_timestamp)}} AND {{DateTime(end_backfill_timestamp)}}
+    GROUP BY
+        date,
+        device,
+        browser,
+        location,
+        pathname
+
+TYPE COPY
+DATASOURCE analytics_pages_mv_1
+```
+
+## 2: Run CI
+
+Make sure the changes are deployed correctly in the CI Tinybird Branch. Optionally you can add automated tests or verify it from the `tmp_ci_*` Branch created as part of the CI pipeline.
 
 ## 3: Backfilling 
-Once you have deployed the previous changes and they are ready in a `Preview Release` you can opt to backfill the data previous to the Materialized View re-creation.
+
+Wait for the first event to be ingested into `analytics_pages_mv_1` and then proceed with the backfilling.
 
 - Get the creation date by executing the following command
 ```sh
-tb --semver 1.0.0 datasource ls
+tb datasource ls
 ```
 or executing this query using the CLI or the UI dashboard
 
 ```sh
-tb --semver 1.0.0 sql "select timestamp from tinybird.datasources_ops_log where event_type = 'create' and datasource_name = 'analytics_pages_mv' order by timestamp desc limit 1"
+tb sql "select timestamp from tinybird.datasources_ops_log where event_type = 'create' and datasource_name = 'analytics_pages_mv_1' order by timestamp desc limit 1"
 ```
 
-- Use the creation date to populate the Materialized View with the data previous to its creation:
+- Use the creation date to backfill with the data previous to its creation:
 ```sh
-tb --semver 1.0.0 pipe populate analytics_pages --node analytics_pages_1 --sql-condition "timestamp < '$CREATED_AT' --wait
+tb pipe copy run analytics_pages_backfill --node analytics_pages_backfill_node --param start_backfill_timestamp='2024-01-01 00:00:00' --param end_backfill_timestamp='$CREATED_AT' --wait --yes
 ```
 
-## 4: Promote the changes
-Once the Materialized View has been already populated you can promote the `Preview Release` to `Live`. Choose one of the next 3 options for that:
+## 4: Run CD
 
-- If you are using our workflow templates just run the action `Tinybird - Releaseas Workflow`.
+Merge the PR and make sure to run the backfilling operation over the main Workspace
 
-- In other case you can run the following command from the CLI:
-  
-```sh
-  tb release promote --semver 1.0.0
-```
+## 5: Connect the downstream dependencies
 
-- Or go to the `Releases` section in the UI and promote the `Preview 1.0.0` to `live`.
+Once the new Materialized View is created and synchronized you can create another Pull Request to start using it in your endpoints.
