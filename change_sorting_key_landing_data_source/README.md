@@ -1,13 +1,17 @@
 # Tinybird Versions - Change Sorting Key to a Landing Data Source
 
-[Pull Request](https://github.com/tinybirdco/use-case-examples/pull/249)
+Changing the sorting key of a Data Source requires rewriting the entire table.
 
-> Remember to follow the [instructions](../README.md) to setup your Tinybird Data Project before jumping into the use-case steps
+You can opt-in by any of these two options:
 
+1. Create a Materialized View where the target Data Source has the desired sorting key.
+2. Create a new Data Source with the new sorting key, sync the data with the original table and then exchange both tables.
 
-1. Change the sorting key and partition key of the Data Source:
+## 1. New Materialized View
 
-`datasources/analytics_events.datasource`
+- Create a new Data Source
+
+`datasources/analytics_events_sk.datasource`
 
 ```diff
   SCHEMA >
@@ -26,88 +30,46 @@
   ENGINE_TTL "timestamp + toIntervalDay(60)"
 ```
 
-2. Changing the sorting key or partition key requires to re-create the Data Source. Bump the **Major** Version to re-create the Data Source and leave the changes in a `Preview` release to execute backfill migrations in a further step.
+- Create a new Materialized View `sync_analytics_events.pipe` filtering by a date in the future for backfilling purposes
 
-`.tinyenv`
-
-```diff
--   VERSION=2.0.1
-+   VERSION=3.0.0
 ```
-
-You can read more about it at https://versions.tinybird.co/docs/version-control/deployment-strategies.html
-
-3. We need to run a backfill to sync the current Live Release with the new Preview Release. To do so, we will use a Materialize View for syncing new incoming data and use a Copy Pipe to run the backfill.
-
-As we need to read the data from the release v2.0.1, we will create the Materialize and Copy Pipe following the convention. `v2.0.1` -> `v2_0_1`. Therefore, `v2_0_1.analytics_events`
-
-First, we will create a Materialized View (MV) named `pipes/syncing_analytics_events.pipe` with the following SQL. 
-
-This MV will start to sync data between release `2.0.1` to `3.0.0` after '2024-02-08 13:45:00' once it will be deployed.
-
-
-```sql
-NODE syncing_data
+NODE sync_analytics_events
 SQL >
-    SELECT * FROM v2_0_1.analytics_events WHERE timestamp > '2024-02-08 13:45:00'
+  SELECT * FROM analytics_events
+  WHERE timestamp > '2024-05-28 00:00:00'
 
 TYPE MATERIALIZED
-DATASOURCE analytics_events
+DATASOURCE analytics_events_sk
 ```
 
-> We will use a future timestamp to [avoid problems while doing the backfill](https://versions.tinybird.co/docs/version-control/backfill-strategies.html#the-challenge-of-backfilling-real-time-data)
+- Create a Copy Pipe `backfill_analytics_events.pipe` for backfilling.
 
-Then, we will create a Copy Pipe `pipes/backfill_analytics_events.pipe` to run to move all the historical data until '2024-02-08 13:45:00', so we will create a Copy Pipe like the following.
-
-```sql
-NODE syncing_data
+```
+NODE backfill_analytics_events
 SQL >
-    %
-    SELECT *
-    FROM v2_0_1.analytics_events
-    WHERE timestamp BETWEEN {{ DateTime(start) }} AND {{ DateTime(end) }}
-
-TYPE COPY
-TARGET_DATASOURCE analytics_events
-COPY_SCHEDULE @on-demand
+  %
+  SELECT * FROM analytics_events
+  WHERE timestamp BETWEEN {{DateTime(start_backfill_timestamp)}} AND {{DateTime(end_backfill_timestamp)}}
 ```
 
-Once deployed and we will pass the timestamp '2024-02-08 13:45:00', we will be able to run 
+- Run CI and merge the Pull Request. To run the backfill do the following (you can test it in CI and then run it after merge):
 
-```shell
-tb --semver 3.0.0 pipe copy run backfill_analytics_events --param start='1970-01-01 00:00:00' --param end='2024-02-08 13:45:00' --yes --wait
+- Wait for the first event ingested in `analytics_events_sk`
+- Run the backfill, you do it with a single command or by chungs:
+```
+tb pipe copy run backfill_analytics_events --param start_backfill_timestamp='2024-01-01 00:00:00' --param end_backfill_timestamp='2024-05-28 00:00:00' --wait --yes
 ```
 
-Finally, we will create a Pull Request with the changes from above as we have done in https://github.com/tinybirdco/use-case-examples/pull/249/files
+- Cleanup
 
+Once you finish the backfill you can remove the Copy Pipe and start using the new `analytics_events_sk` in your downstream dependencies.
 
-## CI Workflow 
+## 2. New Data Source with exchange
 
-Once the CI Workflow will run successfully, we have to do 
+Follow the same steps as above, but once the backfill operation over `analytics_events_sk` is finished you can exchange the old and new Data Sources:
 
-1. You authenticate into the branch
-2. As you are not appending data, you can run directly `tb --semver 3.0.0 pipe copy run backfill_analytics_events --param start='1970-01-01 00:00:00' --param end='2024-02-08 13:45:00' --yes --wait` or append some dummy data to validate the approach
-3. You can run some validations between 2.0.1 vs 3.0.0
-
-```shell
-
-tb --semver 3.0.0 sql "SELECT count() FROM analytics_events"
-
-tb --semver 2.0.1 sql "SELECT count() FROM analytics_events"
+```
+tb datasource exchange analytics_events analytics_events_sk
 ```
 
-4. Merge the Pull Request if everything goes fine
-
-
-## CD Worflow
-
-Once the CD Workflow runs successfully, we have to do:
-
-1. You authenticate into your Live Release
-2. You will have to wait until '2024-02-08 13:45:00'
-3. Once it is '2024-02-08 13:45:00', you should start seeing data flowing into the Data Source `analytics_events` of the Preview Release
-4. Now, we should run the copy pipe `tb --semver 3.0.0 pipe copy run backfill_analytics_events --param start='1970-01-01 00:00:00' --param end='2024-02-08 13:45:00' --yes --wait`.
-5. Once the data is migrated, we can promote the release to Live at the UI or the CLI
-
-
-You can read https://versions.tinybird.co/docs/version-control/backfill-strategies.html#scenario-3-streaming-ingestion-with-incremental-timestamp-column in more details about this strategy and why
+The exchange command is useful to replace two tables among them when they have the same exact schema. The exchange command is experimental, contact us at `support@tinybird.co` to enable it on your main Workspace.
