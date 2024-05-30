@@ -10,7 +10,7 @@
       workflow_dispatch:
       push:
         paths:
-          - 'add_column_to_s3_ds/**'
+          - 'create_s3_datasource/**'
         branches:
           - main
     jobs:

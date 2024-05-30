@@ -10,7 +10,7 @@
       workflow_dispatch:
       pull_request:
         paths:
-          - 'add_column_to_s3_ds/**'
+          - 'create_s3_datasource/**'
         branches:
          - main
         types: [opened, reopened, labeled, unlabeled, synchronize, closed]
