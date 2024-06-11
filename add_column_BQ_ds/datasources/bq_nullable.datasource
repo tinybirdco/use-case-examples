@@ -3,7 +3,8 @@ DESCRIPTION >
 
 SCHEMA >
     `country_code` Nullable(String),
-    `project` Nullable(String)
+    `project` Nullable(String),
+    `insertion_date` DateTime DEFAULT now()
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toYear(insertion_date)"
