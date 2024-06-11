@@ -1,0 +1,24 @@
+DESCRIPTION >
+    Downloads from pypi
+
+SCHEMA >
+    `country_code` Nullable(String),
+    `project` Nullable(String)
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYear(insertion_date)"
+ENGINE_SORTING_KEY "insertion_date"
+
+IMPORT_SERVICE bigquery
+IMPORT_SCHEDULE 0 7 * * *
+IMPORT_EXTERNAL_DATASOURCE bigquery-public-data.pypi.file_downloads
+IMPORT_STRATEGY REPLACE
+IMPORT_QUERY >
+    "SELECT
+        `country_code`,
+        `project`
+    FROM
+        `bigquery-public-data.pypi.file_downloads`
+    WHERE
+        DATE(timestamp) >= DATE_ADD(CURRENT_DATE(), INTERVAL -30 DAY)
+        AND project = 'tinybird-cli'"
