@@ -30,4 +30,4 @@ To keep your `main` branch in sync with this, you can follow these steps:
 2. Execute `tb pull --force` with a CLI version >= 5.0.0.
 3. Commit and merge the changes.
 
-[Pull Request #3](TODO)
+[Pull Request #3](https://github.com/tinybirdco/use-case-examples/pull/335)
