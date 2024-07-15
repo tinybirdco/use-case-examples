@@ -1,0 +1,23 @@
+
+    ##################################################
+    ###   Visit https://github.com/tinybirdco/ci   ###
+    ###   for more details or custom CI/CD         ###
+    ##################################################
+
+    name: Tinybird - CD Workflow
+
+    on:
+      workflow_dispatch:
+      push:
+        paths:
+          - 'alter_default_value_in_column/**'
+        branches:
+          - main
+    jobs:
+      cd:
+        uses: tinybirdco/ci/.github/workflows/cd.yml@v4.0.1
+        with:
+          data_project_dir: ./alter_default_value_in_column
+        secrets:
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ALTER_DEFAULT }}
+          tb_host: https://api.tinybird.co
