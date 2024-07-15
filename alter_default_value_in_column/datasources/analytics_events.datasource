@@ -4,11 +4,11 @@ DESCRIPTION >
     Analytics events landing data source
 
 SCHEMA >
-    `timestamp` DateTime `json:$.timestamp`,
-    `session_id` String `json:$.session_id`,
-    `action` LowCardinality(String) `json:$.action`,
-    `version` LowCardinality(String) `json:$.version`,
-    `payload` String `json:$.payload`
+    `timestamp` DateTime `json:$.timestamp` DEFAULT now(),
+    `session_id` String `json:$.session_id` DEFAULT '',
+    `action` LowCardinality(String) `json:$.action` DEFAULT 'None',
+    `version` LowCardinality(String) `json:$.version` DEFAULT '1.0',
+    `payload` String `json:$.payload` DEFAULT '{}',
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
