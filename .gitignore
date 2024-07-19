@@ -1,3 +1,5 @@
 .tinyb
 node_modules
 package-lock.json
+.tinyenv
+.venv/** 
