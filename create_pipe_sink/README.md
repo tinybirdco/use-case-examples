@@ -26,6 +26,8 @@ In our case, we've created the `bots_snapshot.pipe`.
 ## Setup a connection with your S3 bucket
 Through the UI, for the created Pipe, select the option Create a Sink. Click Create a new connection and follow the instructions to establish a new connection to your desired destination. Detailed steps for authentication will be provided by the UI.
 
+The connection **must be created on the main branch of the Workspace**.
+
 ## Schedule the sink
 After creating and authenticating the connection, you can configure the remaining settings for your Pipe Sink. This can be done through the same wizard or by modifying the Pipe file. Here are the settings for this example:
 
