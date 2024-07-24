@@ -26,7 +26,7 @@ NODE materialized
 
 SQL >
     SELECT 
-        assumeNotNull(parseDateTimeBestEffort(replaceAll(timestamp, '"', ''))) as timestamp,
+        assumeNotNull(parseDateTimeBestEffort(timestamp)) as timestamp,
         assumeNotNull(session_id) as session_id,
         toLowCardinality(assumeNotNull(action)) as action,
         toUInt32(assumeNotNull(version)) as version,
