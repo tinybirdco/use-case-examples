@@ -8,12 +8,12 @@ When data ends up in quarantine, it is possible to re-ingest it using a Copy Pip
   SQL >
       SELECT
           toDateTime(
-              fromUnixTimestamp64Milli(toUInt64(replaceAll(assumeNotNull(timestamp), '"', '')) * 1000)
+              fromUnixTimestamp64Milli(toUInt64(assumeNotNull(timestamp)) * 1000)
           ) timestamp,
-          replaceAll(assumeNotNull(session_id), '"', '') session_id,
-          replaceAll(assumeNotNull(action), '"', '') action,
-          replaceAll(assumeNotNull(version), '"', '') version,
-          replaceAll(assumeNotNull(payload), '"', '') payload
+          assumeNotNull(session_id) session_id,
+          assumeNotNull(action) action,
+          assumeNotNull(version) version,
+          assumeNotNull(payload) payload
       FROM analytics_events_quarantine
 
   TYPE COPY
