@@ -20,7 +20,7 @@
 
     jobs:
         ci: # ci using environments from workspace 'iterating_api_endpoint'
-          uses: tinybirdco/ci/.github/workflows/ci.yml@main
+          uses: tinybirdco/ci/.github/workflows/ci.yml@v4.1.0
           with:
             data_project_dir: iterating_api_endpoint
             tb_env: test
