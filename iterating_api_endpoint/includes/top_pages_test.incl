@@ -1,0 +1,3 @@
+NODE include_top_pages
+SQL >
+    SELECT 1
