@@ -6,8 +6,6 @@ DESCRIPTION >
 
 TOKEN "dashboard" READ
 
-INCLUDE "../includes/top_pages_$TB_ENV.incl"
-
 NODE endpoint
 DESCRIPTION >
     Group by pagepath and calcualte hits and visits
@@ -18,8 +16,7 @@ SQL >
             select
               pathname,
               uniqMerge(visits) as visits,
-              countMerge(hits) as hits,
-              1 as $TB_ENV
+              countMerge(hits) as hits
             from
               analytics_pages_mv
             where
@@ -34,7 +31,7 @@ SQL >
                 and date <= today()
               {% end %}
             group by
-              pathname, $TB_ENV
+              pathname
             order by
               visits desc
             limit {{Int32(skip, 0)}},{{Int32(limit, 50)}}
