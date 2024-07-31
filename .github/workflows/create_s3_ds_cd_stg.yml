@@ -11,6 +11,8 @@
       push:
         paths:
           - 'create_s3_datasource/**'
+        branches:
+          - main
     jobs:
       cd:
         uses: tinybirdco/ci/.github/workflows/cd.yml@v4.1.0
