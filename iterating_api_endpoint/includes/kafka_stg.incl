@@ -1,3 +1,8 @@
-NODE include_top_pages
-SQL >
-    SELECT 1 as stg
+KAFKA_CONNECTION_NAME 'kafka_connection'
+KAFKA_TOPIC 'add_column_kafka_ds'
+KAFKA_GROUP_ID 'add_column_kafka_ds_ex101'
+KAFKA_AUTO_OFFSET_RESET 'earliest'
+KAFKA_STORE_RAW_VALUE 'False'
+KAFKA_STORE_HEADERS 'False'
+KAFKA_TARGET_PARTITIONS 'auto'
+KAFKA_KEY_AVRO_DESERIALIZATION ''
