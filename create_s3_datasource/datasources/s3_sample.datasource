@@ -4,8 +4,4 @@ SCHEMA >
 ENGINE MergeTree
 ENGINE_SORTING_KEY t
 
-IMPORT_SERVICE s3_iamrole
-IMPORT_CONNECTION_NAME create-s3-datasource
-IMPORT_BUCKET_URI s3://dev-alrocar/folder1/*.csv
-IMPORT_STRATEGY append
-IMPORT_SCHEDULE @on-demand
+INCLUDE "../includes/s3_$TB_ENV.incl"
