@@ -4,4 +4,4 @@ SCHEMA >
 ENGINE MergeTree
 ENGINE_SORTING_KEY t
 
-INCLUDE "../includes/s3_$TB_ENV.incl"
+INCLUDE "../includes/s3_${TB_ENV}.incl"
