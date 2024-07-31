@@ -23,7 +23,7 @@
           uses: tinybirdco/ci/.github/workflows/ci.yml@v4.1.0
           with:
             data_project_dir: iterating_api_endpoint
-            tb_env: stg
+            tb_env: prod
           secrets:
-            tb_admin_token: ${{ secrets.ITERATING_API_ENDPOINT_TOKEN }}  # set the Workspace admin token in GitHub secrets
+            tb_admin_token: ${{ secrets.ITERATING_API_ENDPOINT_TOKEN_PROD }}  # set the Workspace admin token in GitHub secrets
             tb_host: https://api.tinybird.co
