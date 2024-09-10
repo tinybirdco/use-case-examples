@@ -7,8 +7,8 @@ First of all, you must connect your Tinybird workspace with your Git repository 
 - Create the Snowflake Connection in your main tinybird workspace using Tinybird CLI, as explain in the [iteration documentation](https://www.tinybird.co/docs/ingest/snowflake). Snowflake connections reside always in the main branch.
 - Create a new git branch 
 - Create a new Snowflake .datasource data file in the branch, as in the example PR. You shouldn't need fixtures as the Data Source will be populated from the connection, but you can add fixtures and/or tests if needed.
-  - For information abount Snowflake options read the [connector documentation](https://www.tinybird.co/docs/ingest/snowflake)
-- Commit an create a new PR/MR from the branch to `main`
+  - For information about Snowflake options read the [connector documentation](https://www.tinybird.co/docs/ingest/snowflake)
+- Commit your code and create a new PR/MR from the branch to `main`
 - Wait for CI. You can check in the temporary workspace branch (automatically created and named like `tmp_ci_*`) that everything works as expected.
 - Merge and wait for CD. Now you should have your Data Source in the main workspace, using the connection, and the temporary CI branch will be deleted.
 
@@ -19,7 +19,7 @@ First of all, you must connect your Tinybird workspace with your Git repository 
 
 - Create another git branch
 - Add the new column to the schema and query
-- Commit and create an ew PR from the branch to `main`
+- Commit your code and create an ew PR from the branch to `main`
 - Wait for CI to finish. You can check in the temporary workspace branch (automatically created and named like `tmp_ci_*`) that everything works as expected.
 - Merge and wait for CD. Now you should have your Data Source updated in the main workspace, using the connection, and the temporary CI branch will be deleted.
 
@@ -29,7 +29,7 @@ First of all, you must connect your Tinybird workspace with your Git repository 
 
 - Create another git branch
 - Remove the .datasource data file
-- Commit and create an ew PR from the branch to `main`
+- Commit your code and create an ew PR from the branch to `main`
 - Wait for CI to finish. You can check in the temporary workspace branch (automatically created and named like `tmp_ci_*`) that everything works as expected.
 - Merge and wait for CD. Now you should have your Data Source updated in the main workspace, using the connection, and the temporary CI branch will be deleted.
 
