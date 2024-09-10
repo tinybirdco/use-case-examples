@@ -25,7 +25,7 @@ First of all, you must connect your Tinybird workspace with your Git repository 
 
 [Example Pull Request](https://github.com/tinybirdco/use-case-examples/pull/tbd)
 
-### 4th Delete a Snowflake Data Source
+### Delete a Snowflake Data Source
 
 - Create another git branch
 - Remove the .datasource data file
