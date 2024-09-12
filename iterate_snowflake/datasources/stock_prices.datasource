@@ -13,7 +13,7 @@ ENGINE_PARTITION_KEY "toDate(date)"
 ENGINE_SORTING_KEY "date"
 
 IMPORT_SERVICE 'snowflake'
-IMPORT_CONNECTION_NAME 'main_connection'
+IMPORT_CONNECTION_NAME 'tb_snowflake'
 IMPORT_EXTERNAL_DATASOURCE 'tinybird.samples.stock_prices'
 IMPORT_STRATEGY 'replace'
 IMPORT_QUERY 'SELECT date, symbol, open, high, low, close, volume, split_coefficient from tinybird.samples.stock_prices'
