@@ -49,6 +49,6 @@ Error:
 - Commit your code and create a new PR from the branch to `main`
 - Wait for CI to finish.
 - Check that everything is working as expected in the temporary branch, CI will automatically create it and name it like `tmp_ci_{PRid}`).
-- Merge and wait for CD. Now you should have your Data Source updated in the main workspace, using the connection, and the temporary CI branch will be deleted.
+- Merge and wait for CD. Now you should have your Data Source deleted in the main workspace, using the connection, and the temporary CI branch will be deleted.
 - If the connection isn't being used by any other Data Sources, you can remove it directly using CLI.
 
