@@ -6,7 +6,8 @@ SCHEMA >
     `low` Float32,
     `close` Float32,
     `volume` Float32,
-    `split_coefficient` Float32
+    `split_coefficient` Float32,
+    `added` String
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toDate(date)"
