@@ -31,7 +31,7 @@ First of all, you must connect your Tinybird workspace with your Git repository 
 
 - Create another git branch
 - Remove the .datasource data file
-- Commit your code and create an ew PR from the branch to `main`
+- Commit your code and create a new PR from the branch to `main`
 - Wait for CI to finish.
 - Check that everything is working as expected in the temporary branch, CI will automatically create it and name it like `tmp_ci_{PRid}`).
 - Merge and wait for CD. Now you should have your Data Source updated in the main workspace, using the connection, and the temporary CI branch will be deleted.
