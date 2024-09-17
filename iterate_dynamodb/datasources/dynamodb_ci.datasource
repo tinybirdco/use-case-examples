@@ -2,8 +2,10 @@
 SCHEMA >
     `pk` String `json:$.pk`,
     `sk` String `json:$.sk`,
-    `slug` String `json:$.slug` DEFAULT 'x',
-    `now_ts` DateTime64(3) `json:$.now_ts` DEFAULT now64()
+    `slug` String `json:$.slug` DEFAULT '',
+    `new_slug` String `json:$.new_slug` DEFAULT 'empty',
+    `now_ts` DateTime64(3) `json:$.now_ts` DEFAULT now64(),
+    `date_array` Array(Nullable(DateTime64(3))) `json:$.date_array[:]`
 
 ENGINE "ReplacingMergeTree"
 ENGINE_PARTITION_KEY "toYYYYMM(toDateTime64(_timestamp, 3))"
