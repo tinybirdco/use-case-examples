@@ -1,0 +1,16 @@
+
+SCHEMA >
+    `pk` String `json:$.pk`,
+    `sk` String `json:$.sk`,
+    `slug` String `json:$.slug` DEFAULT 'x',
+    `now_ts` DateTime64(3) `json:$.now_ts` DEFAULT now64()
+
+ENGINE "ReplacingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(toDateTime64(_timestamp, 3))"
+ENGINE_SORTING_KEY "pk, sk"
+ENGINE_VER "_timestamp"
+
+IMPORT_SERVICE 'dynamodb'
+IMPORT_CONNECTION_NAME 'ddb_main_connection'
+IMPORT_TABLE_ARN 'arn:aws:dynamodb:us-east-1:819314934727:table/test_zembula_dates'
+IMPORT_EXPORT_BUCKET 's3connector-asun-test'
