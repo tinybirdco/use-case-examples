@@ -12,6 +12,7 @@ on:
       - 'iterate_dynamodb/**'
     branches:
       - main
+      - '*-dynamo-*'
     types: [opened, reopened, labeled, unlabeled, synchronize, closed]
 
 concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
