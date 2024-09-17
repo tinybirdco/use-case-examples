@@ -22,5 +22,5 @@ jobs:
     with:
       data_project_dir: ./iterate_dynamodb
     secrets:
-      tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ADD_COLUMN_SNOWFLAKE_DS }}
-      tb_host: https://api.tinybird.co
+      tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_ITERATIONS }}
+      tb_host: https://api.us-east.aws.tinybird.co
