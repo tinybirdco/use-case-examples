@@ -6,12 +6,14 @@ SCHEMA >
     `now_ts` DateTime64(3) `json:$.now_ts` DEFAULT now64()
 
 
--- Optional ENGINE section, if you don't need special configuration for your table you can omit it. These are the default values that will be applied
+# Optional ENGINE section, if you don't need special configuration for your table you can omit it. These are the default values that will be applied
+
 ENGINE "ReplacingMergeTree"
 ENGINE_PARTITION_KEY "toYYYYMM(toDateTime64(_timestamp, 3))"
 ENGINE_SORTING_KEY "pk, sk"
 ENGINE_VER "_timestamp"
--- engine configuration end
+
+# engine configuration end
 
 IMPORT_SERVICE 'dynamodb'
 IMPORT_CONNECTION_NAME 'ddb_main_connection'
