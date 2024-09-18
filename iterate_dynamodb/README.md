@@ -16,7 +16,7 @@ First of all, you must connect your Tinybird Workspace with your Git repository 
   - You can add/update/delete items in your DynamoDB table and check that the changes reproduce in the Data Source.
 - If everything is fine, merge and wait for CD. Now you should have your Data Source in the main Workspace, using the Connection, and the temporary CI Branch will be deleted.
 
-[Example Pull Request](https://github.com/tinybirdco/use-case-examples/pull/)
+[Example Pull Request](https://github.com/tinybirdco/use-case-examples/pull/364)
 
 
 ### Update DynamoDB Data Source with a new column, with same Connection
@@ -30,7 +30,7 @@ First of all, you must connect your Tinybird Workspace with your Git repository 
   - You can add/update/delete items in your DynamoDB table and check that the changes reproduce in the Data Source.
 - Merge and wait for CD. Now you should have your Data Source updated in the main Workspace, using the Connection, and the temporary CI Branch will be deleted.
 
-[Example Pull Request](https://github.com/tinybirdco/use-case-examples/pull/)
+[Example Pull Request](https://github.com/tinybirdco/use-case-examples/pull/365)
 
 ### Delete a DynamoDB Data Source
 
