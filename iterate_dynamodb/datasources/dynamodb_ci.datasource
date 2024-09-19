@@ -3,6 +3,7 @@ SCHEMA >
     `pk` String `json:$.pk`,
     `sk` String `json:$.sk`,
     `slug` String `json:$.slug` DEFAULT 'x',
+    `new_slug` String `json:$.new_slug` DEFAULT 'empty',
     `now_ts` DateTime64(3) `json:$.now_ts` DEFAULT now64()
 
 
