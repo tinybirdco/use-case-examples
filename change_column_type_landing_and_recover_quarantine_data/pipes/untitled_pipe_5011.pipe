@@ -1,0 +1,5 @@
+TOKEN "untitled_pipe_5011_endpoint_read_1955" READ
+
+NODE untitled_pipe_5011_0
+SQL >
+    SELECT action, count() FROM analytics_events GROUP BY action

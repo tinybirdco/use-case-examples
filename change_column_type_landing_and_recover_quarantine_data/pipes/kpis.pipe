@@ -39,27 +39,29 @@ SQL >
                         )
                     }}
                 )
-            ) as end
-        {% else %} toStartOfDay(today()) as end
-        {% end %}
+            ) as
+    end {% else %} toStartOfDay(today()) as
+    end {% end %}
     {% if _single_day %}
         select
             arrayJoin(
                 arrayMap(
                     x -> toDateTime(x),
-                    range(
-                        toUInt32(toDateTime(start)), toUInt32(timestampAdd(end, interval 1 day)), 3600
-                    )
+                    range(toUInt32(toDateTime(start)), toUInt32(timestampAdd(end, interval 1 day)),
+                    3600
                 )
-            ) as date
+            )
+    ) as date
     {% else %}
         select
             arrayJoin(
                 arrayMap(
                     x -> toDate(x),
-                    range(toUInt32(start), toUInt32(timestampAdd(end, interval 1 day)), 24 * 3600)
+                    range(toUInt32(start), toUInt32(timestampAdd(end, interval 1 day)),
+                    24 * 3600
                 )
-            ) as date
+            )
+    ) as date
     {% end %}
     where date <= now()
 
