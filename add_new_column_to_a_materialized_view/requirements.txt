@@ -1,1 +1,1 @@
-tinybird-cli==5.0.0.dev0
+tinybird-cli==5.9.1.dev2
