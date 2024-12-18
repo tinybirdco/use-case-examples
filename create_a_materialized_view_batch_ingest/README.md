@@ -36,17 +36,12 @@ DATASOURCE events_per_location_mv
 `events_per_location_mv.datasource`:
 
 ```sql
-NODE count_events_per_location
-SQL >
+SCHEMA >
+    `location` String,
+    `hits` AggregateFunction(count)
 
-    SELECT
-        JSON_VALUE(payload, '$.location') AS location,
-        countState() AS hits
-    FROM analytics_events
-    GROUP BY location
-
-TYPE materialized
-DATASOURCE events_per_location_mv
+ENGINE "AggregatingMergeTree"
+ENGINE_SORTING_KEY "location"
 ```
 
 ## 2: Create the Endpoint
