@@ -32,7 +32,7 @@ jobs:
       - name: deploy project
         run: tb deployment create --auto --wait
       - name: apply patch
-        run: cp .diff/* . && git diff
+        run: cp -r .diff/* . && git diff
       - name: deploy project again
         run: tb deployment create --auto --wait
 
