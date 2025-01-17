@@ -6,6 +6,8 @@ DESCRIPTION >
 
 TOKEN "dashboard" READ
 
+
+
 NODE timeseries
 DESCRIPTION >
     Generate a timeseries for the specified time range, so we call fill empty data points.
@@ -16,23 +18,35 @@ SQL >
     %
             {% set _single_day = defined(date_from) and day_diff(date_from, date_to) == 0 %}
             with
+
             {% if defined(date_from) %}
                 toStartOfDay(toDate({{Date(date_from, description="Starting day for filtering a date range", required=False)}})) as start,
             {% else %}
-                toStartOfDay(timestampAdd(today(), interval -7 day)) as start,
+                {% if defined(fixed_time) %}
+                    toStartOfDay(toDateTime({{Date(fixed_time, description="Way to set date and time. Useful parameter for testing.", required=False)}}) - interval 7 day) as start,
+                {% else %}
+                    toStartOfDay(timestampAdd(today(), interval -7 day)) as start,
+                {% end %}
             {% end %}
+
             {% if defined(date_to) %}
                 toStartOfDay(toDate({{Date(date_to, description="Finishing day for filtering a date range", required=False)}})) as end
             {% else %}
-                toStartOfDay(today()) as end
+                {% if defined(fixed_time) %}
+                    toStartOfDay(toDateTime({{Date(fixed_time, description="Way to set date and time. Useful parameter for testing.", required=False)}})) as end
+                {% else %}
+                    toStartOfDay(today()) as end
+                {% end %}
             {% end %}
+
             {% if _single_day %}
             select arrayJoin(arrayMap(x -> toDateTime(x), range(toUInt32(toDateTime(start)), toUInt32(timestampAdd(end, interval 1 day)), 3600))) as date
             {% else %}
             select arrayJoin(arrayMap(x -> toDate(x), range(toUInt32(start), toUInt32(timestampAdd(end, interval 1 day)), 24 * 3600))) as date
             {% end %}
+
             {% if defined(fixed_time) %}
-              where date <= toDateTime({{DateTime(fixed_time, description="Way to set date and time. Useful parameter for testing.", required=False)}})
+              where date <= toDateTime({{Date(fixed_time, description="Way to set date and time. Useful parameter for testing.", required=False)}})
             {% else %}
               where date <= now()
             {% end %}
@@ -44,7 +58,6 @@ DESCRIPTION >
     Group by sessions and calculate metrics at that level
 
 SQL >
-
     %
             {% if defined(date_from) and day_diff(date_from, date_to) == 0 %}
             select 
@@ -81,7 +94,11 @@ SQL >
               {% if defined(date_to) %}
                 and date <= {{Date(date_to)}}
               {% else %}
-                and date <= today()
+                {% if defined(fixed_time) %}
+                  and date <= toDateTime({{Date(fixed_time, description="Way to set date and time. Useful parameter for testing.", required=False)}})
+                {% else %}
+                  and date <= today()
+                {% end %}
               {% end %}
             group by
               date, session_id
@@ -125,3 +142,5 @@ SQL >
     left join data b using date
 
 
+
+TYPE endpoint

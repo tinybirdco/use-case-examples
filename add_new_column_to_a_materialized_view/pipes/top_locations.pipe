@@ -23,12 +23,20 @@ SQL >
               {% if defined(date_from) %}
                 date >= {{Date(date_from, description="Starting day for filtering a date range", required=False)}}
               {% else %}
-                date >= timestampAdd(today(), interval -7 day)
+                {% if defined(fixed_time) %}
+                  date >= toDate({{Date(fixed_time, description="Way to set date and time. Useful parameter for testing.", required=False)}}) - interval 7 day
+                {% else %}
+                  date >= timestampAdd(today(), interval -7 day)
+                {% end %}
               {% end %}
               {% if defined(date_to) %}
                 and date <= {{Date(date_to, description="Finishing day for filtering a date range", required=False)}}
               {% else %}
-                and date <= today()
+                {% if defined(fixed_time) %}
+                  and date <= {{Date(fixed_time, description="Way to set date and time. Useful parameter for testing.", required=False)}}
+                {% else %}
+                  and date <= today()
+                {% end %}
               {% end %}
             group by
               location
@@ -37,3 +45,5 @@ SQL >
             limit {{Int32(skip, 0)}},{{Int32(limit, 50)}}
 
 
+
+TYPE endpoint
