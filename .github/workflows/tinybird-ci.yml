@@ -31,8 +31,14 @@ jobs:
         run: tb test run
       - name: deploy project
         run: tb deployment create --auto --wait
+      - name: push some data
+        run: tb data append analytics_events fixtures/analytics_events.ndjson
+      - name: check data in the MV
+        run: tb sql "select * from analytics_sessions_mv1"
       - name: apply patch
         run: cp -r .diff/* . && git diff
       - name: deploy project again
         run: tb deployment create --auto --wait
+      - name: check data in the MV after deploy
+        run: tb sql "select * from analytics_sessions_mv1"
 
