@@ -31,4 +31,8 @@ jobs:
         run: tb test run
       - name: deploy project
         run: tb deployment create --auto --wait
+      - name: apply patch
+        run: cp .diff/* . && git diff
+      - name: deploy project again
+        run: tb deployment create --auto --wait
 
