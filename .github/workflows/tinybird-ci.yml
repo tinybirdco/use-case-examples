@@ -32,7 +32,7 @@ jobs:
       - name: deploy project
         run: tb deployment create --auto --wait
       - name: push some data
-        run: tb data append analytics_events fixtures/analytics_events.ndjson
+        run: tb datasource append analytics_events fixtures/analytics_events.ndjson
       - name: check data in the MV
         run: tb sql "select * from analytics_sessions_mv1"
       - name: apply patch
