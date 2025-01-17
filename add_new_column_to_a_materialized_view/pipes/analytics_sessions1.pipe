@@ -9,7 +9,6 @@ SQL >
         session_id,
         anySimpleState(device) AS device,
         anySimpleState(browser) AS browser,
-        anySimpleState(version) AS version,
         anySimpleState(location) AS location,
         minSimpleState(timestamp) AS first_hit,
         maxSimpleState(timestamp) AS latest_hit,
