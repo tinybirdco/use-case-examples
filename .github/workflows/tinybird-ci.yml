@@ -18,7 +18,7 @@ jobs:
         working-directory: './add_new_column_to_a_materialized_view'
     services:
       tinybird:
-        image: tinybirdco/tinybird-local:latest
+        image: tinybirdco/tinybird-local:beta
         ports:
           - 80:80
     steps:
@@ -30,5 +30,5 @@ jobs:
       - name: Test project
         run: tb test run
       - name: deploy project
-        run: tb deployment create
+        run: tb deploy
 
