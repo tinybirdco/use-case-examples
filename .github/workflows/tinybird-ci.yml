@@ -73,3 +73,39 @@ jobs:
         run: tb deployment create --auto --wait
       - name: check data in the MV after deploy
         run: tb sql "select count() from analytics_events"
+
+
+  ingest_data_in_old_format:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './ingest_data_in_old_format'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 80:80
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
+      - name: Build project
+        run: tb build
+      - name: Test project
+        run: tb test run
+      - name: deploy project
+        run: tb deployment create --auto --wait
+      - name: push some data
+        run: tb datasource append analytics_events fixtures/analytics_events.ndjson
+      - name: check data in the landing data source
+        run: tb sql "select count() from analytics_events"
+      - name: apply patch
+        run: cp -r .diff/* . && git diff
+      - name: deploy project again
+        run: tb deployment create --auto --wait
+      - name: check data in the landing after deploy
+        run: tb sql "select count() from analytics_events"
+      - name: push data again and check if the data lands properly
+        run: tb datasource append analytics_events fixtures/analytics_events.ndjson
+      - name: check data in the landing after deploy
+        run: tb sql "select count() from analytics_events"
