@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - master
+      - local_env_refactor
     types: [opened, reopened, labeled, unlabeled, synchronize, closed]
 
 concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
