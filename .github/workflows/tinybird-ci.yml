@@ -95,17 +95,27 @@ jobs:
         run: tb test run
       - name: deploy project
         run: tb deployment create --auto --wait
-      - name: push some data
+      - name: push data with the current schema
         run: tb datasource append analytics_events fixtures/analytics_events.ndjson
+      - name: push data with the new schema (this should fail)
+        run: tb datasource append analytics_events fixtures/analytics_events_new.ndjson || exit 0 && exit 1
       - name: check data in the landing data source
         run: tb sql "select count() from analytics_events"
       - name: apply patch
         run: cp -r .diff/* . && git diff
+      # Deploy the project in two phases:
+      # 1. Create a new deployment with the new schema
+      # 2. Push the data with the old schema and check if the data lands properly
+      # 3. Push the data with the new schema and check if the data lands properly
+      # 4. Promote the new deployment to the production environment
+      #
+      # TODO: In the future, we want to be able to run `tb deployment create --auto --wait`
+      # and inserts with both schemas and have the data land properly in the landing data source.
       - name: deploy project again
-        run: tb deployment create --auto --wait
-      - name: check data in the landing after deploy
-        run: tb sql "select count() from analytics_events"
-      - name: push data again and check if the data lands properly
+        run: tb deployment create --wait
+      - name: push data with the old schema and check if the data lands properly
         run: tb datasource append analytics_events fixtures/analytics_events.ndjson
+      - name: push data with the new schema and check if the data lands properly
+        run: tb datasource append analytics_events fixtures/analytics_events_new.ndjson
       - name: check data in the landing after deploy
         run: tb sql "select count() from analytics_events"
