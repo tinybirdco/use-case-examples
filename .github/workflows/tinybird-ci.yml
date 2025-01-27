@@ -24,6 +24,10 @@ jobs:
           - 80:80
     steps:
       - uses: actions/checkout@v3
+      - name: Set local environment credentials (required for local deployments)
+        run: |
+          echo "TB_HOST=http://localhost:80" >> $GITHUB_ENV
+          echo "TB_TOKEN=$(curl -s http://localhost:80/tokens | jq -r .admin_token)" >> $GITHUB_ENV
       - name: Install Tinybird CLI
         run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
       - name: Build project
@@ -56,6 +60,10 @@ jobs:
           - 80:80
     steps:
       - uses: actions/checkout@v3
+      - name: Set local environment credentials (required for local deployments)
+        run: |
+          echo "TB_HOST=http://localhost:80" >> $GITHUB_ENV
+          echo "TB_TOKEN=$(curl -s http://localhost:80/tokens | jq -r .admin_token)" >> $GITHUB_ENV
       - name: Install Tinybird CLI
         run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
       - name: Build project
