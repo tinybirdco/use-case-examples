@@ -7,7 +7,7 @@ SCHEMA >
     `timestamp` DateTime `json:$.timestamp`,
     `session_id` String `json:$.session_id`,
     `action` LowCardinality(String) `json:$.action`,
-    `version` Int32 `json:$.version`,
+    `version` LowCardinality(Int32) `json:$.version`,
     `payload` String `json:$.payload`
 
 ENGINE "MergeTree"
