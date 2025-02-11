@@ -182,8 +182,8 @@ jobs:
         run: tb deployment create --auto --wait
       - name: push data with the current schema
         run: tb datasource append analytics_events datasources/fixtures/analytics_events.ndjson
-      - name: push data with the new schema (this should fail)
-        run: tb datasource append analytics_events datasources/fixtures/analytics_events_new.ndjson || exit 0 && exit 1
+      - name: push data with the new schema
+        run: tb --preview datasource append analytics_events datasources/fixtures/analytics_events_new.ndjson
       - name: check data in the landing data source
         run: tb sql "select count() from analytics_events"
       - name: apply patch
