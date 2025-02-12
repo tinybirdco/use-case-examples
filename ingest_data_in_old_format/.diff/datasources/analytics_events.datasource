@@ -16,4 +16,4 @@ ENGINE_SORTING_KEY "timestamp, action, version"
 ENGINE_TTL "timestamp + toIntervalDay(60)"
 
 FORWARD_QUERY > 
-    select timestamp, session_id, action, toInt32(version), payload 
+    select timestamp, session_id, action, cast(version, 'Int32') AS version, payload
