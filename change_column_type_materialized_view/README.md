@@ -48,7 +48,7 @@ Create a Copy Pipe `analytics_pages_backfill.pipe` for backfilling purposes:
 NODE analytics_pages_backfill_node
 
 SQL >
-
+    %
     SELECT
         toDate(timestamp) AS date,
         device,
