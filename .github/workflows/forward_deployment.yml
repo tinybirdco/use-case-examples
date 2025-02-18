@@ -59,10 +59,19 @@ jobs:
           else
             echo "Datasource is not empty, skipping population"
           fi
-      - name: Check datasource
+      - name: Check users datasource
         run: |
           COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM users" --format json | grep '"c":' | awk '{print $2}')
           if [ "$COUNT" -eq 1000000000 ]; then
+            echo "Datasource data is correct"
+          else
+            echo "Datasource data is incorrect"
+            exit 1
+          fi
+      - name: Check user_stats datasource
+        run: |
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM user_stats" --format json | grep '"c":' | awk '{print $2}')
+          if [ "$COUNT" -gt 0 ]; then
             echo "Datasource data is correct"
           else
             echo "Datasource data is incorrect"

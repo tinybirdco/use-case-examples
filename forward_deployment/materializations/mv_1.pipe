@@ -1,0 +1,12 @@
+NODE mv_user_stats
+SQL >
+
+  SELECT 
+    id, 
+    uniqState(category) AS categories,
+    countState() AS count
+  FROM users
+  GROUP BY id
+
+TYPE materialized
+DATASOURCE user_stats

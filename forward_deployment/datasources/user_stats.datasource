@@ -1,0 +1,8 @@
+SCHEMA >
+
+    id UInt64,
+    categories AggregateFunction(uniq, String),
+    count AggregateFunction(count, UInt64)
+
+ENGINE AggregatingMergeTree
+ENGINE_SORTING_KEY id
