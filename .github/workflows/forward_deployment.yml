@@ -33,8 +33,6 @@ jobs:
         run: curl -LsSf https://tbrd.co/fwd | sh
       - name: Tinybird CLI version
         run: tb --version
-      - name: Build project
-        run: tb build
       - name: Get datasource definition
         run: |
           DATASOURCE_SORTING_KEY=$(curl \
@@ -49,5 +47,25 @@ jobs:
           else
             echo "No changes to apply"
           fi
+      - name: Build project
+        run: tb build
       - name: Deploy project
-        run: tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud --debug deployment create --auto --wait
+        run: tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud deployment create --auto --wait
+      - name: Populate datasource if empty
+        run: |
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM users" --format json | grep '"c":' | awk '{print $2}')
+          if [ "$COUNT" -eq 0 ]; then
+            tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud copy run populate --wait
+          else
+            echo "Datasource is not empty, skipping population"
+          fi
+      - name: Check datasource
+        run: |
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM users" --format json | grep '"c":' | awk '{print $2}')
+          if [ "$COUNT" -eq 1000000000 ]; then
+            echo "Datasource data is correct"
+          else
+            echo "Datasource data is incorrect"
+            exit 1
+          fi
+
