@@ -4,6 +4,8 @@ SQL >
   FROM generateRandom('id UInt64, name String, category_id UInt8, created_at DateTime')
   LIMIT 1000000000
 
+TYPE copy
+
 TARGET_DATASOURCE users
 COPY_SCHEDULE @on-demand
 COPY_MODE replace
