@@ -1,0 +1,9 @@
+SCHEMA >
+
+    id UInt64 `json:$.user_id`,
+    name String `json:$.name`,
+    category LowCardinality(String) `json:$.category`,
+    created_at DateTime `json:$.created_at` DEFAULT now()
+
+ENGINE MergeTree
+ENGINE_SORTING_KEY ""

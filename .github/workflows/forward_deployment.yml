@@ -1,0 +1,80 @@
+name: Tinybird - Forward Deployment demo
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+  pull_request:
+    branches:
+      - main
+      - master
+    types: [opened, reopened, labeled, unlabeled, synchronize]
+
+concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+
+env:
+  TINYBIRD_FWD_HOST: ${{ secrets.TINYBIRD_FWD_HOST }}
+  TINYBIRD_FWD_TOKEN: ${{ secrets.TINYBIRD_FWD_TOKEN }}
+
+jobs:
+  forward_deployment:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './forward_deployment'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 7181:7181
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://tbrd.co/fwd | sh
+      - name: Tinybird CLI version
+        run: tb --version
+      - name: Get datasource definition
+        run: |
+          DATASOURCE_SORTING_KEY=$(curl \
+            -H "Authorization: Bearer $TINYBIRD_FWD_TOKEN" \
+            -X GET "$TINYBIRD_FWD_HOST/v0/datasources/users.datasource" | grep 'ENGINE_SORTING_KEY "tuple()"' || true)
+
+          echo "DATASOURCE_SORTING_KEY=$DATASOURCE_SORTING_KEY" >> $GITHUB_ENV
+      - name: Apply patch
+        run: |
+          if [ -n "$DATASOURCE_SORTING_KEY" ]; then
+            cp -r .diff/* . && git diff
+          else
+            echo "No changes to apply"
+          fi
+      - name: Build project
+        run: tb build
+      - name: Deploy project
+        run: tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud deployment create --auto --wait
+      - name: Populate datasource if empty
+        run: |
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM users" --format json | grep '"c":' | awk '{print $2}')
+          if [ "$COUNT" -eq 0 ]; then
+            tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud copy run populate --wait
+          else
+            echo "Datasource is not empty, skipping population"
+          fi
+      - name: Check users datasource
+        run: |
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM users" --format json | grep '"c":' | awk '{print $2}')
+          if [ "$COUNT" -eq 1000000000 ]; then
+            echo "Datasource data is correct"
+          else
+            echo "Datasource data is incorrect"
+            exit 1
+          fi
+      - name: Check user_stats datasource
+        run: |
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM user_stats" --format json | grep '"c":' | awk '{print $2}')
+          if [ "$COUNT" -gt 0 ]; then
+            echo "Datasource data is correct"
+          else
+            echo "Datasource data is incorrect"
+            exit 1
+          fi
+
