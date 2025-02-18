@@ -37,7 +37,7 @@ jobs:
         run: |
           DATASOURCE_SORTING_KEY=$(curl \
             -H "Authorization: Bearer $TINYBIRD_FWD_TOKEN" \
-            -X GET "$TINYBIRD_FWD_HOST/v0/datasources/users.datasource" | grep 'ENGINE_SORTING_KEY ""' || true)
+            -X GET "$TINYBIRD_FWD_HOST/v0/datasources/users.datasource" | grep 'ENGINE_SORTING_KEY "tuple()"' || true)
 
           echo "DATASOURCE_SORTING_KEY=$DATASOURCE_SORTING_KEY" >> $GITHUB_ENV
       - name: Apply patch
