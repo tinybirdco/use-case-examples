@@ -1,0 +1,35 @@
+name: Tinybird - Forward Deployment demo
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 * * * *"
+  pull_request:
+    branches:
+      - main
+      - master
+    types: [opened, reopened, labeled, unlabeled, synchronize]
+
+concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+
+jobs:
+  forward_deployment:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './forward_deployment'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 80:80
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://tbrd.co/fwd | sh
+      - name: Build project
+        run: tb build
+      - name: Apply patch
+        run: cp -r .diff/* . && git diff
+      - name: Deploy project
+        run: tb --host ${{ vars.TINYBIRD_FWD_HOST }} --token ${{ vars.TINYBIRD_FWD_TOKEN }} deployment create --auto --wait
