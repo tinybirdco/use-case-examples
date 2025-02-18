@@ -50,4 +50,4 @@ jobs:
             echo "No changes to apply"
           fi
       - name: Deploy project
-        run: tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud deployment create --auto --wait
+        run: tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud --debug deployment create --auto --wait
