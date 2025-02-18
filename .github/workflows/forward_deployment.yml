@@ -12,6 +12,10 @@ on:
 
 concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
 
+env:
+  TINYBIRD_FWD_HOST: ${{ secrets.TINYBIRD_FWD_HOST }}
+  TINYBIRD_FWD_TOKEN: ${{ secrets.TINYBIRD_FWD_TOKEN }}
+
 jobs:
   forward_deployment:
     runs-on: ubuntu-latest
@@ -29,7 +33,19 @@ jobs:
         run: curl -LsSf https://tbrd.co/fwd | sh
       - name: Build project
         run: tb build
+      - name: Get datasource definition
+        run: |
+          DATASOURCE_SORTING_KEY=$(curl \
+            -H "Authorization: Bearer $TINYBIRD_FWD_TOKEN" \
+            -X GET "$TINYBIRD_FWD_HOST/v0/datasources/users.datasource" | grep 'ENGINE_SORTING_KEY "id"')
+
+          echo "DATASOURCE_SORTING_KEY=$DATASOURCE_SORTING_KEY" >> $GITHUB_ENV
       - name: Apply patch
-        run: cp -r .diff/* . && git diff
+        run: |
+          if [ -n "$DATASOURCE_SORTING_KEY" ]; then
+            cp -r .diff/* . && git diff
+          else
+            echo "No changes to apply"
+          fi
       - name: Deploy project
-        run: tb --host ${{ vars.TINYBIRD_FWD_HOST }} --token ${{ vars.TINYBIRD_FWD_TOKEN }} deployment create --auto --wait
+        run: tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN deployment create --auto --wait
