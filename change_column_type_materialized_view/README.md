@@ -48,7 +48,7 @@ Create a Copy Pipe `analytics_pages_backfill.pipe` for backfilling purposes:
 NODE analytics_pages_backfill_node
 
 SQL >
-
+    %
     SELECT
         toDate(timestamp) AS date,
         device,
@@ -67,7 +67,7 @@ SQL >
         pathname
 
 TYPE COPY
-DATASOURCE analytics_pages_mv_1
+TARGET_DATASOURCE analytics_pages_mv_1
 ```
 
 ## 2: Run CI
