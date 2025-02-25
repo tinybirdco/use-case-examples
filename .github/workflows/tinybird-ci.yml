@@ -1,0 +1,210 @@
+name: Tinybird - CI Workflow
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+      - master
+      - local_env_refactor
+    types: [opened, reopened, labeled, unlabeled, synchronize, closed]
+
+concurrency: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+
+jobs:
+  add_new_column_to_a_materialized_view:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './add_new_column_to_a_materialized_view'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 80:80
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set local environment credentials (required for local deployments)
+        run: |
+          echo "TB_HOST=http://localhost:80" >> $GITHUB_ENV
+          echo "TB_TOKEN=$(curl -s http://localhost:80/tokens | jq -r .admin_token)" >> $GITHUB_ENV
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
+      - name: Build project
+        run: tb build
+      - name: Test project
+        run: tb test run
+      - name: deploy project
+        run: tb deployment create --auto --wait
+      - name: push some data
+        run: tb datasource append analytics_events fixtures/analytics_events.ndjson
+      - name: check data in the MV
+        run: tb sql "select count() from analytics_sessions_mv1"
+      - name: apply patch
+        run: cp -r .diff/* . && git diff
+      - name: deploy project again
+        run: tb deployment create --auto --wait
+      - name: check data in the MV after deploy
+        run: tb sql "select count() from analytics_sessions_mv1"
+
+
+  change_sorting_key_landing_data_source_2:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './change_sorting_key_landing_data_source_2'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 80:80
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set local environment credentials (required for local deployments)
+        run: |
+          echo "TB_HOST=http://localhost:80" >> $GITHUB_ENV
+          echo "TB_TOKEN=$(curl -s http://localhost:80/tokens | jq -r .admin_token)" >> $GITHUB_ENV
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
+      - name: Build project
+        run: tb build
+      - name: Test project
+        run: tb test run
+      - name: deploy project
+        run: tb deployment create --auto --wait
+      - name: push some data
+        run: tb datasource append analytics_events fixtures/analytics_events.ndjson
+      - name: check data in the MV
+        run: tb sql "select count() from analytics_events"
+      - name: apply patch
+        run: cp -r .diff/* . && git diff
+      - name: deploy project again
+        run: tb deployment create --auto --wait
+      - name: check data in the MV after deploy
+        run: tb sql "select count() from analytics_events"
+
+
+  delete_simple_resource:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './delete_simple_resource'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 80:80
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set local environment credentials (required for local deployments)
+        run: |
+          echo "TB_HOST=http://localhost:80" >> $GITHUB_ENV
+          echo "TB_TOKEN=$(curl -s http://localhost:80/tokens | jq -r .admin_token)" >> $GITHUB_ENV
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
+      - name: Build project
+        run: tb build
+      - name: Test project
+        run: tb test run
+      - name: deploy project
+        run: tb deployment create --auto --wait
+      - name: push some data
+        run: tb datasource append analytics_events datasources/fixtures/analytics_events.ndjson
+      - name: check data in top_browsers data source
+        run: tb sql "select count() from top_browsers"
+      - name: apply patch
+        run: rm pipes/top_browsers.pipe
+      - name: deploy project again
+        run: tb deployment create --auto --wait
+      - name: check data in top_browsers data source after deploy should fail (because the resource was deleted)
+        run: tb sql "select count() from top_browsers" || exit 0 && exit 1
+
+  
+  drop_column:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './drop_column'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 80:80
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set local environment credentials (required for local deployments)
+        run: |
+          echo "TB_HOST=http://localhost:80" >> $GITHUB_ENV
+          echo "TB_TOKEN=$(curl -s http://localhost:80/tokens | jq -r .admin_token)" >> $GITHUB_ENV
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
+      - name: Build project
+        run: tb build
+      - name: Test project
+        run: tb test run
+      - name: deploy project
+        run: tb deployment create --auto --wait
+      - name: push some data
+        run: tb datasource append analytics_events datasources/fixtures/analytics_events.ndjson
+      - name: check data in the landing data source
+        run: tb sql "select count() from analytics_events"
+      - name: apply patch
+        run: cp -r .diff/* . && git diff
+      - name: deploy project again
+        run: tb deployment create --auto --wait
+      - name: check data in the landing data source after deploy
+        run: tb sql "select count() from analytics_events"
+
+
+  ingest_data_in_old_format:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: './ingest_data_in_old_format'
+    services:
+      tinybird:
+        image: tinybirdco/tinybird-local:beta
+        ports:
+          - 80:80
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set local environment credentials (required for local deployments)
+        run: |
+          echo "TB_HOST=http://localhost:80" >> $GITHUB_ENV
+          echo "TB_TOKEN=$(curl -s http://localhost:80/tokens | jq -r .admin_token)" >> $GITHUB_ENV
+      - name: Install Tinybird CLI
+        run: curl -LsSf https://api.tinybird.co/static/install.sh | sh
+      - name: Build project
+        run: tb build
+      - name: Test project
+        run: tb test run
+      - name: deploy project
+        run: tb deployment create --auto --wait
+      - name: push data with the current schema
+        run: tb datasource append analytics_events datasources/fixtures/analytics_events.ndjson
+      - name: push data with the new schema (this should fail)
+        run: tb datasource append analytics_events datasources/fixtures/analytics_events_new.ndjson || exit 0 && exit 1
+      - name: check data in the landing data source
+        run: tb sql "select count() from analytics_events"
+      - name: apply patch
+        run: cp -r .diff/* . && git diff
+      # Deploy the project in two phases:
+      # 1. Create a new deployment with the new schema
+      # 2. Push the data with the old schema and check if the data lands properly
+      # 3. Push the data with the new schema and check if the data lands properly
+      # 4. Promote the new deployment to the production environment
+      #
+      # TODO: In the future, we want to be able to run `tb deployment create --auto --wait`
+      # and inserts with both schemas and have the data land properly in the landing data source.
+      - name: deploy project again
+        run: tb deployment create --wait
+      - name: push data with the old schema and check if the data lands properly
+        run: tb datasource append analytics_events datasources/fixtures/analytics_events.ndjson
+      - name: push data with the new schema and check if the data lands properly
+        run: tb --preview datasource append analytics_events datasources/fixtures/analytics_events_new.ndjson
+      - name: check data in the landing after deploy
+        run: tb sql "select count() from analytics_events"
+      - name: promote the new deployment to the production environment
+        run: tb deployment promote --wait
+      - name: check data in the landing after promote
+        run: tb sql "select count() from analytics_events"
