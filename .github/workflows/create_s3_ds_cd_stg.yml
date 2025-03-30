@@ -18,7 +18,7 @@
         uses: tinybirdco/ci/.github/workflows/cd.yml@v4.1.0
         with:
           data_project_dir: ./create_s3_datasource
-          tb_env: prod
+          tb_env: stg
         secrets:
-          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CREATE_S3_DS_PROD }}
+          tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN_CREATE_S3_DS }}
           tb_host: https://api.tinybird.co
