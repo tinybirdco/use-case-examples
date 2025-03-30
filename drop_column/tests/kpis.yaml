@@ -1,0 +1,41 @@
+
+- name: kpis_single_day
+  description: Test single day with hourly granularity
+  parameters: date_from=2030-10-12&date_to=2030-10-13&fixed_time=2030-10-15
+  expected_result: |
+    {"date":"2030-10-12","visits":1,"pageviews":1,"bounce_rate":1,"avg_session_sec":0}
+    {"date":"2030-10-13","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+
+- name: kpis_single_day
+  description: Test single day with hourly granularity
+  parameters: date_from=2030-10-11&date_to=2030-10-13&fixed_time=2030-10-15
+  expected_result: |
+    {"date":"2030-10-11","visits":3,"pageviews":3,"bounce_rate":1,"avg_session_sec":0}
+    {"date":"2030-10-12","visits":1,"pageviews":1,"bounce_rate":1,"avg_session_sec":0}
+    {"date":"2030-10-13","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+
+- name: kpis_last_week
+  description: Test default behavior showing last 7 days
+  parameters: fixed_time=2030-10-15
+  expected_result: |
+    {"date":"2030-10-08","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-09","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-10","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-11","visits":3,"pageviews":3,"bounce_rate":1,"avg_session_sec":0}
+    {"date":"2030-10-12","visits":1,"pageviews":1,"bounce_rate":1,"avg_session_sec":0}
+    {"date":"2030-10-13","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-14","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-15","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+
+- name: kpis_fixed_time
+  description: Test specific datetime with daily granularity
+  parameters: fixed_time=2030-10-15
+  expected_result: |
+    {"date":"2030-10-08","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-09","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-10","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-11","visits":3,"pageviews":3,"bounce_rate":1,"avg_session_sec":0}
+    {"date":"2030-10-12","visits":1,"pageviews":1,"bounce_rate":1,"avg_session_sec":0}
+    {"date":"2030-10-13","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-14","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}
+    {"date":"2030-10-15","visits":0,"pageviews":0,"bounce_rate":null,"avg_session_sec":0}

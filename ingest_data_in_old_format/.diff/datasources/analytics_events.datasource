@@ -7,10 +7,13 @@ SCHEMA >
     `timestamp` DateTime `json:$.timestamp`,
     `session_id` String `json:$.session_id`,
     `action` LowCardinality(String) `json:$.action`,
-    `version` LowCardinality(String) `json:$.version`,
+    `version` Int32 `json:$.version`,
     `payload` String `json:$.payload`
 
 ENGINE "MergeTree"
-ENGINE_PARTITION_KEY "toYYYYMM(timestamp)"
-ENGINE_SORTING_KEY "timestamp"
+ENGINE_PARTITION_KEY "toYYYYMMDD(timestamp)"
+ENGINE_SORTING_KEY "timestamp, action, version"
 ENGINE_TTL "timestamp + toIntervalDay(60)"
+
+FORWARD_QUERY > 
+    select timestamp, session_id, action, cast(version, 'Int32') AS version, payload

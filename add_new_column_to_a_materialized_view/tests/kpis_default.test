@@ -1,1 +1,0 @@
-tb pipe data kpis --date_from 2053-10-11 --date_to 2053-10-12 --fixed_time "2053-10-13 00:00:00"  --format CSV

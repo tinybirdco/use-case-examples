@@ -1,0 +1,14 @@
+
+- name: top_browsers_date_range
+  description: Test specific date range for browser statistics
+  parameters: date_from=2030-10-11&date_to=2030-10-13&skip=0&limit=20
+  expected_result: |
+    {"browser":"chrome","visits":2,"hits":3}
+    {"browser":"firefox","visits":1,"hits":1}
+
+- name: top_browsers_default
+  description: Test top browsers with default parameters (last 7 days)
+  parameters: fixed_time=2030-10-13&skip=0&limit=20
+  expected_result: |
+    {"browser":"chrome","visits":2,"hits":3}
+    {"browser":"firefox","visits":1,"hits":1}

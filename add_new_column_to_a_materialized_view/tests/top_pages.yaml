@@ -1,0 +1,14 @@
+
+- name: top_pages_default
+  description: Test default values (last 7 days, limit 50, skip 0)
+  parameters: fixed_time=2030-10-13
+  expected_result: |
+    {"pathname":"\/product","visits":2,"hits":3}
+    {"pathname":"\/","visits":1,"hits":1}
+
+- name: top_pages_date_range
+  description: Test specific date range
+  parameters: date_from=2030-10-11&date_to=2030-10-13
+  expected_result: |
+    {"pathname":"\/product","visits":2,"hits":3}
+    {"pathname":"\/","visits":1,"hits":1}
