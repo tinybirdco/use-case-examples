@@ -53,7 +53,7 @@ jobs:
         run: tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud deployment create --auto --wait
       - name: Populate datasource if empty
         run: |
-          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM users" --format json | grep '"c":' | awk '{print $2}')
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud  --format json sql "SELECT count() AS c FROM users" | grep '"c":' | awk '{print $2}')
           if [ "$COUNT" -eq 0 ]; then
             tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud copy run populate --wait
           else
@@ -61,7 +61,7 @@ jobs:
           fi
       - name: Check users datasource
         run: |
-          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM users" --format json | grep '"c":' | awk '{print $2}')
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud  --format json sql "SELECT count() AS c FROM users" | grep '"c":' | awk '{print $2}')
           if [ "$COUNT" -eq 1000000000 ]; then
             echo "Datasource data is correct"
           else
@@ -70,7 +70,7 @@ jobs:
           fi
       - name: Check user_stats datasource
         run: |
-          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud sql "SELECT count() AS c FROM user_stats" --format json | grep '"c":' | awk '{print $2}')
+          COUNT=$(tb --host $TINYBIRD_FWD_HOST --token $TINYBIRD_FWD_TOKEN --cloud  --format json sql "SELECT count() AS c FROM user_stats" | grep '"c":' | awk '{print $2}')
           if [ "$COUNT" -gt 0 ]; then
             echo "Datasource data is correct"
           else
